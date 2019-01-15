@@ -12,6 +12,6 @@ import net.barberia66Server.bean.publicInterface.BeanInterface;
  *
  * @author a073597589g
  */
-public class TipoRegistroBean extends GenericBeanImplementation implements BeanInterface {
+public class EstadoCitaBean extends GenericBeanImplementation implements BeanInterface {
     
 }

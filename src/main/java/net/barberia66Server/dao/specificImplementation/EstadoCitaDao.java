@@ -13,9 +13,9 @@ import net.barberia66Server.dao.publicInterface.DaoInterface;
  *
  * @author a073597589g
  */
-public class ProductoDao extends GenericDaoImplementation implements DaoInterface {
+public class EstadoCitaDao extends GenericDaoImplementation implements DaoInterface {
     
-    public ProductoDao(Connection oConnection, String ob) {
+    public EstadoCitaDao(Connection oConnection, String ob) {
         super(oConnection, ob);
     }
     

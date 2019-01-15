@@ -13,9 +13,9 @@ import net.barberia66Server.service.publicInterface.ServiceInterface;
  *
  * @author a073597589g
  */
-public class TipoUsuarioService extends GenericServiceImplementation implements ServiceInterface {
+public class EstadoCitaService extends GenericServiceImplementation implements ServiceInterface {
     
-    public TipoUsuarioService(HttpServletRequest oRequest) {
+    public EstadoCitaService(HttpServletRequest oRequest) {
         super(oRequest);
         ob = oRequest.getParameter("ob");
     }

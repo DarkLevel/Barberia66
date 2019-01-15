@@ -5,10 +5,24 @@
  */
 package net.barberia66Server.bean.publicInterface;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+
 /**
  *
  * @author a073597589g
  */
 public interface BeanInterface {
-    
+
+    public int getId();
+
+    public void setId(int id);
+
+    public BeanInterface fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws Exception;
+
+    public String getColumns();
+
+    public String getValues();
+
+    public String getPairs();
 }

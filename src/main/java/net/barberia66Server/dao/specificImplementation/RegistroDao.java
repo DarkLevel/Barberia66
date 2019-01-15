@@ -5,10 +5,18 @@
  */
 package net.barberia66Server.dao.specificImplementation;
 
+import java.sql.Connection;
+import net.barberia66Server.dao.genericImplementation.GenericDaoImplementation;
+import net.barberia66Server.dao.publicInterface.DaoInterface;
+
 /**
  *
  * @author a073597589g
  */
-public class RegistroDao {
+public class RegistroDao extends GenericDaoImplementation implements DaoInterface {
+    
+    public RegistroDao(Connection oConnection, String ob) {
+        super(oConnection, ob);
+    }
     
 }

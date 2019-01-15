@@ -5,10 +5,19 @@
  */
 package net.barberia66Server.service.specificImplementation;
 
+import javax.servlet.http.HttpServletRequest;
+import net.barberia66Server.service.genericImplementation.GenericServiceImplementation;
+import net.barberia66Server.service.publicInterface.ServiceInterface;
+
 /**
  *
  * @author a073597589g
  */
-public class RegistroService {
+public class RegistroService extends GenericServiceImplementation implements ServiceInterface {
+    
+    public RegistroService(HttpServletRequest oRequest) {
+        super(oRequest);
+        ob = oRequest.getParameter("ob");
+    }
     
 }

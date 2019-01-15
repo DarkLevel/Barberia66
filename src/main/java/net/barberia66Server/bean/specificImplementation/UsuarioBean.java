@@ -5,10 +5,13 @@
  */
 package net.barberia66Server.bean.specificImplementation;
 
+import net.barberia66Server.bean.genericImplementation.GenericBeanImplementation;
+import net.barberia66Server.bean.publicInterface.BeanInterface;
+
 /**
  *
  * @author a073597589g
  */
-public class UsuarioBean {
+public class UsuarioBean extends GenericBeanImplementation implements BeanInterface {
     
 }

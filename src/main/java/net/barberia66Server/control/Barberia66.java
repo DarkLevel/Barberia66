@@ -11,12 +11,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.barberia66Server.bean.specificImplementation.ReplyBean;
+import net.barberia66Server.constants.ConfigurationConstants;
+import net.barberia66Server.constants.ConfigurationConstants.EnvironmentConstants;
+import net.barberia66Server.factory.ServiceFactory;
+import net.barberia66Server.helper.JsonHelper;
 
 /**
  *
  * @author a073597589g
  */
-public class Json extends HttpServlet {
+public class Barberia66 extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,6 +39,25 @@ public class Json extends HttpServlet {
         response.setHeader("Access-Control-Max-Age", "86400");
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Headers", "Origin, Accept, x-requested-with, Content-Type");
+        String strJson;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            try {
+                ReplyBean oReplyBean = ServiceFactory.executeService(request);
+                strJson = JsonHelper.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+            } catch (Exception e) {
+                response.setStatus(500);
+                strJson = JsonHelper.strJson(500, "Server Error");
+                if (ConfigurationConstants.environment == EnvironmentConstants.Debug) {
+                    PrintWriter out = response.getWriter();
+                    out.println(e.getMessage());
+                    e.printStackTrace(out);
+                }
+            }
+        } catch (IOException | ClassNotFoundException ex) {
+            strJson = "{\"status\":500,\"msg\":\"jdbc driver not found\"}";
+        }
+        response.getWriter().append(strJson).close();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

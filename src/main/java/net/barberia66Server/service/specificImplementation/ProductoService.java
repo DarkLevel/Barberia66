@@ -5,10 +5,19 @@
  */
 package net.barberia66Server.service.specificImplementation;
 
+import javax.servlet.http.HttpServletRequest;
+import net.barberia66Server.service.genericImplementation.GenericServiceImplementation;
+import net.barberia66Server.service.publicInterface.ServiceInterface;
+
 /**
  *
  * @author a073597589g
  */
-public class ProductoService {
+public class ProductoService extends GenericServiceImplementation implements ServiceInterface {
+    
+    public ProductoService(HttpServletRequest oRequest) {
+        super(oRequest);
+        ob = oRequest.getParameter("ob");
+    }
     
 }
