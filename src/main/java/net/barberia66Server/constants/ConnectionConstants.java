@@ -15,6 +15,7 @@ public class ConnectionConstants {
         Hikari,
         DBCP,
         BoneCP,
+        C3P0,
         Vibur
     };
 
