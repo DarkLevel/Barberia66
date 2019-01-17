@@ -110,7 +110,8 @@ public class RegistroBean extends GenericBeanImplementation implements BeanInter
         String strColumns = "";
         strColumns += "id,";
         strColumns += "fecha,";
-        strColumns += "id_usuario";
+        strColumns += "id_usuario,";
+        strColumns += "id_tiporegistro";
         return strColumns;
     }
 
@@ -128,7 +129,8 @@ public class RegistroBean extends GenericBeanImplementation implements BeanInter
         String strColumns = "";
         strColumns += "null,";
         strColumns += EncodingHelper.quotate(localDateTime.toString()) + ",";
-        strColumns += id_usuario;
+        strColumns += id_usuario + ",";
+        strColumns += id_tiporegistro;
         return strColumns;
     }
 
@@ -146,7 +148,8 @@ public class RegistroBean extends GenericBeanImplementation implements BeanInter
         String strPairs = "";
         strPairs += "id=" + id + ",";
         strPairs += "fecha=" + EncodingHelper.quotate(localDateTime.toString()) + ",";
-        strPairs += "id_usuario=" + id_usuario;
+        strPairs += "id_usuario=" + id_usuario + ",";
+        strPairs += "id_tiporegistro=" + id_tiporegistro;
         strPairs += " WHERE id = " + id;
         return strPairs;
     }
