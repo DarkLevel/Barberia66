@@ -69,8 +69,20 @@ public class ServiceFactory {
                     case "getcount":
                         oReplyBean = oCitaService.getcount();
                         break;
+                    case "getcountcitauser":
+                        oReplyBean = oCitaService.getcountcitauser();
+                        break;
+                    case "getcountX":
+                        oReplyBean = oCitaService.getcountX();
+                        break;
                     case "getpage":
                         oReplyBean = oCitaService.getpage();
+                        break;
+                    case "getpagecitauser":
+                        oReplyBean = oCitaService.getpagecitauser();
+                        break;
+                    case "getpageX":
+                        oReplyBean = oCitaService.getpageX();
                         break;
                     case "remove":
                         oReplyBean = oCitaService.remove();
@@ -121,8 +133,20 @@ public class ServiceFactory {
                     case "getcount":
                         oReplyBean = oLineaService.getcount();
                         break;
+                    case "getcountlineauser":
+                        oReplyBean = oLineaService.getcountlineauser();
+                        break;
+                    case "getcountX":
+                        oReplyBean = oLineaService.getcountX();
+                        break;
                     case "getpage":
                         oReplyBean = oLineaService.getpage();
+                        break;
+                    case "getpagelineauser":
+                        oReplyBean = oLineaService.getpagelineauser();
+                        break;
+                    case "getpageX":
+                        oReplyBean = oLineaService.getpageX();
                         break;
                     case "remove":
                         oReplyBean = oLineaService.remove();
@@ -138,6 +162,9 @@ public class ServiceFactory {
             case "producto":
                 ProductoService oProductoService = new ProductoService(oRequest);
                 switch (op) {
+                    case "addimage":
+                        oReplyBean = oProductoService.addimage();
+                        break;
                     case "create":
                         oReplyBean = oProductoService.create();
                         break;
@@ -173,8 +200,20 @@ public class ServiceFactory {
                     case "getcount":
                         oReplyBean = oRegistroService.getcount();
                         break;
+                    case "getcountregistrouser":
+                        oReplyBean = oRegistroService.getcountregistrouser();
+                        break;
+                    case "getcountX":
+                        oReplyBean = oRegistroService.getcountX();
+                        break;
                     case "getpage":
                         oReplyBean = oRegistroService.getpage();
+                        break;
+                    case "getpageregistrouser":
+                        oReplyBean = oRegistroService.getpageregistrouser();
+                        break;
+                    case "getpageX":
+                        oReplyBean = oRegistroService.getpageX();
                         break;
                     case "remove":
                         oReplyBean = oRegistroService.remove();
@@ -294,6 +333,12 @@ public class ServiceFactory {
             case "usuario":
                 UsuarioService oUsuarioService = new UsuarioService(oRequest);
                 switch (op) {
+                    case "changepassword":
+                        oReplyBean = oUsuarioService.changepassword();
+                        break;
+                    case "check":
+                        oReplyBean = oUsuarioService.check();
+                        break;
                     case "create":
                         oReplyBean = oUsuarioService.create();
                         break;
@@ -306,11 +351,23 @@ public class ServiceFactory {
                     case "getpage":
                         oReplyBean = oUsuarioService.getpage();
                         break;
+                    case "getprofile":
+                        oReplyBean = oUsuarioService.getprofile();
+                        break;
+                    case "login":
+                        oReplyBean = oUsuarioService.login();
+                        break;
+                    case "logout":
+                        oReplyBean = oUsuarioService.logout();
+                        break;
                     case "remove":
                         oReplyBean = oUsuarioService.remove();
                         break;
                     case "update":
                         oReplyBean = oUsuarioService.update();
+                        break;
+                    case "updateprofile":
+                        oReplyBean = oUsuarioService.updateprofile();
                         break;
                     default:
                         oReplyBean = new ReplyBean(500, "Operation doesn't exist");

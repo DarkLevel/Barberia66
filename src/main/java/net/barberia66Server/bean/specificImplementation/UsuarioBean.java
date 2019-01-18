@@ -148,8 +148,8 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
         this.setFecha_alta(fechaAlta);
         this.setUsername(oResultSet.getString("username"));
         this.setPassword(oResultSet.getString("password"));
-        //this.setLink_factura((new RegistroDao(oConnection, "registro")).getcountX(oResultSet.getInt("id")));
-        //this.setLink_cita((new CitaDao(oConnection, "cita")).getcountX(oResultSet.getInt("id")));
+        this.setLink_factura((new RegistroDao(oConnection, "registro")).getcountX(oResultSet.getInt("id")));
+        this.setLink_cita((new CitaDao(oConnection, "cita")).getcountX(oResultSet.getInt("id")));
         if (expand > 0) {
             TipoUsuarioDao otipoUsuarioDao = new TipoUsuarioDao(oConnection, "tipousuario");
             this.setObj_tipousuario((TipoUsuarioBean) otipoUsuarioDao.get(oResultSet.getInt("id_tipousuario"), expand - 1));
