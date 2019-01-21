@@ -5,7 +5,8 @@
 moduleService.service('sessionService', [function () {
         var isSessionActive = false;
         var isAdmin = false;
-        var isClient = false;
+        var isBoss = false;
+        var isWorker = false;
         var userName;
         var userId;
         var productosCarrito = 0;
@@ -48,18 +49,35 @@ moduleService.service('sessionService', [function () {
                     callback();
                 });
             },
-            isClient: function () {
-                return isClient;
+            isBoss: function () {
+                return isBoss;
             },
-            setClientActive: function () {
-                isClient = true;
+            setBossActive: function () {
+                isBoss = true;
                 
                 angular.forEach(observerCallbacks, function (callback) {
                     callback();
                 });
             },
-            setClientInactive: function () {
-                isClient = false;
+            setBossInactive: function () {
+                isBoss = false;
+                
+                angular.forEach(observerCallbacks, function (callback) {
+                    callback();
+                });
+            },
+            isWorker: function () {
+                return isWorker;
+            },
+            setWorkerActive: function () {
+                isWorker = true;
+                
+                angular.forEach(observerCallbacks, function (callback) {
+                    callback();
+                });
+            },
+            setWorkerInactive: function () {
+                isWorker = false;
                 
                 angular.forEach(observerCallbacks, function (callback) {
                     callback();

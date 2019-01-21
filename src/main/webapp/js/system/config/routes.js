@@ -10,7 +10,8 @@ var autenticacionAdministrador = function ($q, $location, $http, sessionService,
             if (response.data.message.obj_tipoUsuario.id === 1) {
                 sessionService.setSessionActive();
                 sessionService.setAdminActive();
-                sessionService.setClientInactive();
+                sessionService.setBossInactive();
+                sessionService.setWorkerInactive();
                 sessionService.setUserName(response.data.message.login);
                 sessionService.setId(response.data.message.id);
                 countCarritoService.updateCarrito();
@@ -19,20 +20,22 @@ var autenticacionAdministrador = function ($q, $location, $http, sessionService,
         } else {
             sessionService.setSessionInactive();
             sessionService.setAdminInactive();
-            sessionService.setClientInactive();
+            sessionService.setBossInactive();
+            sessionService.setWorkerInactive();
             $location.path('/home');
         }
     }, function () {
         sessionService.setSessionInactive();
         sessionService.setAdminInactive();
-        sessionService.setClientInactive();
+        sessionService.setBossInactive();
+        sessionService.setWorkerInactive();
         $location.path('/home');
     });
     return deferred.promise;
 };
 
 
-var autenticacionCliente = function ($q, $location, $http, sessionService, countCarritoService) {
+var autenticacionJefe = function ($q, $location, $http, sessionService, countCarritoService) {
     var deferred = $q.defer();
     $http({
         method: 'GET',
@@ -42,7 +45,8 @@ var autenticacionCliente = function ($q, $location, $http, sessionService, count
             if (response.data.message.obj_tipoUsuario.id === 2) {
                 sessionService.setSessionActive();
                 sessionService.setAdminInactive();
-                sessionService.setClientActive();
+                sessionService.setBossActive();
+                sessionService.setWorkerInactive();
                 sessionService.setUserName(response.data.message.login);
                 sessionService.setId(response.data.message.id);
                 countCarritoService.updateCarrito();
@@ -51,13 +55,49 @@ var autenticacionCliente = function ($q, $location, $http, sessionService, count
         } else {
             sessionService.setSessionInactive();
             sessionService.setAdminInactive();
-            sessionService.setClientInactive();
+            sessionService.setBossInactive();
+            sessionService.setWorkerInactive();
             $location.path('/home');
         }
     }, function () {
         sessionService.setSessionInactive();
         sessionService.setAdminInactive();
-        sessionService.setClientInactive();
+        sessionService.setBossInactive();
+        sessionService.setWorkerInactive();
+        $location.path('/home');
+    });
+    return deferred.promise;
+};
+
+var autenticacionEmpleado = function ($q, $location, $http, sessionService, countCarritoService) {
+    var deferred = $q.defer();
+    $http({
+        method: 'GET',
+        url: 'http://localhost:8081/barberia66/barberia66?ob=usuario&op=check'
+    }).then(function (response) {
+        if (response.data.status === 200) {
+            if (response.data.message.obj_tipoUsuario.id === 3) {
+                sessionService.setSessionActive();
+                sessionService.setAdminInactive();
+                sessionService.setBossInactive();
+                sessionService.setWorkerActive();
+                sessionService.setUserName(response.data.message.login);
+                sessionService.setId(response.data.message.id);
+                countCarritoService.updateCarrito();
+                deferred.resolve();
+            }
+        } else {
+            sessionService.setSessionInactive();
+            sessionService.setAdminInactive();
+            sessionService.setBossInactive();
+            sessionService.setWorkerInactive();
+            $location.path('/home');
+        }
+    }, function () {
+        sessionService.setSessionInactive();
+        sessionService.setAdminInactive();
+        sessionService.setBossInactive();
+        sessionService.setWorkerInactive();
         $location.path('/home');
     });
     return deferred.promise;
@@ -73,7 +113,8 @@ var autenticacionAny = function ($q, $location, $http, sessionService, countCarr
             if (response.data.message.obj_tipoUsuario.id === 1) {
                 sessionService.setSessionActive();
                 sessionService.setAdminActive();
-                sessionService.setClientInactive();
+                sessionService.setBossInactive();
+                sessionService.setWorkerInactive();
                 sessionService.setUserName(response.data.message.login);
                 sessionService.setId(response.data.message.id);
                 countCarritoService.updateCarrito();
@@ -81,7 +122,17 @@ var autenticacionAny = function ($q, $location, $http, sessionService, countCarr
             if (response.data.message.obj_tipoUsuario.id === 2) {
                 sessionService.setSessionActive();
                 sessionService.setAdminInactive();
-                sessionService.setClientActive();
+                sessionService.setBossActive();
+                sessionService.setWorkerInactive();
+                sessionService.setUserName(response.data.message.login);
+                sessionService.setId(response.data.message.id);
+                countCarritoService.updateCarrito();
+            }
+            if (response.data.message.obj_tipoUsuario.id === 3) {
+                sessionService.setSessionActive();
+                sessionService.setAdminInactive();
+                sessionService.setBossInactive();
+                sessionService.setWorkerActive();
                 sessionService.setUserName(response.data.message.login);
                 sessionService.setId(response.data.message.id);
                 countCarritoService.updateCarrito();
@@ -90,34 +141,15 @@ var autenticacionAny = function ($q, $location, $http, sessionService, countCarr
         } else {
             sessionService.setSessionInactive();
             sessionService.setAdminInactive();
-            sessionService.setClientInactive();
+            sessionService.setBossInactive();
+            sessionService.setWorkerInactive();
             $location.path('/home');
         }
     }, function () {
         sessionService.setSessionInactive();
         sessionService.setAdminInactive();
-        sessionService.setClientInactive();
-        $location.path('/home');
-    });
-    return deferred.promise;
-};
-
-var noAutenticacion = function ($q, $location, $http, sessionService) {
-    var deferred = $q.defer();
-    $http({
-        method: 'GET',
-        url: 'http://localhost:8081/barberia66/barberia66?ob=usuario&op=check'
-    }).then(function (response) {
-        if (response.data.status === 401) {
-            sessionService.setSessionInactive();
-            sessionService.setAdminInactive();
-            sessionService.setClientInactive();
-            deferred.resolve();
-        }
-    }, function () {
-        sessionService.setSessionInactive();
-        sessionService.setAdminInactive();
-        sessionService.setClientInactive();
+        sessionService.setBossInactive();
+        sessionService.setWorkerInactive();
         $location.path('/home');
     });
     return deferred.promise;
@@ -133,7 +165,8 @@ var everyone = function ($q, $location, $http, sessionService, countCarritoServi
             if (response.data.message.obj_tipoUsuario.id === 1) {
                 sessionService.setSessionActive();
                 sessionService.setAdminActive();
-                sessionService.setClientInactive();
+                sessionService.setBossInactive();
+                sessionService.setWorkerInactive();
                 sessionService.setUserName(response.data.message.login);
                 sessionService.setId(response.data.message.id);
                 countCarritoService.updateCarrito();
@@ -141,7 +174,17 @@ var everyone = function ($q, $location, $http, sessionService, countCarritoServi
             if (response.data.message.obj_tipoUsuario.id === 2) {
                 sessionService.setSessionActive();
                 sessionService.setAdminInactive();
-                sessionService.setClientActive();
+                sessionService.setBossActive();
+                sessionService.setWorkerInactive();
+                sessionService.setUserName(response.data.message.login);
+                sessionService.setId(response.data.message.id);
+                countCarritoService.updateCarrito();
+            }
+            if (response.data.message.obj_tipoUsuario.id === 3) {
+                sessionService.setSessionActive();
+                sessionService.setAdminInactive();
+                sessionService.setBossInactive();
+                sessionService.setWorkerActive();
                 sessionService.setUserName(response.data.message.login);
                 sessionService.setId(response.data.message.id);
                 countCarritoService.updateCarrito();
@@ -150,20 +193,22 @@ var everyone = function ($q, $location, $http, sessionService, countCarritoServi
         } else {
             sessionService.setSessionInactive();
             sessionService.setAdminInactive();
-            sessionService.setClientInactive();
+            sessionService.setBossInactive();
+            sessionService.setWorkerInactive();
             deferred.resolve();
         }
     }, function () {
         sessionService.setSessionInactive();
         sessionService.setAdminInactive();
-        sessionService.setClientInactive();
+        sessionService.setBossInactive();
+        sessionService.setWorkerInactive();
         $location.path('/home');
     });
     return deferred.promise;
 };
 
 barberia66.config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/', {templateUrl: 'js/app/common/home.html', controller: 'homeController'});
+        $routeProvider.when('/home', {templateUrl: 'js/app/common/home.html', controller: 'homeController'});
 
-        $routeProvider.otherwise({redirectTo: '/'});
+        $routeProvider.otherwise({redirectTo: '/home'});
     }]);
