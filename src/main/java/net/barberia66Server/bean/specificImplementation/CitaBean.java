@@ -28,6 +28,8 @@ public class CitaBean extends GenericBeanImplementation implements BeanInterface
     
     @Expose
     private Date fecha;
+    @Expose
+    private String descripcion;
     @Expose(serialize = false)
     private int id_tipocita;
     @Expose(deserialize = false)
@@ -47,6 +49,14 @@ public class CitaBean extends GenericBeanImplementation implements BeanInterface
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public int getId_tipocita() {
@@ -102,6 +112,7 @@ public class CitaBean extends GenericBeanImplementation implements BeanInterface
         this.setId(oResultSet.getInt("id"));
         Timestamp fechaHora = oResultSet.getTimestamp("fecha");
         this.setFecha(fechaHora);
+        this.setDescripcion(oResultSet.getString("descripcion"));
         if (expand > 0) {
             UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, "usuario");
             this.setObj_usuario((UsuarioBean) oUsuarioDao.get(oResultSet.getInt("id_usuario"), expand - 1));
@@ -122,6 +133,7 @@ public class CitaBean extends GenericBeanImplementation implements BeanInterface
         String strColumns = "";
         strColumns += "id,";
         strColumns += "fecha,";
+        strColumns += "descripcion,";
         strColumns += "id_usuario,";
         strColumns += "id_tipocita,";
         strColumns += "id_estadocita";
@@ -142,6 +154,7 @@ public class CitaBean extends GenericBeanImplementation implements BeanInterface
         String strColumns = "";
         strColumns += "null,";
         strColumns += EncodingHelper.quotate(localDateTime.toString()) + ",";
+        strColumns += EncodingHelper.quotate(descripcion) + ",";
         strColumns += id_usuario + ",";
         strColumns += id_tipocita + ",";
         strColumns += id_estadocita;
@@ -162,6 +175,7 @@ public class CitaBean extends GenericBeanImplementation implements BeanInterface
         String strPairs = "";
         strPairs += "id=" + id + ",";
         strPairs += "fecha=" + EncodingHelper.quotate(localDateTime.toString()) + ",";
+        strPairs += "descripcion=" + EncodingHelper.quotate(descripcion) + ",";
         strPairs += "id_usuario=" + id_usuario + ",";
         strPairs += "id_tipocita=" + id_tipocita + ",";
         strPairs += "id_estadocita=" + id_estadocita;
