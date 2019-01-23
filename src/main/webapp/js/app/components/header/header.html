@@ -4,7 +4,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto" ng-show="c.isAdmin">
+        <ul class="navbar-nav mr-auto" ng-show="c.logged">
             <li class="nav-item" ng-class="{'active': c.isActive('/usuario')}">
                 <a class="nav-link" href="usuario/plist"><i class="fas fa-users"></i> Usuarios</a>
             </li>
@@ -12,55 +12,46 @@
                 <a class="nav-link" href="tipousuario/plist"><i class="fas fa-user-tag"></i> Tipos Usuario</a>
             </li>
             <li class="nav-item" ng-class="{'active': c.isActive('/producto')}">
-                <div class="nav-link dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-box"></i> Productos<span class="caret"></span></a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="producto/plist">Administrador</a>
-                        <a class="dropdown-item" href="producto/plistCliente">Cliente</a>
-                    </div>
-                </div>
+                <a class="nav-link" href="producto/plist"><i class="fas fa-boxes"></i> Productos</a>
             </li>
             <li class="nav-item" ng-class="{'active': c.isActive('/tipoproducto')}">
                 <a class="nav-link" href="tipoproducto/plist"><i class="fas fa-boxes"></i> Tipos Producto</a>
             </li>
         </ul>
-        <ul class="navbar-nav mr-auto" ng-show="c.isClient">
-            <li class="nav-item" ng-class="{'active': c.isActive('/producto')}">
-                <a class="nav-link" href="producto/plistCliente"><i class="fas fa-boxes"></i> Productos</a>
-            </li>
-        </ul>
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item" ng-show="!c.logged" ng-class="{'active': c.isActive('/usuario/login')}">
-                <a class="nav-link" href="usuario/login"><i class="fas fa-user"></i> Iniciar Sesión</a>
-            </li>
-            <li class="nav-item" ng-show="!c.logged" ng-class="{'active': c.isActive('/usuario/createUser')}">
-                <a class="nav-link" href="usuario/createUser"><i class="fas fa-plus-circle"></i> Crear Usuario</a>
-            </li>
-            <li class="nav-item" ng-show="c.logged" ng-class="{'active': c.isActive('/carrito/plist')}">
-                <a class="nav-link" href="carrito/plist"><i class="fas fa-shopping-cart"></i> ({{c.carrito}})</a>
-            </li>
-            <li class="nav-item" ng-show="c.isAdmin" ng-class="{'active': (c.isActive('/profile'))}">
+            <li class="nav-item" ng-show="!c.logged">
                 <div class="nav-link dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">{{c.nameUserLogged}}<span class="caret"></span></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown">Login <span class="caret"></span></a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="profile/viewAdmin">Ver</a>
-                        <a class="dropdown-item" href="profile/updateLogged">Editar</a>
-                        <a class="dropdown-item" href="profile/factura/plist">Facturas</a>
-                        <a class="dropdown-item" href="profile/changePass">Cambio contraseña</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" ng-click="logout()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                        <form name="form" ng-submit="login()" class="px-3 py-2">
+                            <div class="form-group" ng-class="{'has-error': form.username.$invalid}">
+                                <label>Usuario:</label>
+                                <input type="text" name="username" placeholder="Usuario" class="form-control" ng-model="username" ng-pattern="/^[a-zA-Z0-9]+$/" required>
+                                <p ng-show="form.username.$invalid && !form.username.$pristine" class="help-block red-text mt-1">
+                                    Nombre de usuario invalido.
+                                </p>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error': form.pass.$invalid}">
+                                <label>Contraseña:</label>
+                                <input type="password" name="pass" placeholder="Contraseña" class="form-control" ng-model="pass" ng-pattern="/^[a-zA-Z0-9]+$/" required>
+                                <p ng-show="form.pass.$invalid && !form.pass.$pristine" class="help-block red-text mt-1">
+                                    Contraseña invalida.
+                                </p>
+                            </div>
+                            <div class="text-center alert alert-danger" role="alert" ng-show="incorrecto">
+                                Datos incorrectos
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary mt-2 mx-2" ng-disabled="form.$invalid">Iniciar Sesion</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </li>
-            <li class="nav-item" ng-show="c.isClient" ng-class="{'active': (c.isActive('/profile'))}">
+            <li class="nav-item" ng-show="c.logged" ng-class="{'active': (c.isActive('/profile'))}">
                 <div class="nav-link dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">{{c.nameUserLogged}}<span class="caret"></span></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown">{{c.nameUserLogged}} <span class="caret"></span></a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="profile/viewCliente">Ver</a>
-                        <a class="dropdown-item" href="profile/updateLogged">Editar</a>
-                        <a class="dropdown-item" href="profile/factura/plist">Facturas</a>
-                        <a class="dropdown-item" href="profile/changePass">Cambio contraseña</a>
-                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" ng-click="logout()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
                     </div>
                 </div>

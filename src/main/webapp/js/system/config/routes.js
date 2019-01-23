@@ -7,12 +7,12 @@ var autenticacionAdministrador = function ($q, $location, $http, sessionService,
         url: 'http://localhost:8081/barberia66/barberia66?ob=usuario&op=check'
     }).then(function (response) {
         if (response.data.status === 200) {
-            if (response.data.message.obj_tipoUsuario.id === 1) {
+            if (response.data.message.obj_tipousuario.id === 1) {
                 sessionService.setSessionActive();
                 sessionService.setAdminActive();
                 sessionService.setBossInactive();
                 sessionService.setWorkerInactive();
-                sessionService.setUserName(response.data.message.login);
+                sessionService.setUserName(response.data.message.username);
                 sessionService.setId(response.data.message.id);
                 countCarritoService.updateCarrito();
                 deferred.resolve();
@@ -42,12 +42,12 @@ var autenticacionJefe = function ($q, $location, $http, sessionService, countCar
         url: 'http://localhost:8081/barberia66/barberia66?ob=usuario&op=check'
     }).then(function (response) {
         if (response.data.status === 200) {
-            if (response.data.message.obj_tipoUsuario.id === 2) {
+            if (response.data.message.obj_tipousuario.id === 2) {
                 sessionService.setSessionActive();
                 sessionService.setAdminInactive();
                 sessionService.setBossActive();
                 sessionService.setWorkerInactive();
-                sessionService.setUserName(response.data.message.login);
+                sessionService.setUserName(response.data.message.username);
                 sessionService.setId(response.data.message.id);
                 countCarritoService.updateCarrito();
                 deferred.resolve();
@@ -76,12 +76,12 @@ var autenticacionEmpleado = function ($q, $location, $http, sessionService, coun
         url: 'http://localhost:8081/barberia66/barberia66?ob=usuario&op=check'
     }).then(function (response) {
         if (response.data.status === 200) {
-            if (response.data.message.obj_tipoUsuario.id === 3) {
+            if (response.data.message.obj_tipousuario.id === 3) {
                 sessionService.setSessionActive();
                 sessionService.setAdminInactive();
                 sessionService.setBossInactive();
                 sessionService.setWorkerActive();
-                sessionService.setUserName(response.data.message.login);
+                sessionService.setUserName(response.data.message.username);
                 sessionService.setId(response.data.message.id);
                 countCarritoService.updateCarrito();
                 deferred.resolve();
@@ -110,30 +110,30 @@ var autenticacionAny = function ($q, $location, $http, sessionService, countCarr
         url: 'http://localhost:8081/barberia66/barberia66?ob=usuario&op=check'
     }).then(function (response) {
         if (response.data.status === 200) {
-            if (response.data.message.obj_tipoUsuario.id === 1) {
+            if (response.data.message.obj_tipousuario.id === 1) {
                 sessionService.setSessionActive();
                 sessionService.setAdminActive();
                 sessionService.setBossInactive();
                 sessionService.setWorkerInactive();
-                sessionService.setUserName(response.data.message.login);
+                sessionService.setUserName(response.data.message.username);
                 sessionService.setId(response.data.message.id);
                 countCarritoService.updateCarrito();
             }
-            if (response.data.message.obj_tipoUsuario.id === 2) {
+            if (response.data.message.obj_tipousuario.id === 2) {
                 sessionService.setSessionActive();
                 sessionService.setAdminInactive();
                 sessionService.setBossActive();
                 sessionService.setWorkerInactive();
-                sessionService.setUserName(response.data.message.login);
+                sessionService.setUserName(response.data.message.username);
                 sessionService.setId(response.data.message.id);
                 countCarritoService.updateCarrito();
             }
-            if (response.data.message.obj_tipoUsuario.id === 3) {
+            if (response.data.message.obj_tipousuario.id === 3) {
                 sessionService.setSessionActive();
                 sessionService.setAdminInactive();
                 sessionService.setBossInactive();
                 sessionService.setWorkerActive();
-                sessionService.setUserName(response.data.message.login);
+                sessionService.setUserName(response.data.message.username);
                 sessionService.setId(response.data.message.id);
                 countCarritoService.updateCarrito();
             }
@@ -162,30 +162,30 @@ var everyone = function ($q, $location, $http, sessionService, countCarritoServi
         url: 'http://localhost:8081/barberia66/barberia66?ob=usuario&op=check'
     }).then(function (response) {
         if (response.data.status === 200) {
-            if (response.data.message.obj_tipoUsuario.id === 1) {
+            if (response.data.message.obj_tipousuario.id === 1) {
                 sessionService.setSessionActive();
                 sessionService.setAdminActive();
                 sessionService.setBossInactive();
                 sessionService.setWorkerInactive();
-                sessionService.setUserName(response.data.message.login);
+                sessionService.setUserName(response.data.message.username);
                 sessionService.setId(response.data.message.id);
                 countCarritoService.updateCarrito();
             }
-            if (response.data.message.obj_tipoUsuario.id === 2) {
+            if (response.data.message.obj_tipousuario.id === 2) {
                 sessionService.setSessionActive();
                 sessionService.setAdminInactive();
                 sessionService.setBossActive();
                 sessionService.setWorkerInactive();
-                sessionService.setUserName(response.data.message.login);
+                sessionService.setUserName(response.data.message.username);
                 sessionService.setId(response.data.message.id);
                 countCarritoService.updateCarrito();
             }
-            if (response.data.message.obj_tipoUsuario.id === 3) {
+            if (response.data.message.obj_tipousuario.id === 3) {
                 sessionService.setSessionActive();
                 sessionService.setAdminInactive();
                 sessionService.setBossInactive();
                 sessionService.setWorkerActive();
-                sessionService.setUserName(response.data.message.login);
+                sessionService.setUserName(response.data.message.username);
                 sessionService.setId(response.data.message.id);
                 countCarritoService.updateCarrito();
             }
@@ -208,7 +208,7 @@ var everyone = function ($q, $location, $http, sessionService, countCarritoServi
 };
 
 barberia66.config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/home', {templateUrl: 'js/app/common/home.html', controller: 'homeController'});
+        $routeProvider.when('/home', {templateUrl: 'js/app/common/home.html', controller: 'homeController', resolve: {auth: everyone}});
 
         $routeProvider.otherwise({redirectTo: '/home'});
     }]);

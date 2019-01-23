@@ -24,7 +24,7 @@ public class UsuarioDao extends GenericDaoImplementation implements DaoInterface
     }
     
     public UsuarioBean login(String strUserName, String strPassword) throws Exception {
-        String strSQL = "SELECT * FROM " + ob + " WHERE login=? AND pass=?";
+        String strSQL = "SELECT * FROM " + ob + " WHERE username=? AND password=?";
         UsuarioBean oUsuarioBean;
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;

@@ -22,3 +22,12 @@ body{
 .margin-top{
     margin-top: 75px;
 }
+
+.red-text{
+    color: red;
+    font-size: 75%;
+}
+
+.dropdown-menu {
+    width: 300px !important;
+}
