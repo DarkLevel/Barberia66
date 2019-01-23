@@ -89,7 +89,8 @@ function js(toolService, sessionService, $scope, $http, $location) {
                 sessionService.setWorkerInactive();
                 $scope.username = "";
                 $scope.pass = "";
-                
+                $scope.form.username.$pristine = true;
+                $scope.form.pass.$pristine = true;
                 $location.url('home');
             }
         });
