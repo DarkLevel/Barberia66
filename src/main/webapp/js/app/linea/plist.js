@@ -1,8 +1,6 @@
-/* global moduleCommon */
-
 'use strict';
 
-moduleCommon.controller('homeController', ['$scope', 'toolService',
+moduleLinea.controller('lineaPlistController', ['$scope', 'toolService',
     function ($scope, toolService) {
         $scope.isActive = toolService.isActive;
     }

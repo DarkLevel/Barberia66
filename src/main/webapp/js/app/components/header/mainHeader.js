@@ -1,7 +1,7 @@
 /* global moduleComponent */
 
-moduleComponent.component('headerComponent', {
-    templateUrl: 'js/app/components/header/header.html',
+moduleComponent.component('mainheaderComponent', {
+    templateUrl: 'js/app/components/header/mainHeader.html',
     bindings: {
         eventlistener: '&'
     },

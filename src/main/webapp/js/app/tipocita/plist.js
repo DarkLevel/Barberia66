@@ -1,8 +1,8 @@
-/* global moduleCommon */
+/* global moduleTipocita */
 
 'use strict';
 
-moduleCommon.controller('homeController', ['$scope', 'toolService',
+moduleTipocita.controller('tipocitaPlistController', ['$scope', 'toolService',
     function ($scope, toolService) {
         $scope.isActive = toolService.isActive;
     }

@@ -4,10 +4,21 @@
 
 var barberia66 = angular.module('MyApp', [
     'ngRoute',
-    'services',
     'ngMaterial',
+    'services',
     'components',
-    'commonControllers'
+    'commonControllers',
+    'citaControllers',
+    'estadocitaControllers',
+    'gestionproductosControllers',
+    'lineaControllers',
+    'productoControllers',
+    'registroControllers',
+    'tipocitaControllers',
+    'tipoproductoControllers',
+    'tiporegistroControllers',
+    'tipousuarioControllers',
+    'usuarioControllers'
 ]).config(function ($mdDateLocaleProvider) {
     // Example of a Spanish localization.
     $mdDateLocaleProvider.months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -31,6 +42,17 @@ var barberia66 = angular.module('MyApp', [
     };
 });
 
-var moduleCommon = angular.module('commonControllers', []);
 var moduleService = angular.module('services', []);
 var moduleComponent = angular.module('components', []);
+var moduleCommon = angular.module('commonControllers', []);
+var moduleCita = angular.module('citaControllers', []);
+var moduleEstadocita = angular.module('estadocitaControllers', []);
+var moduleGestionproductos = angular.module('gestionproductosControllers', []);
+var moduleLinea = angular.module('lineaControllers', []);
+var moduleProducto = angular.module('productoControllers', []);
+var moduleRegistro = angular.module('registroControllers', []);
+var moduleTipocita = angular.module('tipocitaControllers', []);
+var moduleTipoproducto = angular.module('tipoproductoControllers', []);
+var moduleTiporegistro = angular.module('tiporegistroControllers', []);
+var moduleTipousuario = angular.module('tipousuarioControllers', []);
+var moduleUsuario = angular.module('usuarioControllers', []);

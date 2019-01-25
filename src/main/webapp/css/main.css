@@ -31,3 +31,8 @@ body{
 .dropdown-menu {
     width: 300px !important;
 }
+
+.hola{
+    border: solid 1px black;
+    width: 31%;
+}

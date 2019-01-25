@@ -1,8 +1,8 @@
-/* global moduleCommon */
+/* global moduleCita */
 
 'use strict';
 
-moduleCommon.controller('homeController', ['$scope', 'toolService',
+moduleCita.controller('citaPlistController', ['$scope', 'toolService',
     function ($scope, toolService) {
         $scope.isActive = toolService.isActive;
     }

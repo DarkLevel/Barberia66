@@ -5,23 +5,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto" ng-show="c.logged">
-            <li class="nav-item" ng-class="{'active': c.isActive('/usuario')}">
-                <a class="nav-link" href="usuario/plist"><i class="fas fa-users"></i> Usuarios</a>
-            </li>
-            <li class="nav-item" ng-class="{'active': c.isActive('/tipousuario')}">
-                <a class="nav-link" href="tipousuario/plist"><i class="fas fa-user-tag"></i> Tipos Usuario</a>
-            </li>
-            <li class="nav-item" ng-class="{'active': c.isActive('/producto')}">
-                <a class="nav-link" href="producto/plist"><i class="fas fa-boxes"></i> Productos</a>
-            </li>
-            <li class="nav-item" ng-class="{'active': c.isActive('/tipoproducto')}">
-                <a class="nav-link" href="tipoproducto/plist"><i class="fas fa-boxes"></i> Tipos Producto</a>
+            <li class="nav-item" ng-class="{'active': c.isActive('/operaciones')}">
+                <a class="nav-link" href="operaciones"><i class="fas fa-clipboard-list"></i> Operaciones</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item" ng-show="!c.logged">
                 <div class="nav-link dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">Login <span class="caret"></span></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown">Login</a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <form name="form" ng-submit="login()" class="px-3 py-2">
                             <div class="form-group" ng-class="{'has-error': form.username.$invalid}">
@@ -50,7 +41,7 @@
             </li>
             <li class="nav-item" ng-show="c.logged" ng-class="{'active': (c.isActive('/profile'))}">
                 <div class="nav-link dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">{{c.nameUserLogged}} <span class="caret"></span></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown">{{c.nameUserLogged}}</a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" ng-click="logout()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
                     </div>

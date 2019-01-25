@@ -2,7 +2,7 @@
 
 'use strict';
 
-moduleCommon.controller('homeController', ['$scope', 'toolService',
+moduleCommon.controller('operacionesController', ['$scope', 'toolService',
     function ($scope, toolService) {
         $scope.isActive = toolService.isActive;
     }

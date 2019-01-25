@@ -1,8 +1,8 @@
-/* global moduleCommon */
+/* global moduleUsuario */
 
 'use strict';
 
-moduleCommon.controller('homeController', ['$scope', 'toolService',
+moduleUsuario.controller('usuarioPlistController', ['$scope', 'toolService',
     function ($scope, toolService) {
         $scope.isActive = toolService.isActive;
     }

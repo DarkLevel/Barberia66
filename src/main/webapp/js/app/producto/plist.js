@@ -1,8 +1,8 @@
-/* global moduleCommon */
+/* global moduleProducto */
 
 'use strict';
 
-moduleCommon.controller('homeController', ['$scope', 'toolService',
+moduleProducto.controller('productoPlistController', ['$scope', 'toolService',
     function ($scope, toolService) {
         $scope.isActive = toolService.isActive;
     }

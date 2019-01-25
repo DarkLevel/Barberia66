@@ -1,8 +1,8 @@
-/* global moduleCommon */
+/* global moduleRegistro */
 
 'use strict';
 
-moduleCommon.controller('homeController', ['$scope', 'toolService',
+moduleRegistro.controller('registroPlistController', ['$scope', 'toolService',
     function ($scope, toolService) {
         $scope.isActive = toolService.isActive;
     }
