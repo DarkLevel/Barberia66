@@ -1,8 +1,8 @@
-/* global moduleTipousuario */
+/* global moduleProducto */
 
 'use strict';
 
-moduleTipousuario.controller('tipousuarioPlistController',  ['$scope', '$http', '$location', 'toolService', '$routeParams', '$anchorScroll',
+moduleProducto.controller('productoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', '$anchorScroll',
     function ($scope, $http, $location, toolService, $routeParams, $anchorScroll) {
         $anchorScroll();
         
@@ -35,7 +35,11 @@ moduleTipousuario.controller('tipousuarioPlistController',  ['$scope', '$http', 
         }
 
         $scope.resetOrder = function () {
-            $location.url(`tipousuario/plist/` + $scope.rpp + `/` + $scope.page);
+            $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page);
+        };
+        
+        $scope.crear = function () {
+            $location.url('producto/create');
         };
 
         $scope.ordenar = function (order, align) {
@@ -46,12 +50,12 @@ moduleTipousuario.controller('tipousuarioPlistController',  ['$scope', '$http', 
                 $scope.orderURLServidor = $scope.orderURLServidor + "-" + order + "," + align;
                 $scope.orderURLCliente = $scope.orderURLCliente + "-" + order + "," + align;
             }
-            $location.url(`tipousuario/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
+            $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
         };
 
         $http({
             method: 'GET',
-            url: 'http://localhost:8081/barberia66/barberia66?ob=tipousuario&op=getcount'
+            url: 'http://localhost:8081/barberia66/barberia66?ob=producto&op=getcount'
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataNumber = response.data.message;
@@ -72,10 +76,13 @@ moduleTipousuario.controller('tipousuarioPlistController',  ['$scope', '$http', 
 
         $http({
             method: 'GET',
-            url: 'http://localhost:8081/barberia66/barberia66?ob=tipousuario&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
+            url: 'http://localhost:8081/barberia66/barberia66?ob=producto&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxData = response.data.message;
+            for (var i = 0; i < $scope.ajaxData.length; i++) {
+                $scope.ajaxData[i].precio = reemplazar($scope.ajaxData[i].precio);
+            }
         }, function (response) {
             $scope.status = response.status;
             $scope.ajaxData = response.data.message || 'Request failed';
@@ -83,11 +90,7 @@ moduleTipousuario.controller('tipousuarioPlistController',  ['$scope', '$http', 
 
         $scope.update = function () {
             $scope.page = 1;
-            $location.url(`tipousuario/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
-        };
-        
-        $scope.crear = function () {
-            $location.url('tipousuario/create');
+            $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
         };
 
         function pagination() {
@@ -107,6 +110,13 @@ moduleTipousuario.controller('tipousuarioPlistController',  ['$scope', '$http', 
             }
         }
         
+        function reemplazar(precio){
+            var precioString = precio.toString();
+            var precioCambiado = precioString.replace(".", ",");
+            
+            return precioCambiado;
+        }
+
         $scope.atras = function () {
             window.history.back();
         };

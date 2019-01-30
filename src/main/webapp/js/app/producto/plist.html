@@ -1,8 +1,9 @@
 <mainheader-component></mainheader-component>
 <div class="container-fluid margin-top">
+
     <div class="row">
         <div class="col-8 border-bottom text-center mx-auto">
-            <h2><i class="fas fa-user-tag"></i> Tipos de usuario</h2>
+            <h2><i class="fas fa-box"></i> Productos</h2>
             <button type="button" class="btn btn-outline-primary mb-2" ng-click="crear()">Crear</button>
             <button type="button" class="btn btn-outline-danger mb-2" ng-click="atras()">Volver atrás</button>
         </div>
@@ -25,7 +26,7 @@
         </div>
     </div>
 
-    <div class="row text-center mx-auto mt-5 table-responsive" ng-show="registros">
+    <div class="row form-group text-center mx-auto mt-5 table-responsive" ng-show="registros">
         <table class="table table-striped">
             <tr>
                 <th>
@@ -35,6 +36,17 @@
                             <i class="fas fa-long-arrow-alt-up"></i>
                         </button>
                         <button type="button" class="btn" ng-click="ordenar('id', 'desc')">
+                            <i class="fas fa-long-arrow-alt-down"></i>
+                        </button>
+                    </div>
+                </th>
+                <th>
+                    <p>Nombre</p>
+                    <div class="btn-group">
+                        <button type="button" class="btn" ng-click="ordenar('nombre', 'asc')">
+                            <i class="fas fa-long-arrow-alt-up"></i>
+                        </button>
+                        <button type="button" class="btn" ng-click="ordenar('nombre', 'desc')">
                             <i class="fas fa-long-arrow-alt-down"></i>
                         </button>
                     </div>
@@ -50,16 +62,65 @@
                         </button>
                     </div>
                 </th>
+                <th>
+                    <p>Existencias</p>
+                    <div class="btn-group">
+                        <button type="button" class="btn" ng-click="ordenar('existencias', 'asc')">
+                            <i class="fas fa-long-arrow-alt-up"></i>
+                        </button>
+                        <button type="button" class="btn" ng-click="ordenar('existencias', 'desc')">
+                            <i class="fas fa-long-arrow-alt-down"></i>
+                        </button>
+                    </div>
+                </th>
+                <th>
+                    <p>Precio</p>
+                    <div class="btn-group">
+                        <button type="button" class="btn" ng-click="ordenar('precio', 'asc')">
+                            <i class="fas fa-long-arrow-alt-up"></i>
+                        </button>
+                        <button type="button" class="btn" ng-click="ordenar('precio', 'desc')">
+                            <i class="fas fa-long-arrow-alt-down"></i>
+                        </button>
+                    </div>
+                </th>
+                <th>
+                    <p>Iva</p>
+                    <div class="btn-group">
+                        <button type="button" class="btn" ng-click="ordenar('iva_venta', 'asc')">
+                            <i class="fas fa-long-arrow-alt-up"></i>
+                        </button>
+                        <button type="button" class="btn" ng-click="ordenar('iva_venta', 'desc')">
+                            <i class="fas fa-long-arrow-alt-down"></i>
+                        </button>
+                    </div>
+                </th>
+                <th>
+                    <p>Tipo de producto</p>
+                    <div class="btn-group">
+                        <button type="button" class="btn" ng-click="ordenar('id_tipoproducto', 'asc')">
+                            <i class="fas fa-long-arrow-alt-up"></i>
+                        </button>
+                        <button type="button" class="btn" ng-click="ordenar('id_tipoproducto', 'desc')">
+                            <i class="fas fa-long-arrow-alt-down"></i>
+                        </button>
+                    </div>
+                </th>
                 <th>Operaciones</th>
             </tr>
             <tr ng-repeat="fila in ajaxData">
                 <td class="align-middle">{{fila.id}}</td>
+                <td class="align-middle">{{fila.nombre}}</td>
                 <td class="align-middle">{{fila.descripcion}}</td>
+                <td class="align-middle">{{fila.existencias}}</td>
+                <td class="align-middle">{{fila.precio}}</td>
+                <td class="align-middle">{{fila.iva_venta}}</td>
+                <td class="align-middle"><a class="enlace" href="tipoproducto/view/{{fila.obj_tipoproducto.id}}">{{fila.obj_tipoproducto.descripcion}}</a></td>
                 <td>
                     <div class="btn-group">
-                        <a role="button" class="btn btn-outline-primary fas fa-eye" href="tipousuario/view/{{fila.id}}"></a>
-                        <a role="button" class="btn btn-outline-primary fas fa-edit" href="tipousuario/update/{{fila.id}}"></a>
-                        <a role="button" class="btn btn-outline-primary fas fa-trash-alt" href="tipousuario/remove/{{fila.id}}"></a>
+                        <a role="button" class="btn btn-outline-primary fas fa-eye" href="producto/view/{{fila.id}}"></a>
+                        <a role="button" class="btn btn-outline-primary fas fa-edit" href="producto/update/{{fila.id}}"></a>
+                        <a role="button" class="btn btn-outline-primary fas fa-trash-alt" href="producto/remove/{{fila.id}}"></a>
                     </div>
                 </td>
             </tr>
@@ -70,27 +131,27 @@
         <nav aria-label="paginacion" class="mx-auto">
             <ul class="pagination justify-content-center">
                 <li class="page-item" ng-class="{'disabled':(page == 1)}">
-                    <a class="page-link" href="tipousuario/plist/{{rpp}}/1/{{orderURLCliente}}"><span>&laquo;</span></a>
+                    <a class="page-link" href="producto/plist/{{rpp}}/1/{{orderURLCliente}}"><span>&laquo;</span></a>
                 </li>
                 <li class="page-item" ng-class="{'disabled':(page == 1)}">
-                    <a class="page-link" href="tipousuario/plist/{{rpp}}/{{page - 1}}/{{orderURLCliente}}"><span>&lsaquo;</span></a>
+                    <a class="page-link" href="producto/plist/{{rpp}}/{{page - 1}}/{{orderURLCliente}}"><span>&lsaquo;</span></a>
                 </li>
                 <li class="page-item" ng-class="{'disabled':(page == 1)}">
-                    <a class="page-link" href="tipousuario/plist/{{rpp}}/1/{{orderURLCliente}}">1</a>
+                    <a class="page-link" href="producto/plist/{{rpp}}/1/{{orderURLCliente}}">1</a>
                 </li>
 
                 <li class="page-item" ng-class="{'active':(p == page), 'disabled':(p === '...')}" ng-repeat="p in list track by $index">
-                    <a class="page-link" href="tipousuario/plist/{{rpp}}/{{p}}/{{orderURLCliente}}">{{p}}</a>
+                    <a class="page-link" href="producto/plist/{{rpp}}/{{p}}/{{orderURLCliente}}">{{p}}</a>
                 </li>
 
                 <li class="page-item" ng-class="{'disabled':(page == totalPages), 'ng-hide':(totalPages == 1)}">
-                    <a class="page-link" href="tipousuario/plist/{{rpp}}/{{totalPages}}/{{orderURLCliente}}">{{totalPages}}</a>
+                    <a class="page-link" href="producto/plist/{{rpp}}/{{totalPages}}/{{orderURLCliente}}">{{totalPages}}</a>
                 </li>
                 <li class="page-item" ng-class="{'disabled':(page == totalPages)}">
-                    <a class="page-link" href="tipousuario/plist/{{rpp}}/{{page--1}}/{{orderURLCliente}}"><span>&rsaquo;</span></a>
+                    <a class="page-link" href="producto/plist/{{rpp}}/{{page--1}}/{{orderURLCliente}}"><span>&rsaquo;</span></a>
                 </li>
                 <li class="page-item" ng-class="{'disabled':(page == totalPages)}">
-                    <a class="page-link" href="tipousuario/plist/{{rpp}}/{{totalPages}}/{{orderURLCliente}}"><span>&raquo;</span></a>
+                    <a class="page-link" href="producto/plist/{{rpp}}/{{totalPages}}/{{orderURLCliente}}"><span>&raquo;</span></a>
                 </li>
             </ul>
         </nav>
@@ -98,7 +159,7 @@
 
     <div class="row" ng-show="alerta">
         <div class="mx-auto mt-4 alert alert-warning text-center" role="alert">
-            No existen tipos de usuario
+            No existen productos
         </div>
     </div>
 
