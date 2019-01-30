@@ -2,7 +2,7 @@
 
 'use strict';
 
-moduleCita.controller('citaPlistController', ['$scope', 'toolService',
+moduleCita.controller('citaCalendarioController', ['$scope', 'toolService',
     function ($scope, toolService) {
         $scope.isActive = toolService.isActive;
     }

@@ -2,7 +2,7 @@
 
 'use strict';
 
-moduleTipousuario.controller('tipousuarioPlistController',  ['$scope', '$http', '$location', 'toolService', '$routeParams', '$anchorScroll',
+moduleTipousuario.controller('tiporegistroPlistController',  ['$scope', '$http', '$location', 'toolService', '$routeParams', '$anchorScroll',
     function ($scope, $http, $location, toolService, $routeParams, $anchorScroll) {
         $anchorScroll();
         
@@ -35,7 +35,7 @@ moduleTipousuario.controller('tipousuarioPlistController',  ['$scope', '$http', 
         }
 
         $scope.resetOrder = function () {
-            $location.url(`tipousuario/plist/` + $scope.rpp + `/` + $scope.page);
+            $location.url(`tiporegistro/plist/` + $scope.rpp + `/` + $scope.page);
         };
 
         $scope.ordenar = function (order, align) {
@@ -46,12 +46,12 @@ moduleTipousuario.controller('tipousuarioPlistController',  ['$scope', '$http', 
                 $scope.orderURLServidor = $scope.orderURLServidor + "-" + order + "," + align;
                 $scope.orderURLCliente = $scope.orderURLCliente + "-" + order + "," + align;
             }
-            $location.url(`tipousuario/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
+            $location.url(`tiporegistro/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
         };
 
         $http({
             method: 'GET',
-            url: 'http://localhost:8081/barberia66/barberia66?ob=tipousuario&op=getcount'
+            url: 'http://localhost:8081/barberia66/barberia66?ob=tiporegistro&op=getcount'
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataNumber = response.data.message;
@@ -72,7 +72,7 @@ moduleTipousuario.controller('tipousuarioPlistController',  ['$scope', '$http', 
 
         $http({
             method: 'GET',
-            url: 'http://localhost:8081/barberia66/barberia66?ob=tipousuario&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
+            url: 'http://localhost:8081/barberia66/barberia66?ob=tiporegistro&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxData = response.data.message;
@@ -83,7 +83,11 @@ moduleTipousuario.controller('tipousuarioPlistController',  ['$scope', '$http', 
 
         $scope.update = function () {
             $scope.page = 1;
-            $location.url(`tipousuario/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
+            $location.url(`tiporegistro/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
+        };
+        
+        $scope.crear = function () {
+            $location.url('tiporegistro/create');
         };
 
         function pagination() {

@@ -1,8 +1,8 @@
-/* global moduleTipousuario, $ajaxData */
+/* global moduleTipousuario */
 
 'use strict';
 
-moduleTipousuario.controller('tipousuarioUpdateController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll',
+moduleTipousuario.controller('tiporegistroUpdateController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll',
     function ($scope, $http, toolService, $routeParams, $anchorScroll) {
         $anchorScroll();
         
@@ -12,7 +12,7 @@ moduleTipousuario.controller('tipousuarioUpdateController', ['$scope', '$http', 
 
         $http({
             method: 'GET',
-            url: 'http://localhost:8081/barberia66/barberia66?ob=tipousuario&op=get&id=' + $routeParams.id
+            url: 'http://localhost:8081/barberia66/barberia66?ob=tiporegistro&op=get&id=' + $routeParams.id
         }).then(function (response) {
             $scope.status = response.status;
             $scope.id = response.data.message.id;
@@ -33,7 +33,7 @@ moduleTipousuario.controller('tipousuarioUpdateController', ['$scope', '$http', 
             };
             $http({
                 method: 'GET',
-                url: 'http://localhost:8081/barberia66/barberia66?ob=tipousuario&op=update',
+                url: 'http://localhost:8081/barberia66/barberia66?ob=tiporegistro&op=update',
                 params: {json: JSON.stringify(json)}
             }).then(function (response) {
                 $scope.status = response.status;

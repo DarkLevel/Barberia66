@@ -145,21 +145,39 @@ barberia66.config(['$routeProvider', function ($routeProvider) {
 
         $routeProvider.when('/operaciones', {templateUrl: 'js/app/common/operaciones.html', controller: 'operacionesController', resolve: {auth: logged}});
 
-        $routeProvider.when('/cita/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/cita/plist.html', controller: 'citaPlistController', resolve: {auth: logged}});
+        $routeProvider.when('/cita/calendario', {templateUrl: 'js/app/cita/calendario.html', controller: 'citaCalendarioController', resolve: {auth: logged}});
         
-        $routeProvider.when('/estadocita/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/estadocita/plist.html', controller: 'estadocitaPlistController', resolve: {auth: logged}});
+        $routeProvider.when('/estadocita/create', {templateUrl: 'js/app/estadocita/create.html', controller: 'estadocitaCreateController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/estadocita/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/estadocita/plist.html', controller: 'estadocitaPlistController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/estadocita/remove/:id?', {templateUrl: 'js/app/estadocita/remove.html', controller: 'estadocitaRemoveController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/estadocita/update/:id?', {templateUrl: 'js/app/estadocita/update.html', controller: 'estadocitaUpdateController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/estadocita/view/:id?', {templateUrl: 'js/app/estadocita/view.html', controller: 'estadocitaViewController', resolve: {auth: autenticacionAdminJefe}});
         
-        $routeProvider.when('/linea/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/linea/plist.html', controller: 'lineaPlistController', resolve: {auth: logged}});
+        $routeProvider.when('/producto/create', {templateUrl: 'js/app/producto/create.html', controller: 'productoCreateController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/producto/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/producto/plist.html', controller: 'productoPlistController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/producto/remove/:id?', {templateUrl: 'js/app/producto/remove.html', controller: 'productoRemoveController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/producto/update/:id?', {templateUrl: 'js/app/producto/update.html', controller: 'productoUpdateController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/producto/view/:id?', {templateUrl: 'js/app/producto/view.html', controller: 'productoViewController', resolve: {auth: autenticacionAdminJefe}});
         
-        $routeProvider.when('/producto/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/producto/plist.html', controller: 'productoPlistController', resolve: {auth: logged}});
+        $routeProvider.when('/registro/calendario', {templateUrl: 'js/app/registro/calendario.html', controller: 'registroCalendarioController', resolve: {auth: logged}});
         
-        $routeProvider.when('/registro/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/registro/plist.html', controller: 'registroPlistController', resolve: {auth: logged}});
+        $routeProvider.when('/tipocita/create', {templateUrl: 'js/app/tipocita/create.html', controller: 'tipocitaCreateController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/tipocita/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/tipocita/plist.html', controller: 'tipocitaPlistController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/tipocita/remove/:id?', {templateUrl: 'js/app/tipocita/remove.html', controller: 'tipocitaRemoveController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/tipocita/update/:id?', {templateUrl: 'js/app/tipocita/update.html', controller: 'tipocitaUpdateController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/tipocita/view/:id?', {templateUrl: 'js/app/tipocita/view.html', controller: 'tipocitaViewController', resolve: {auth: autenticacionAdminJefe}});
         
-        $routeProvider.when('/tipocita/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/tipocita/plist.html', controller: 'tipocitaPlistController', resolve: {auth: logged}});
+        $routeProvider.when('/tipoproducto/create', {templateUrl: 'js/app/tipoproducto/create.html', controller: 'tipoproductoCreateController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/tipoproducto/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/tipoproducto/plist.html', controller: 'tipoproductoPlistController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/tipoproducto/remove/:id?', {templateUrl: 'js/app/tipoproducto/remove.html', controller: 'tipoproductoRemoveController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/tipoproducto/update/:id?', {templateUrl: 'js/app/tipoproducto/update.html', controller: 'tipoproductoUpdateController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/tipoproducto/view/:id?', {templateUrl: 'js/app/tipoproducto/view.html', controller: 'tipoproductoViewController', resolve: {auth: autenticacionAdminJefe}});
         
-        $routeProvider.when('/tipoproducto/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/tipoproducto/plist.html', controller: 'tipoproductoPlistController', resolve: {auth: logged}});
-        
-        $routeProvider.when('/tiporegistro/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/tiporegistro/plist.html', controller: 'tiporegistroPlistController', resolve: {auth: logged}});
+        $routeProvider.when('/tiporegistro/create', {templateUrl: 'js/app/tiporegistro/create.html', controller: 'tiporegistroCreateController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/tiporegistro/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/tiporegistro/plist.html', controller: 'tiporegistroPlistController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/tiporegistro/remove/:id?', {templateUrl: 'js/app/tiporegistro/remove.html', controller: 'tiporegistroRemoveController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/tiporegistro/update/:id?', {templateUrl: 'js/app/tiporegistro/update.html', controller: 'tiporegistroUpdateController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/tiporegistro/view/:id?', {templateUrl: 'js/app/tiporegistro/view.html', controller: 'tiporegistroViewController', resolve: {auth: autenticacionAdminJefe}});
         
         $routeProvider.when('/tipousuario/create', {templateUrl: 'js/app/tipousuario/create.html', controller: 'tipousuarioCreateController', resolve: {auth: autenticacionAdminJefe}});
         $routeProvider.when('/tipousuario/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/tipousuario/plist.html', controller: 'tipousuarioPlistController', resolve: {auth: autenticacionAdminJefe}});
@@ -167,7 +185,11 @@ barberia66.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/tipousuario/update/:id?', {templateUrl: 'js/app/tipousuario/update.html', controller: 'tipousuarioUpdateController', resolve: {auth: autenticacionAdminJefe}});
         $routeProvider.when('/tipousuario/view/:id?', {templateUrl: 'js/app/tipousuario/view.html', controller: 'tipousuarioViewController', resolve: {auth: autenticacionAdminJefe}});
         
-        $routeProvider.when('/usuario/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/usuario/plist.html', controller: 'usuarioPlistController', resolve: {auth: logged}});
+        $routeProvider.when('/usuario/create', {templateUrl: 'js/app/usuario/create.html', controller: 'usuarioCreateController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/usuario/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/usuario/plist.html', controller: 'usuarioPlistController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/usuario/remove/:id?', {templateUrl: 'js/app/usuario/remove.html', controller: 'usuarioRemoveController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/usuario/update/:id?', {templateUrl: 'js/app/usuario/update.html', controller: 'usuarioUpdateController', resolve: {auth: autenticacionAdminJefe}});
+        $routeProvider.when('/usuario/view/:id?', {templateUrl: 'js/app/usuario/view.html', controller: 'usuarioViewController', resolve: {auth: autenticacionAdminJefe}});
 
         $routeProvider.otherwise({redirectTo: '/home'});
     }]);

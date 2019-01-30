@@ -1,0 +1,42 @@
+/* global moduleTipousuario */
+
+'use strict';
+
+moduleTipousuario.controller('tipousuarioCreateController', ['$scope', '$http', 'toolService', '$anchorScroll',
+    function ($scope, $http, toolService, $anchorScroll) {
+        $anchorScroll();
+
+        $scope.formulario = true;
+        $scope.botones = true;
+        $scope.correcto = false;
+
+        $scope.volver = function () {
+            window.history.back();
+        };
+
+        $scope.crear = function () {
+            var regexDesc = /^[a-zA-Z\s]*$/;
+            var json = {
+                descripcion: $scope.descripcion
+            };
+            $http({
+                method: 'GET',
+                url: 'http://localhost:8081/barberia66/barberia66?ob=tipousuario&op=create',
+                params: {json: JSON.stringify(json)}
+            }).then(function (response) {
+                $scope.status = response.status;
+                $scope.ajaxData = response.data.message;
+                if ($scope.status === 200) {
+                    $scope.formulario = false;
+                    $scope.botones = false;
+                    $scope.correcto = true;
+                }
+            }, function (response) {
+                $scope.status = response.status;
+                $scope.ajaxData = response.data.message || 'Request failed';
+            });
+        };
+
+        $scope.isActive = toolService.isActive;
+    }
+]);

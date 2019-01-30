@@ -2,7 +2,7 @@
 
 'use strict';
 
-moduleRegistro.controller('registroPlistController', ['$scope', 'toolService',
+moduleRegistro.controller('registroCalendarioController', ['$scope', 'toolService',
     function ($scope, toolService) {
         $scope.isActive = toolService.isActive;
     }
