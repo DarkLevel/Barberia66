@@ -1,0 +1,41 @@
+<mainheader-component></mainheader-component>
+<div class="container-fluid margin-top">
+    <h1 class="text-center"><i class="fas fa-user-tag"></i> Ver tipo usuario {{ajaxData.id}}</h1>
+    <form>
+        <div class="row form-group text-center mx-auto mt-5 table-responsive">
+            <table class="table table-striped text-center">
+                <tr>
+                    <th>ID</th>
+                    <td class="align-middle">{{ajaxData.id}}</td>
+                </tr>
+                <tr>
+                    <th>Dni</th>
+                    <td class="align-middle">{{ajaxData.dni}}</td>
+                </tr>
+                <tr>
+                    <th>Nombre</th>
+                    <td class="align-middle">{{ajaxData.nombre}}</td>
+                </tr>
+                <tr>
+                    <th>Primer apellido</th>
+                    <td class="align-middle">{{ajaxData.apellido1}}</td>
+                </tr>
+                <tr>
+                    <th>Segundo apellido</th>
+                    <td class="align-middle">{{ajaxData.apellido2}}</td>
+                </tr>
+                <tr>
+                    <th>Fecha de alta</th>
+                    <td class="align-middle">{{fecha}}</td>
+                </tr>
+                <tr>
+                    <th>Tipo de usuario</th>
+                    <td class="align-middle"><a class="enlace" href="tipousuario/view/{{ajaxData.obj_tipousuario.id}}">{{ajaxData.obj_tipousuario.descripcion}}</a></td>
+                </tr>
+            </table>
+        </div>
+        <div class="text-center mt-5">
+            <button type="button" class="btn btn-danger" ng-click="volver()">Volver atrás</button>
+        </div>
+    </form>
+</div>

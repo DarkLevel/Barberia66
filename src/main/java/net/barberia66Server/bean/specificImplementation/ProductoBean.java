@@ -28,9 +28,7 @@ public class ProductoBean extends GenericBeanImplementation implements BeanInter
     @Expose
     private float precio;
     @Expose
-    private int iva_compra;
-    @Expose
-    private int iva_venta;
+    private int iva;
     @Expose
     private String foto;
     @Expose(serialize = false)
@@ -70,20 +68,12 @@ public class ProductoBean extends GenericBeanImplementation implements BeanInter
         this.precio = precio;
     }
 
-    public int getIva_compra() {
-        return iva_compra;
+    public int getIva() {
+        return iva;
     }
 
-    public void setIva_compra(int iva_compra) {
-        this.iva_compra = iva_compra;
-    }
-
-    public int getIva_venta() {
-        return iva_venta;
-    }
-
-    public void setIva_venta(int iva_venta) {
-        this.iva_venta = iva_venta;
+    public void setIva(int iva) {
+        this.iva = iva;
     }
 
     public String getFoto() {
@@ -117,8 +107,7 @@ public class ProductoBean extends GenericBeanImplementation implements BeanInter
         this.setDescripcion(oResultSet.getString("descripcion"));
         this.setExistencias(oResultSet.getInt("existencias"));
         this.setPrecio(oResultSet.getFloat("precio"));
-        this.setIva_compra(oResultSet.getInt("iva_compra"));
-        this.setIva_venta(oResultSet.getInt("iva_venta"));
+        this.setIva(oResultSet.getInt("iva"));
         this.setFoto(oResultSet.getString("foto"));
         if (expand > 0) {
             TipoProductoDao oTipoProductoDao = new TipoProductoDao(oConnection, "tipoproducto");
@@ -137,8 +126,7 @@ public class ProductoBean extends GenericBeanImplementation implements BeanInter
         strColumns += "descripcion,";
         strColumns += "existencias,";
         strColumns += "precio,";
-        strColumns += "iva_compra,";
-        strColumns += "iva_venta,";
+        strColumns += "iva,";
         strColumns += "foto,";
         strColumns += "id_tipoproducto";
         return strColumns;
@@ -152,8 +140,7 @@ public class ProductoBean extends GenericBeanImplementation implements BeanInter
         strColumns += EncodingHelper.quotate(descripcion) + ",";
         strColumns += existencias + ",";
         strColumns += precio + ",";
-        strColumns += iva_compra + ",";
-        strColumns += iva_venta + ",";
+        strColumns += iva + ",";
         strColumns += EncodingHelper.quotate(foto) + ",";
         strColumns += id_tipoproducto;
         return strColumns;
@@ -167,8 +154,7 @@ public class ProductoBean extends GenericBeanImplementation implements BeanInter
         strPairs += "descripcion=" + EncodingHelper.quotate(descripcion) + ",";
         strPairs += "existencias=" + existencias + ",";
         strPairs += "precio=" + precio + ",";
-        strPairs += "iva_compra=" + iva_compra + ",";
-        strPairs += "iva_venta=" + iva_venta + ",";
+        strPairs += "iva=" + iva + ",";
         strPairs += "foto=" + EncodingHelper.quotate(foto) + ",";
         strPairs += "id_tipoproducto=" + id_tipoproducto;
         strPairs += " WHERE id = " + id;

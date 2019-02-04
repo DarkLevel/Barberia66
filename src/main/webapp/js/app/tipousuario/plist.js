@@ -2,7 +2,7 @@
 
 'use strict';
 
-moduleTipousuario.controller('tiporegistroPlistController',  ['$scope', '$http', '$location', 'toolService', '$routeParams', '$anchorScroll',
+moduleTipousuario.controller('tipousuarioPlistController',  ['$scope', '$http', '$location', 'toolService', '$routeParams', '$anchorScroll',
     function ($scope, $http, $location, toolService, $routeParams, $anchorScroll) {
         $anchorScroll();
         

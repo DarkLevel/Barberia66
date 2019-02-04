@@ -1,8 +1,8 @@
-/* global moduleTipousuario */
+/* global moduleProducto */
 
 'use strict';
 
-moduleTipousuario.controller('tipousuarioRemoveController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll',
+moduleProducto.controller('productoRemoveController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll',
     function ($scope, $http, toolService, $routeParams, $anchorScroll) {
         $anchorScroll();
         
@@ -18,7 +18,7 @@ moduleTipousuario.controller('tipousuarioRemoveController', ['$scope', '$http', 
 
         $http({
             method: 'GET',
-            url: 'http://localhost:8081/barberia66/barberia66?ob=tipousuario&op=get&id=' + $scope.id
+            url: 'http://localhost:8081/barberia66/barberia66?ob=producto&op=get&id=' + $scope.id
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxData = response.data.message;
@@ -34,7 +34,7 @@ moduleTipousuario.controller('tipousuarioRemoveController', ['$scope', '$http', 
         $scope.borrar = function () {
             $http({
                 method: 'GET',
-                url: 'http://localhost:8081/barberia66/barberia66?ob=tipousuario&op=remove&id=' + $scope.id
+                url: 'http://localhost:8081/barberia66/barberia66?ob=producto&op=remove&id=' + $scope.id
             }).then(function (response) {
                 $scope.status = response.status;
                 $scope.ajaxData = response.data.message;

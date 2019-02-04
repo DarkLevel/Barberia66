@@ -9,8 +9,28 @@
                     <td class="align-middle">{{ajaxData.id}}</td>
                 </tr>
                 <tr>
+                    <th>Nombre</th>
+                    <td class="align-middle">{{ajaxData.nombre}}</td>
+                </tr>
+                <tr>
                     <th>Descripción</th>
                     <td class="align-middle">{{ajaxData.descripcion}}</td>
+                </tr>
+                <tr>
+                    <th>Precio</th>
+                    <td class="align-middle">{{ajaxData.precio}}</td>
+                </tr>
+                <tr>
+                    <th>Existencias</th>
+                    <td class="align-middle">{{ajaxData.existencias}}</td>
+                </tr>
+                <tr>
+                    <th>Iva</th>
+                    <td class="align-middle">{{ajaxData.iva}}</td>
+                </tr>
+                <tr>
+                    <th>Tipo de producto</th>
+                    <td class="align-middle"><a class="enlace" href="tipoproducto/view/{{ajaxData.obj_tipoproducto.id}}">{{ajaxData.obj_tipoproducto.descripcion}}</a></td>
                 </tr>
             </table>
         </div>
