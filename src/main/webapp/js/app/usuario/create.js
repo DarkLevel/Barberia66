@@ -9,6 +9,24 @@ moduleUsuario.controller('usuarioCreateController', ['$scope', '$http', 'toolSer
         $scope.formulario = true;
         $scope.botones = true;
         $scope.correcto = false;
+        
+        $http({
+            method: 'GET',
+            url: 'http://localhost:8081/barberia66/barberia66?ob=tipousuario&op=getpage&rpp=10000&page=1&order=descripcion,asc'
+        }).then(function (response) {
+            $scope.ajaxDataTipoUsuario = response.data.message;
+            var listatipousuarios = [];
+            $scope.ajaxDataTipoUsuario.forEach(element => {
+                var tipousuarios = {
+                    obj_tipousuario: element
+                };
+                listatipousuarios.push(tipousuarios);
+            });
+            $scope.tipousuario = listatipousuarios[0].obj_tipousuario.id;
+        }, function (response) {
+            $scope.status = response.status;
+            $scope.ajaxDataTipoUsuario = response.data.message || 'Request failed';
+        });
 
         $scope.volver = function () {
             window.history.back();
@@ -16,7 +34,14 @@ moduleUsuario.controller('usuarioCreateController', ['$scope', '$http', 'toolSer
 
         $scope.crear = function () {
             var json = {
-                descripcion: $scope.descripcion
+                dni: $scope.dni,
+                nombre: $scope.nombre,
+                apellido1: $scope.apellido1,
+                apellido2: $scope.apellido2,
+                username: $scope.username,
+                password: $scope.password,
+                fecha_alta: $scope.fecha_alta,
+                id_tipousuario: $scope.tipousuario
             };
             $http({
                 method: 'GET',

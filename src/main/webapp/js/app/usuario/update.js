@@ -5,7 +5,7 @@
 moduleUsuario.controller('usuarioUpdateController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll',
     function ($scope, $http, toolService, $routeParams, $anchorScroll) {
         $anchorScroll();
-        
+
         $scope.formulario = true;
         $scope.botones = true;
         $scope.correcto = false;
@@ -16,10 +16,34 @@ moduleUsuario.controller('usuarioUpdateController', ['$scope', '$http', 'toolSer
         }).then(function (response) {
             $scope.status = response.status;
             $scope.id = response.data.message.id;
-            $scope.descripcion = response.data.message.descripcion;
+            $scope.dni = response.data.message.dni;
+            $scope.nombre = response.data.message.nombre;
+            $scope.apellido1 = response.data.message.apellido1;
+            $scope.apellido2 = response.data.message.apellido2;
+            $scope.username = response.data.message.username;
+            $scope.fecha_alta = response.data.message.fecha_alta;
+            $scope.obj_tipousuario = response.data.message.obj_tipousuario;
         }, function (response) {
             $scope.status = response.status;
             $scope.ajaxData = response.data.message || 'Request failed';
+        }).then(function () {
+            $http({
+                method: 'GET',
+                url: 'http://localhost:8081/barberia66/barberia66?ob=tipousuario&op=getpage&rpp=10000&page=1&order=descripcion,asc'
+            }).then(function (response) {
+                $scope.ajaxDataTipoUsuario = response.data.message;
+                var listatipousuarios = [];
+                $scope.ajaxDataTipoUsuario.forEach(element => {
+                    var tipousuarios = {
+                        obj_tipousuario: element
+                    };
+                    listatipousuarios.push(tipousuarios);
+                });
+                $scope.tipousuario = $scope.obj_tipousuario.id;
+            }, function (response) {
+                $scope.status = response.status;
+                $scope.ajaxDataTipoUsuario = response.data.message || 'Request failed';
+            });
         });
 
         $scope.volver = function () {
@@ -29,7 +53,13 @@ moduleUsuario.controller('usuarioUpdateController', ['$scope', '$http', 'toolSer
         $scope.editar = function () {
             var json = {
                 id: $scope.id,
-                descripcion: $scope.descripcion
+                dni: $scope.dni,
+                nombre: $scope.nombre,
+                apellido1: $scope.apellido1,
+                apellido2: $scope.apellido2,
+                username: $scope.username,
+                fecha_alta: $scope.fecha_alta,
+                id_tipousuario: $scope.tipousuario
             };
             $http({
                 method: 'GET',

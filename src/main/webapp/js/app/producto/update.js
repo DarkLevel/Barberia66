@@ -19,30 +19,31 @@ moduleProducto.controller('productoUpdateController', ['$scope', '$http', 'toolS
             $scope.nombre = response.data.message.nombre;
             $scope.descripcion = response.data.message.descripcion;
             $scope.existencias = response.data.message.existencias;
-            $scope.precio = response.data.message.precio;
+            $scope.precio = reemplazar(response.data.message.precio);
             $scope.iva = response.data.message.iva;
             $scope.foto = response.data.message.foto;
+            $scope.obj_tipoproducto = response.data.message.obj_tipoproducto;
         }, function (response) {
             $scope.status = response.status;
             $scope.ajaxData = response.data.message || 'Request failed';
-        });
-        
-        $http({
-            method: 'GET',
-            url: 'http://localhost:8081/barberia66/barberia66?ob=tipoproducto&op=getpage&rpp=10000&page=1&order=descripcion,asc'
-        }).then(function (response) {
-            $scope.ajaxDataTipoProducto = response.data.message;
-            var listatipoproductos = [];
-            $scope.ajaxDataTipoProducto.forEach(element => {
-                var tipoproductos = {
-                    obj_tipoproducto: element
-                };
-                listatipoproductos.push(tipoproductos);
+        }).then(function () {
+            $http({
+                method: 'GET',
+                url: 'http://localhost:8081/barberia66/barberia66?ob=tipoproducto&op=getpage&rpp=10000&page=1&order=descripcion,asc'
+            }).then(function (response) {
+                $scope.ajaxDataTipoProducto = response.data.message;
+                var listatipoproductos = [];
+                $scope.ajaxDataTipoProducto.forEach(element => {
+                    var tipoproductos = {
+                        obj_tipoproducto: element
+                    };
+                    listatipoproductos.push(tipoproductos);
+                });
+                $scope.tipoproducto = $scope.obj_tipoproducto.id;
+            }, function (response) {
+                $scope.status = response.status;
+                $scope.ajaxDataTipoProducto = response.data.message || 'Request failed';
             });
-            $scope.tipoproducto = listatipoproductos[0].obj_tipoproducto.id;
-        }, function (response) {
-            $scope.status = response.status;
-            $scope.ajaxDataTipoProducto = response.data.message || 'Request failed';
         });
 
         $scope.volver = function () {

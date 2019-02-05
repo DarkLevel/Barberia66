@@ -45,7 +45,7 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
     @Expose(deserialize = false)
     private TipoUsuarioBean obj_tipousuario;
     @Expose
-    private int link_factura;
+    private int link_registro;
     @Expose
     private int link_cita;
 
@@ -121,12 +121,12 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
         this.obj_tipousuario = obj_tipousuario;
     }
 
-    public int getLink_factura() {
-        return link_factura;
+    public int getLink_registro() {
+        return link_registro;
     }
 
-    public void setLink_factura(int link_factura) {
-        this.link_factura = link_factura;
+    public void setLink_registro(int link_registro) {
+        this.link_registro = link_registro;
     }
 
     public int getLink_cita() {
@@ -148,7 +148,7 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
         this.setFecha_alta(fechaAlta);
         this.setUsername(oResultSet.getString("username"));
         this.setPassword(oResultSet.getString("password"));
-        this.setLink_factura((new RegistroDao(oConnection, "registro")).getcountX(oResultSet.getInt("id")));
+        this.setLink_registro((new RegistroDao(oConnection, "registro")).getcountX(oResultSet.getInt("id")));
         this.setLink_cita((new CitaDao(oConnection, "cita")).getcountX(oResultSet.getInt("id")));
         if (expand > 0) {
             TipoUsuarioDao otipoUsuarioDao = new TipoUsuarioDao(oConnection, "tipousuario");
@@ -169,7 +169,6 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
         strColumns += "apellido2,";
         strColumns += "fecha_alta,";
         strColumns += "username,";
-        strColumns += "password,";
         strColumns += "id_tipousuario";
         return strColumns;
     }
@@ -193,7 +192,6 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
         strColumns += EncodingHelper.quotate(apellido2) + ",";
         strColumns += EncodingHelper.quotate(localDateTime.toString()) + ",";
         strColumns += EncodingHelper.quotate(username) + ",";
-        strColumns += EncodingHelper.quotate(password) + ",";
         strColumns += id_tipousuario;
         return strColumns;
     }
