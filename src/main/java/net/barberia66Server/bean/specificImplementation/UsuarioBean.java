@@ -169,6 +169,7 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
         strColumns += "apellido2,";
         strColumns += "fecha_alta,";
         strColumns += "username,";
+        strColumns += "password,";
         strColumns += "id_tipousuario";
         return strColumns;
     }
@@ -192,6 +193,7 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
         strColumns += EncodingHelper.quotate(apellido2) + ",";
         strColumns += EncodingHelper.quotate(localDateTime.toString()) + ",";
         strColumns += EncodingHelper.quotate(username) + ",";
+        strColumns += EncodingHelper.quotate(password) + ",";
         strColumns += id_tipousuario;
         return strColumns;
     }
@@ -213,7 +215,7 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
         strPairs += "nombre=" + EncodingHelper.quotate(nombre) + ",";
         strPairs += "apellido1=" + EncodingHelper.quotate(apellido1) + ",";
         strPairs += "apellido2=" + EncodingHelper.quotate(apellido2) + ",";
-        strPairs += EncodingHelper.quotate(localDateTime.toString()) + ",";
+        strPairs += "fecha_alta=" + EncodingHelper.quotate(localDateTime.toString()) + ",";
         strPairs += "username=" + EncodingHelper.quotate(username) + ",";
         strPairs += "id_tipousuario=" + id_tipousuario;
         strPairs += " WHERE id = " + id;

@@ -46,9 +46,9 @@
                         Formato de contraseña inválido.
                     </p>
                 </div>
-                <div class="mt-4 form-group" ng-class="{'has-error': form.fecha_alta.$invalid && !form.fecha_alta.$pristine}">
+                <div class="mt-4 form-group">
                     <label>Fecha de alta:</label><br>
-                    <md-datepicker name="fecha_alta" ng-model="fecha_alta" md-placeholder="Introduce fecha" required></md-datepicker>
+                    <md-datepicker name="fecha_alta" ng-model="fecha_alta" md-max-date="actualDate" md-placeholder="dd-mm-aaaa" required></md-datepicker>
                 </div>
                 <div class="mt-4 form-group">
                     <label>Tipo de usuario:</label>
