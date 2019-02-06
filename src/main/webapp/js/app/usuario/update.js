@@ -9,6 +9,8 @@ moduleUsuario.controller('usuarioUpdateController', ['$scope', '$http', 'toolSer
         $scope.formulario = true;
         $scope.botones = true;
         $scope.correcto = false;
+        $scope.fecha_alta = new Date();
+        $scope.actualDate = new Date($scope.fecha_alta.getFullYear(), $scope.fecha_alta.getMonth(), $scope.fecha_alta.getDate());
 
         $http({
             method: 'GET',
