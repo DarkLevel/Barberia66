@@ -5,8 +5,18 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto" ng-show="c.logged">
-            <li class="nav-item" ng-class="{'active': c.isActive('/operaciones')}">
-                <a class="nav-link" href="operaciones"><i class="fas fa-clipboard-list"></i> Operaciones</a>
+            <li class="nav-item" ng-class="{'active': c.isActive('/operaciones')}" ng-show="c.isAdmin || c.isBoss">
+                <a class="nav-link" href="operaciones"><i class="fas fa-clipboard-list"></i> Operaciones de gestión</a>
+            </li>
+            <li class="nav-item" ng-class="{'active': c.isActive('/comercio')}">
+                <div class="nav-link dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-box"></i> Comercio<span class="caret"></span></a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="comercio/venta">Venta</a>
+                        <a class="dropdown-item" href="comercio/compra">Compra</a>
+                        <a class="dropdown-item" href="comercio/uso">Uso</a>
+                    </div>
+                </div>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">

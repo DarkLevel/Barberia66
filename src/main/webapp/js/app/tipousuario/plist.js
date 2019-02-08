@@ -51,7 +51,7 @@ moduleTipousuario.controller('tipousuarioPlistController',  ['$scope', '$http', 
 
         $http({
             method: 'GET',
-            url: 'http://localhost:8081/barberia66/barberia66?ob=tiporegistro&op=getcount'
+            url: 'http://localhost:8081/barberia66/barberia66?ob=tipousuario&op=getcount'
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataNumber = response.data.message;
@@ -72,7 +72,7 @@ moduleTipousuario.controller('tipousuarioPlistController',  ['$scope', '$http', 
 
         $http({
             method: 'GET',
-            url: 'http://localhost:8081/barberia66/barberia66?ob=tiporegistro&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
+            url: 'http://localhost:8081/barberia66/barberia66?ob=tipousuario&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxData = response.data.message;

@@ -111,10 +111,7 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
         }
         
         function reemplazar(precio){
-            var precioString = precio.toString();
-            var precioCambiado = precioString.replace(".", ",");
-            
-            return precioCambiado;
+            return precio.toString().replace(".", ",");
         }
 
         $scope.atras = function () {

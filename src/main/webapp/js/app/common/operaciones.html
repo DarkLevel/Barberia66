@@ -2,47 +2,37 @@
 <div class="container-fluid margin-top">
     <div class="row">
         <div class="col-md-10 d-flex justify-content-center flex-wrap align-items-center m-2 p-2 mx-auto">
-            <div class="hola text-center m-2 p-2">
-                <div>
-                    <a href="cita/calendario">Citas</a>
-                </div>
-            </div>
-            <div class="hola text-center m-2 p-2">
+            <div class="hola text-center m-2 p-2" ng-show="isBoss || isAdmin">
                 <div>
                     <a href="estadocita/plist">Estados de cita</a>
                 </div>
             </div>
-            <div class="hola text-center m-2 p-2">
+            <div class="hola text-center m-2 p-2" ng-show="isBoss || isAdmin">
                 <div>
                     <a href="producto/plist">Productos</a>
                 </div>
             </div>
-            <div class="hola text-center m-2 p-2">
-                <div>
-                    <a href="registro/calendario">Registros de producto</a>
-                </div>
-            </div>
-            <div class="hola text-center m-2 p-2">
+            <div class="hola text-center m-2 p-2" ng-show="isBoss || isAdmin">
                 <div>
                     <a href="tipocita/plist">Tipos de cita</a>
                 </div>
             </div>
-            <div class="hola text-center m-2 p-2">
+            <div class="hola text-center m-2 p-2" ng-show="isBoss || isAdmin">
                 <div>
                     <a href="tipoproducto/plist">Tipos de producto</a>
                 </div>
             </div>
-            <div class="hola text-center m-2 p-2">
+            <div class="hola text-center m-2 p-2" ng-show="isAdmin">
                 <div>
                     <a href="tiporegistro/plist">Tipos de registro</a>
                 </div>
             </div>
-            <div class="hola text-center m-2 p-2">
+            <div class="hola text-center m-2 p-2" ng-show="isAdmin">
                 <div>
                     <a href="tipousuario/plist">Tipos de usuario</a>
                 </div>
             </div>
-            <div class="hola text-center m-2 p-2">
+            <div class="hola text-center m-2 p-2" ng-show="isBoss || isAdmin">
                 <div>
                     <a href="usuario/plist">Usuarios</a>
                 </div>

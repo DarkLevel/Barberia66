@@ -6,6 +6,7 @@ var barberia66 = angular.module('MyApp', [
     'ngRoute',
     'ngMaterial',
     'services',
+    'comercioControllers',
     'components',
     'commonControllers',
     'citaControllers',
@@ -43,6 +44,7 @@ var barberia66 = angular.module('MyApp', [
 });
 
 var moduleService = angular.module('services', []);
+var moduleComercio = angular.module('comercioControllers', []);
 var moduleComponent = angular.module('components', []);
 var moduleCommon = angular.module('commonControllers', []);
 var moduleCita = angular.module('citaControllers', []);
