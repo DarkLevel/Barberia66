@@ -32,13 +32,6 @@ moduleProducto.controller('productoUpdateController', ['$scope', '$http', 'toolS
                 url: 'http://localhost:8081/barberia66/barberia66?ob=tipoproducto&op=getpage&rpp=10000&page=1&order=descripcion,asc'
             }).then(function (response) {
                 $scope.ajaxDataTipoProducto = response.data.message;
-                var listatipoproductos = [];
-                $scope.ajaxDataTipoProducto.forEach(element => {
-                    var tipoproductos = {
-                        obj_tipoproducto: element
-                    };
-                    listatipoproductos.push(tipoproductos);
-                });
                 $scope.tipoproducto = $scope.obj_tipoproducto.id;
             }, function (response) {
                 $scope.status = response.status;
@@ -72,7 +65,7 @@ moduleProducto.controller('productoUpdateController', ['$scope', '$http', 'toolS
                 nombre: $scope.nombre,
                 descripcion: $scope.descripcion,
                 existencias: $scope.existencias,
-                precio: $scope.precio,
+                precio: ($scope.precio).replace(",", "."),
                 iva: $scope.iva,
                 foto: foto,
                 id_tipoproducto: $scope.tipoproducto
@@ -98,10 +91,7 @@ moduleProducto.controller('productoUpdateController', ['$scope', '$http', 'toolS
         $scope.isActive = toolService.isActive;
 
         function reemplazar(precio) {
-            var precioString = precio.toString();
-            var precioCambiado = precioString.replace(".", ",");
-
-            return precioCambiado;
+            return precio.toString().replace(".", ",");
         }
 
         function uploadPhoto(name) {

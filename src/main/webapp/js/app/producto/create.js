@@ -16,14 +16,7 @@ moduleProducto.controller('productoCreateController', ['$scope', '$http', 'toolS
             url: 'http://localhost:8081/barberia66/barberia66?ob=tipoproducto&op=getpage&rpp=10000&page=1&order=descripcion,asc'
         }).then(function (response) {
             $scope.ajaxDataTipoProducto = response.data.message;
-            var listatipoproductos = [];
-            $scope.ajaxDataTipoProducto.forEach(element => {
-                var tipoproductos = {
-                    obj_tipoproducto: element
-                };
-                listatipoproductos.push(tipoproductos);
-            });
-            $scope.tipoproducto = listatipoproductos[0].obj_tipoproducto.id;
+            $scope.tipoproducto = $scope.ajaxDataTipoProducto[0].id;
         }, function (response) {
             $scope.status = response.status;
             $scope.ajaxDataTipoProducto = response.data.message || 'Request failed';
@@ -44,7 +37,7 @@ moduleProducto.controller('productoCreateController', ['$scope', '$http', 'toolS
             var json = {
                 nombre: $scope.nombre,
                 descripcion: $scope.descripcion,
-                precio: $scope.precio,
+                precio: ($scope.precio).replace(",", "."),
                 existencias: $scope.existencias,
                 iva: $scope.iva,
                 foto: $scope.foto,
