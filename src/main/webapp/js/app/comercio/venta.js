@@ -92,12 +92,31 @@ moduleComercio.controller('comercioVentaController', ['$scope', 'toolService', '
                 $mdDialog.cancel();
             };
             $scope.answer = function () {
+                var productos = [];
+                for (var i = 0; i < $scope.productosSeleccionados.length; i++) {
+                    var producto = {
+                        id: $scope.productosSeleccionados[i].producto.id,
+                        cantidad: $scope.productosSeleccionados[i].cantidad
+                    };
+                    productos.push(producto);
+                }
                 $http({
                     method: 'GET',
-                    url: 'http://localhost:8081/barberia66/barberia66?ob=comercio'
+                    url: 'http://localhost:8081/barberia66/barberia66?ob=comercio&op=venta&id=' + $scope.usuario,
+                    params: {productos: angular.toJson(productos)}
                 }).then(function (response) {
-                    if(response.data.status !== 200){
-                        
+                    if (response.data.status === 200) {
+                        for (var i = 0; i < response.data.message.length; i++) {
+                            response.data.message[i].precio = reemplazar(response.data.message[i].precio);
+                        }
+                        $scope.productos = [];
+                        response.data.message.forEach(element => {
+                            var producto = {
+                                producto: element,
+                                cantidad: 0
+                            };
+                            $scope.productos.push(producto);
+                        });
                     }
                 }, function (response) {
                     $scope.status = response.status;

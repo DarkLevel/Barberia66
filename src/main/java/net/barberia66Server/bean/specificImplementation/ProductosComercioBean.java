@@ -13,7 +13,7 @@ import net.barberia66Server.bean.publicInterface.BeanInterface;
  *
  * @author a073597589g
  */
-public class CarritoBean extends GenericBeanImplementation implements BeanInterface {
+public class ProductosComercioBean extends GenericBeanImplementation implements BeanInterface {
     
     @Expose
     private int cantidad;

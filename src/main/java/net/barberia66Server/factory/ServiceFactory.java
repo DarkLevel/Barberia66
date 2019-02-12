@@ -7,7 +7,7 @@ package net.barberia66Server.factory;
 
 import javax.servlet.http.HttpServletRequest;
 import net.barberia66Server.bean.specificImplementation.ReplyBean;
-import net.barberia66Server.service.specificImplementation.CarritoService;
+import net.barberia66Server.service.specificImplementation.ComercioService;
 import net.barberia66Server.service.specificImplementation.CitaService;
 import net.barberia66Server.service.specificImplementation.EstadoCitaService;
 import net.barberia66Server.service.specificImplementation.LineaService;
@@ -31,26 +31,17 @@ public class ServiceFactory {
         ReplyBean oReplyBean;
 
         switch (ob) {
-            case "carrito":
-                CarritoService oCarritoService = new CarritoService(oRequest);
+            case "comercio":
+                ComercioService oComercioService = new ComercioService(oRequest);
                 switch (op) {
-                    case "add":
-                        oReplyBean = oCarritoService.add();
+                    case "venta":
+                        oReplyBean = oComercioService.venta();
                         break;
-                    case "reduce":
-                        oReplyBean = oCarritoService.reduce();
+                    case "compra":
+                        oReplyBean = oComercioService.compra();
                         break;
-                    case "remove":
-                        oReplyBean = oCarritoService.remove();
-                        break;
-                    case "empty":
-                        oReplyBean = oCarritoService.empty();
-                        break;
-                    case "show":
-                        oReplyBean = oCarritoService.show();
-                        break;
-                    case "buy":
-                        oReplyBean = oCarritoService.buy();
+                    case "uso":
+                        oReplyBean = oComercioService.uso();
                         break;
                     default:
                         oReplyBean = new ReplyBean(500, "Operation doesn't exist");

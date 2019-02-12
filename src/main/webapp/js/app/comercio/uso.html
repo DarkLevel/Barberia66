@@ -1,6 +1,42 @@
 <mainheader-component></mainheader-component>
 <div class="container-fluid margin-top">
     <div class="row">
-        <p>Uso</p>
+        <div class="col-12">
+            <h1 class="text-center">Uso de productos</h1>
+        </div>
+    </div>
+    <div class="card mt-5" ng-repeat="producto in productos">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <img ng-src="http://localhost:8081/imagenes/{{producto.producto.foto}}" class="w-75" alt="foto_producto.png">
+            </div>
+            <div class="col-md-8 px-3">
+                <div class="card-block px-3">
+                    <h4 class="card-title">{{producto.producto.nombre}}</h4>
+                    <p class="card-text">{{producto.producto.descripcion}}</p>
+                    <p class="card-text">{{producto.producto.existencias}} restantes</p>
+                    <p class="card-text">{{producto.producto.precio}} &#8364;</p>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-primary" ng-click="substract(producto)"><i class="fas fa-minus"></i></button>
+                        </div>
+                        <input type="text" class="form-control" ng-model="producto.cantidad" disabled>
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-primary" ng-click="add(producto)"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                    <p class="card-text" ng-show="producto.producto.existencias === 0 && producto.cantidad !== 0">Máximo de productos</p>
+                    <p class="card-text" ng-show="producto.producto.existencias === 0 && producto.cantidad === 0">No hay existencias de este producto</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-12 text-center">
+            <button type="button" class="btn btn-primary" ng-click="usar($event)">Vender</button>
+        </div>
+        <div class="col-12 text-center mt-3" ng-show="alertaproductos">
+            <span>No has seleccionado ningún producto</span>
+        </div>
     </div>
 </div>

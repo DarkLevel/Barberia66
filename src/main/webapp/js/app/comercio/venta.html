@@ -25,7 +25,8 @@
                             <button type="button" class="btn btn-primary" ng-click="add(producto)"><i class="fas fa-plus"></i></button>
                         </div>
                     </div>
-                    <p class="card-text" ng-show="producto.producto.existencias === 0">Has llegado al límite de existencias</p>
+                    <p class="card-text" ng-show="producto.producto.existencias === 0 && producto.cantidad !== 0">Máximo de productos</p>
+                    <p class="card-text" ng-show="producto.producto.existencias === 0 && producto.cantidad === 0">No hay existencias de este producto</p>
                 </div>
             </div>
         </div>
