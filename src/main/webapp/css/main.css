@@ -24,11 +24,6 @@ body{
     margin-top: 100px;
 }
 
-.red-text{
-    color: red;
-    font-size: 75%;
-}
-
 .dropdown-menu {
     width: 300px !important;
 }
@@ -36,4 +31,102 @@ body{
 .hola{
     border: solid 1px black;
     width: 31%;
+}
+
+.card{
+    border-radius: 0em !important;
+}
+
+.input-group-prepend button{
+    border-radius: 0px !important;
+}
+
+.input-group-append button{
+    border-radius: 0px !important;
+}
+
+.form-control:disabled{
+    color: black !important;
+    background-color: white !important;
+    border: 1px solid #007bff;
+}
+
+.red-text{
+    color: red;
+}
+
+.fuente-titulo{
+    font-size: 6vw;
+}
+
+.fuente-parrafo{
+    font-size: 3.5vw;
+}
+
+.fuente-error{
+    font-size: 3.5vw;
+}
+
+.imagen{
+    width: 75%;
+}
+
+@media (min-width: 576px) {
+    .fuente-titulo{
+        font-size: 4vw;
+    }
+    .fuente-parrafo{
+        font-size: 2vw;
+    }
+    .fuente-error{
+        font-size: 1.75vw;
+    }
+    .imagen{
+        width: 75%;
+    }
+}
+
+@media (min-width: 768px) {
+    .fuente-titulo{
+        font-size: 3.25vw;
+    }
+    .fuente-parrafo{
+        font-size: 1.75vw;
+    }
+    .fuente-error{
+        font-size: 1.5vw;
+    }
+    .imagen{
+        width: 75%;
+    }
+}
+
+@media (min-width: 992px) {
+    .fuente-titulo{
+        font-size: 3vw;
+    }
+    .fuente-parrafo{
+        font-size: 1.5vw;
+    }
+    .fuente-error{
+        font-size: 1.25vw;
+    }
+    .imagen{
+        width: 75%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .fuente-titulo{
+        font-size: 3vw;
+    }
+    .fuente-parrafo{
+        font-size: 1.5vw;
+    }
+    .fuente-error{
+        font-size: 1.25vw;
+    }
+    .imagen{
+        width: 75%;
+    }
 }
