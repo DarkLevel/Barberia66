@@ -2,8 +2,9 @@
 
 'use strict';
 
-moduleComercio.controller('comercioVentaController', ['$scope', 'toolService', '$http', '$mdDialog',
-    function ($scope, toolService, $http, $mdDialog) {
+moduleComercio.controller('comercioVentaController', ['$scope', 'toolService', '$http', '$mdDialog', '$anchorScroll',
+    function ($scope, toolService, $http, $mdDialog, $anchorScroll) {
+        $anchorScroll();
 
         $scope.alertaproductos = false;
 
@@ -33,11 +34,13 @@ moduleComercio.controller('comercioVentaController', ['$scope', 'toolService', '
         }).then(function (response) {
             $scope.usuarios = [];
             response.data.message.forEach(element => {
-                var usuario = {
-                    id: element.id,
-                    nombre_completo: element.nombre + ' ' + element.apellido1 + ' ' + element.apellido2
-                };
-                $scope.usuarios.push(usuario);
+                if (element.obj_tipousuario.id > 1){
+                    var usuario = {
+                        id: element.id,
+                        nombre_completo: element.nombre + ' ' + element.apellido1 + ' ' + element.apellido2
+                    };
+                    $scope.usuarios.push(usuario);
+                }
             });
         }, function (response) {
             $scope.status = response.status;
@@ -68,6 +71,7 @@ moduleComercio.controller('comercioVentaController', ['$scope', 'toolService', '
             if ($scope.productosSeleccionados.length === 0) {
                 $scope.alertaproductos = true;
             } else {
+                $anchorScroll();
                 $scope.alertaproductos = false;
                 $scope.usuario = $scope.usuarios[0].id;
                 $mdDialog.show({

@@ -5,10 +5,10 @@
             <h1 class="text-center">Venta de productos</h1>
         </div>
     </div>
-    <div class="card mx-auto mt-5 col-12 col-md-10" ng-repeat="producto in productos">
+    <div class="card mx-auto mt-5 col-12 col-sm-10 col-xl-8" ng-repeat="producto in productos">
         <div class="row">
             <div class="my-4 my-md-2 col-md-4 text-center d-flex align-items-center justify-content-center">
-                <img ng-src="http://localhost:8081/imagenes/{{producto.producto.foto}}" class="imagen" alt="foto_producto.png">
+                <img ng-src="http://localhost:8081/imagenesbarberia/{{producto.producto.foto}}" class="imagen" alt="foto_producto.png">
             </div>
             <div class="col-md-8 px-3">
                 <div class="card-block px-3 w-100 h-100 d-flex flex-wrap">
@@ -27,7 +27,7 @@
                     </div>
                     <div class="row mx-auto w-100 align-self-end">
                         <div class="col-5 col-md-6 my-auto text-right">
-                            <h5 class="card-text fuente-parrafo">{{producto.producto.existencias}} u. restantes</h5>
+                            <p class="card-text fuente-parrafo">{{producto.producto.existencias}} u. restantes</p>
                         </div>
                         <div class="col-7 col-md-6 my-auto">
                             <div class="input-group">

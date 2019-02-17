@@ -36,7 +36,7 @@ public class ProductoService extends GenericServiceImplementation implements Ser
                 for (FileItem item : multiparts) {
                     if (!item.isFormField()) {
                         String name = new File(item.getName()).getName();
-                        item.write(new File(".//..//webapps//ROOT//imagenes//" + name));
+                        item.write(new File(".//..//webapps//ROOT//imagenesbarberia//" + name));
                     } else {
                         hash.put(item.getFieldName(), item.getString());
                     }

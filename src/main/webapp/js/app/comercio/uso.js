@@ -33,11 +33,13 @@ moduleComercio.controller('comercioUsoController', ['$scope', 'toolService', '$h
         }).then(function (response) {
             $scope.usuarios = [];
             response.data.message.forEach(element => {
-                var usuario = {
-                    id: element.id,
-                    nombre_completo: element.nombre + ' ' + element.apellido1 + ' ' + element.apellido2
-                };
-                $scope.usuarios.push(usuario);
+                if (element.obj_tipousuario.id > 1) {
+                    var usuario = {
+                        id: element.id,
+                        nombre_completo: element.nombre + ' ' + element.apellido1 + ' ' + element.apellido2
+                    };
+                    $scope.usuarios.push(usuario);
+                }
             });
         }, function (response) {
             $scope.status = response.status;

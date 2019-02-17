@@ -2,39 +2,74 @@
 <div class="container-fluid margin-top">
     <div class="row">
         <div class="col-md-10 d-flex justify-content-center flex-wrap align-items-center m-2 p-2 mx-auto">
-            <div class="hola text-center m-2 p-2" ng-show="isBoss || isAdmin">
-                <div>
-                    <a href="estadocita/plist">Estados de cita</a>
+            <div class="operacion text-center m-2 pointer" ng-click="enlace('estadocita')" ng-show="isBoss || isAdmin">
+                <div class="d-flex align-items-center">
+                    <div class="ml-2 ml-md-5">
+                        <img class="icono-operacion" ng-src="http://localhost:8081/imagenesbarberia/icon/calendar-check-solid.svg" alt="foto_estado_cita.png">
+                    </div>
+                    <div class="mx-auto">
+                        <h3>Estados de cita</h3>
+                    </div>
                 </div>
             </div>
-            <div class="hola text-center m-2 p-2" ng-show="isBoss || isAdmin">
-                <div>
-                    <a href="producto/plist">Productos</a>
+            <div class="operacion text-center m-2 pointer" ng-click="enlace('producto')" ng-show="isBoss || isAdmin">
+                <div class="d-flex align-items-center">
+                    <div class="ml-2 ml-md-5">
+                        <img class="icono-operacion" ng-src="http://localhost:8081/imagenesbarberia/icon/box-solid.svg" alt="foto_producto.png">
+                    </div>
+                    <div class="mx-auto">
+                        <h3>Productos</h3>
+                    </div>
                 </div>
             </div>
-            <div class="hola text-center m-2 p-2" ng-show="isBoss || isAdmin">
-                <div>
-                    <a href="tipocita/plist">Tipos de cita</a>
+            <div class="operacion text-center m-2 pointer" ng-click="enlace('tipocita')" ng-show="isBoss || isAdmin">
+                <div class="d-flex align-items-center">
+                    <div class="ml-2 ml-md-5">
+                        <img class="icono-operacion" ng-src="http://localhost:8081/imagenesbarberia/icon/edit-solid.svg" alt="foto_tipo_cita.png">
+                    </div>
+                    <div class="mx-auto">
+                        <h3>Tipos de cita</h3>
+                    </div>
                 </div>
             </div>
-            <div class="hola text-center m-2 p-2" ng-show="isBoss || isAdmin">
-                <div>
-                    <a href="tipoproducto/plist">Tipos de producto</a>
+            <div class="operacion text-center m-2 pointer" ng-click="enlace('tipoproducto')" ng-show="isBoss || isAdmin">
+                <div class="d-flex align-items-center">
+                    <div class="ml-2 ml-md-5">
+                        <img class="icono-operacion" ng-src="http://localhost:8081/imagenesbarberia/icon/box-open-solid.svg" alt="foto_tipo_producto.png">
+                    </div>
+                    <div class="mx-auto">
+                        <h3>Tipos de producto</h3>
+                    </div>
                 </div>
             </div>
-            <div class="hola text-center m-2 p-2" ng-show="isAdmin">
-                <div>
-                    <a href="tiporegistro/plist">Tipos de registro</a>
+            <div class="operacion text-center m-2 pointer" ng-click="enlace('tiporegistro')" ng-show="isAdmin">
+                <div class="d-flex align-items-center">
+                    <div class="ml-2 ml-md-5">
+                        <img class="icono-operacion" ng-src="http://localhost:8081/imagenesbarberia/icon/file-invoice-solid.svg" alt="foto_tipo_registro.png">
+                    </div>
+                    <div class="mx-auto">
+                        <h3>Tipos de registro</h3>
+                    </div>
                 </div>
             </div>
-            <div class="hola text-center m-2 p-2" ng-show="isAdmin">
-                <div>
-                    <a href="tipousuario/plist">Tipos de usuario</a>
+            <div class="operacion text-center m-2 pointer" ng-click="enlace('tipousuario')" ng-show="isAdmin">
+                <div class="d-flex align-items-center">
+                    <div class="ml-2 ml-md-5">
+                        <img class="icono-operacion" ng-src="http://localhost:8081/imagenesbarberia/icon/user-edit-solid.svg" alt="foto_tipo_usuario.png">
+                    </div>
+                    <div class="mx-auto">
+                        <h3>Tipos de usuario</h3>
+                    </div>
                 </div>
             </div>
-            <div class="hola text-center m-2 p-2" ng-show="isBoss || isAdmin">
-                <div>
-                    <a href="usuario/plist">Usuarios</a>
+            <div class="operacion text-center m-2 pointer" ng-click="enlace('usuario')" ng-show="isBoss || isAdmin">
+                <div class="d-flex align-items-center">
+                    <div class="ml-2 ml-md-5">
+                        <img class="icono-operacion" ng-src="http://localhost:8081/imagenesbarberia/icon/user-solid.svg" alt="foto_usuario.png">
+                    </div>
+                    <div class="mx-auto">
+                        <h3>Usuarios</h3>
+                    </div>
                 </div>
             </div>
         </div>
