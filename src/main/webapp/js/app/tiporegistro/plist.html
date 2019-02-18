@@ -1,105 +1,109 @@
 <mainheader-component></mainheader-component>
-<div class="container-fluid margin-top">
-    <div class="row">
-        <div class="col-8 border-bottom text-center mx-auto">
-            <h2><i class="fas fa-user-tag"></i> Tipos de registro</h2>
-            <button type="button" class="btn btn-outline-primary mb-2" ng-click="crear()">Crear</button>
-            <button type="button" class="btn btn-outline-danger mb-2" ng-click="atras()">Volver atrás</button>
+<main role="main" class="container margin-top">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-8 border-bottom text-center mx-auto">
+                <h2><i class="fas fa-user-tag"></i> Tipos de registro</h2>
+                <button type="button" class="btn btn-outline-primary mb-2" ng-click="crear()">Crear</button>
+                <button type="button" class="btn btn-outline-danger mb-2" ng-click="atras()">Volver atrás</button>
+            </div>
         </div>
-    </div>
 
-    <div class="row mt-3" ng-show="registros">
-        <div class="col-12">
-            <h5 class="text-center">Selecciona Registros: </h5>
+        <div class="row mt-3" ng-show="registros">
+            <div class="col-12">
+                <h5 class="text-center">Selecciona Registros: </h5>
+            </div>
+            <div class="col-12">
+                <select class="form-control mx-auto col-6 col-lg-4" ng-change="update()" ng-model="rpp">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+            <div class="col-12 text-center mt-2">
+                <button type="button" class="btn btn-outline-primary" ng-click="resetOrder()">Resetear Orden</button>
+            </div>
         </div>
-        <div class="col-12">
-            <select class="form-control mx-auto col-6 col-lg-4" ng-change="update()" ng-model="rpp">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-            </select>
+
+        <div class="row mt-5 mx-auto">
+            <div class="col-12 text-center table-responsive" ng-show="registros">
+                <table class="table table-striped">
+                    <tr>
+                        <th>
+                            <p>ID</p>
+                            <div class="btn-group">
+                                <button type="button" class="btn" ng-click="ordenar('id', 'asc')">
+                                    <i class="fas fa-long-arrow-alt-up"></i>
+                                </button>
+                                <button type="button" class="btn" ng-click="ordenar('id', 'desc')">
+                                    <i class="fas fa-long-arrow-alt-down"></i>
+                                </button>
+                            </div>
+                        </th>
+                        <th>
+                            <p>Descripción</p>
+                            <div class="btn-group">
+                                <button type="button" class="btn" ng-click="ordenar('descripcion', 'asc')">
+                                    <i class="fas fa-long-arrow-alt-up"></i>
+                                </button>
+                                <button type="button" class="btn" ng-click="ordenar('descripcion', 'desc')">
+                                    <i class="fas fa-long-arrow-alt-down"></i>
+                                </button>
+                            </div>
+                        </th>
+                        <th>Operaciones</th>
+                    </tr>
+                    <tr ng-repeat="fila in ajaxData">
+                        <td class="align-middle">{{fila.id}}</td>
+                        <td class="align-middle">{{fila.descripcion}}</td>
+                        <td class="align-middle">
+                            <div class="btn-group">
+                                <a role="button" class="btn btn-outline-primary fas fa-eye" href="tiporegistro/view/{{fila.id}}"></a>
+                                <a role="button" class="btn btn-outline-primary fas fa-edit" href="tiporegistro/update/{{fila.id}}"></a>
+                                <a role="button" class="btn btn-outline-primary fas fa-trash-alt" href="tiporegistro/remove/{{fila.id}}"></a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <div class="col-12 text-center mt-2">
-            <button type="button" class="btn btn-outline-primary" ng-click="resetOrder()">Resetear Orden</button>
+
+        <div class="row mt-5" ng-show="registros">
+            <nav aria-label="paginacion" class="mx-auto">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" ng-class="{'disabled':(page == 1)}">
+                        <a class="page-link" href="tiporegistro/plist/{{rpp}}/1/{{orderURLCliente}}"><span>&laquo;</span></a>
+                    </li>
+                    <li class="page-item" ng-class="{'disabled':(page == 1)}">
+                        <a class="page-link" href="tiporegistro/plist/{{rpp}}/{{page - 1}}/{{orderURLCliente}}"><span>&lsaquo;</span></a>
+                    </li>
+                    <li class="page-item" ng-class="{'disabled':(page == 1)}">
+                        <a class="page-link" href="tiporegistro/plist/{{rpp}}/1/{{orderURLCliente}}">1</a>
+                    </li>
+
+                    <li class="page-item" ng-class="{'active':(p == page), 'disabled':(p === '...')}" ng-repeat="p in list track by $index">
+                        <a class="page-link" href="tiporegistro/plist/{{rpp}}/{{p}}/{{orderURLCliente}}">{{p}}</a>
+                    </li>
+
+                    <li class="page-item" ng-class="{'disabled':(page == totalPages), 'ng-hide':(totalPages == 1)}">
+                        <a class="page-link" href="tiporegistro/plist/{{rpp}}/{{totalPages}}/{{orderURLCliente}}">{{totalPages}}</a>
+                    </li>
+                    <li class="page-item" ng-class="{'disabled':(page == totalPages)}">
+                        <a class="page-link" href="tiporegistro/plist/{{rpp}}/{{page--1}}/{{orderURLCliente}}"><span>&rsaquo;</span></a>
+                    </li>
+                    <li class="page-item" ng-class="{'disabled':(page == totalPages)}">
+                        <a class="page-link" href="tiporegistro/plist/{{rpp}}/{{totalPages}}/{{orderURLCliente}}"><span>&raquo;</span></a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-    </div>
 
-    <div class="row text-center mx-auto mt-5 table-responsive" ng-show="registros">
-        <table class="table table-striped">
-            <tr>
-                <th>
-                    <p>ID</p>
-                    <div class="btn-group">
-                        <button type="button" class="btn" ng-click="ordenar('id', 'asc')">
-                            <i class="fas fa-long-arrow-alt-up"></i>
-                        </button>
-                        <button type="button" class="btn" ng-click="ordenar('id', 'desc')">
-                            <i class="fas fa-long-arrow-alt-down"></i>
-                        </button>
-                    </div>
-                </th>
-                <th>
-                    <p>Descripción</p>
-                    <div class="btn-group">
-                        <button type="button" class="btn" ng-click="ordenar('descripcion', 'asc')">
-                            <i class="fas fa-long-arrow-alt-up"></i>
-                        </button>
-                        <button type="button" class="btn" ng-click="ordenar('descripcion', 'desc')">
-                            <i class="fas fa-long-arrow-alt-down"></i>
-                        </button>
-                    </div>
-                </th>
-                <th>Operaciones</th>
-            </tr>
-            <tr ng-repeat="fila in ajaxData">
-                <td class="align-middle">{{fila.id}}</td>
-                <td class="align-middle">{{fila.descripcion}}</td>
-                <td>
-                    <div class="btn-group">
-                        <a role="button" class="btn btn-outline-primary fas fa-eye" href="tiporegistro/view/{{fila.id}}"></a>
-                        <a role="button" class="btn btn-outline-primary fas fa-edit" href="tiporegistro/update/{{fila.id}}"></a>
-                        <a role="button" class="btn btn-outline-primary fas fa-trash-alt" href="tiporegistro/remove/{{fila.id}}"></a>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="row mt-5" ng-show="registros">
-        <nav aria-label="paginacion" class="mx-auto">
-            <ul class="pagination justify-content-center">
-                <li class="page-item" ng-class="{'disabled':(page == 1)}">
-                    <a class="page-link" href="tiporegistro/plist/{{rpp}}/1/{{orderURLCliente}}"><span>&laquo;</span></a>
-                </li>
-                <li class="page-item" ng-class="{'disabled':(page == 1)}">
-                    <a class="page-link" href="tiporegistro/plist/{{rpp}}/{{page - 1}}/{{orderURLCliente}}"><span>&lsaquo;</span></a>
-                </li>
-                <li class="page-item" ng-class="{'disabled':(page == 1)}">
-                    <a class="page-link" href="tiporegistro/plist/{{rpp}}/1/{{orderURLCliente}}">1</a>
-                </li>
-
-                <li class="page-item" ng-class="{'active':(p == page), 'disabled':(p === '...')}" ng-repeat="p in list track by $index">
-                    <a class="page-link" href="tiporegistro/plist/{{rpp}}/{{p}}/{{orderURLCliente}}">{{p}}</a>
-                </li>
-
-                <li class="page-item" ng-class="{'disabled':(page == totalPages), 'ng-hide':(totalPages == 1)}">
-                    <a class="page-link" href="tiporegistro/plist/{{rpp}}/{{totalPages}}/{{orderURLCliente}}">{{totalPages}}</a>
-                </li>
-                <li class="page-item" ng-class="{'disabled':(page == totalPages)}">
-                    <a class="page-link" href="tiporegistro/plist/{{rpp}}/{{page--1}}/{{orderURLCliente}}"><span>&rsaquo;</span></a>
-                </li>
-                <li class="page-item" ng-class="{'disabled':(page == totalPages)}">
-                    <a class="page-link" href="tiporegistro/plist/{{rpp}}/{{totalPages}}/{{orderURLCliente}}"><span>&raquo;</span></a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-
-    <div class="row" ng-show="alerta">
-        <div class="mx-auto mt-4 alert alert-warning text-center" role="alert">
-            No existen tipos de registro
+        <div class="row" ng-show="alerta">
+            <div class="mx-auto mt-4 alert alert-warning text-center" role="alert">
+                No existen tipos de registro
+            </div>
         </div>
-    </div>
 
-</div>
+    </div>
+</main>

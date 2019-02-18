@@ -2,8 +2,9 @@
 
 'use strict';
 
-moduleComercio.controller('comercioUsoController', ['$scope', 'toolService', '$http', '$mdDialog',
-    function ($scope, toolService, $http, $mdDialog) {
+moduleComercio.controller('comercioUsoController', ['$scope', 'toolService', '$http', '$mdDialog', '$anchorScroll',
+    function ($scope, toolService, $http, $mdDialog, $anchorScroll) {
+        $anchorScroll();
 
         $scope.alertaproductos = false;
 

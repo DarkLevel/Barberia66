@@ -1,8 +1,12 @@
 <mainheader-component></mainheader-component>
 <div class="container-fluid margin-top">
-    <h1 class="text-center"><i class="fas fa-user-tag"></i> Ver tipo usuario {{ajaxData.id}}</h1>
-    <form>
-        <div class="row form-group text-center mx-auto mt-5 table-responsive">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center"><i class="fas fa-user-tag"></i> Ver tipo de registro {{ajaxData.id}}</h1>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-12 col-md-10 col-lg-8 text-center mx-auto table-responsive">
             <table class="table table-striped text-center">
                 <tr>
                     <th>ID</th>
@@ -14,8 +18,8 @@
                 </tr>
             </table>
         </div>
-        <div class="text-center mt-5">
-            <button type="button" class="btn btn-danger" ng-click="volver()">Volver atrás</button>
-        </div>
-    </form>
+    </div>
+    <div class="text-center mt-5">
+        <button type="button" class="btn btn-danger" ng-click="volver()">Volver atrás</button>
+    </div>
 </div>

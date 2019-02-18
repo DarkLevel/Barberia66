@@ -1,10 +1,13 @@
 <mainheader-component></mainheader-component>
 <div class="container-fluid margin-top">
-    <h1 class="text-center"><i class="fas fa-user-tag"></i> Editar tipo de registro {{id}}</h1>
-    <div class="fluid-container">
-        <div class="row">
-            <ng-form name="form" ng-show="formulario" class="col-10 col-lg-8 mx-auto">
-                <div class="mt-4 form-group">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center"><i class="fas fa-user-tag"></i> Editar usuario {{id}}</h1>
+        </div>
+    </div>
+        <div class="row mt-5">
+            <ng-form name="form" ng-show="formulario" class="col-10 col-md-6 col-lg-5 col-xl-4 mx-auto">
+                <div class="form-group">
                     <label>ID:</label>
                     <input type="text" class="form-control" ng-model="id" disabled>
                 </div>
@@ -17,21 +20,21 @@
                 </div>
                 <div class="mt-4 form-group" ng-class="{'has-error': form.nombre.$invalid}">
                     <label>Nombre:</label>
-                    <input type="text" name="nombre" class="form-control" ng-model="nombre" ng-maxlength="50" ng-pattern="/^([A-Z]|[a-z])[a-z]*$/" required>
+                    <input type="text" name="nombre" class="form-control" ng-model="nombre" ng-maxlength="50" ng-pattern="/^(.+)$/" required>
                     <p ng-show="form.nombre.$invalid && !form.nombre.$pristine" class="help-block red-text">
                         Formato de nombre inválido.
                     </p>
                 </div>
                 <div class="mt-4 form-group" ng-class="{'has-error': form.apellido1.$invalid}">
                     <label>Primer apellido:</label>
-                    <input type="text" name="apellido1" class="form-control" ng-model="apellido1" ng-pattern="/^([A-Z]|[a-z])[a-z]*$/" required>
+                    <input type="text" name="apellido1" class="form-control" ng-model="apellido1" ng-pattern="/^(.+)$/" required>
                     <p ng-show="form.apellido1.$invalid && !form.apellido1.$pristine" class="help-block red-text">
                         Formato de apellido inválido.
                     </p>
                 </div>
                 <div class="mt-4 form-group" ng-class="{'has-error': form.apellido2.$invalid}">
                     <label>Segundo apellido:</label>
-                    <input type="text" name="apellido2" class="form-control" ng-model="apellido2" ng-pattern="/^([A-Z]|[a-z])[a-z]*$/" required>
+                    <input type="text" name="apellido2" class="form-control" ng-model="apellido2" ng-pattern="/^(.+)$/" required>
                     <p ng-show="form.apellido2.$invalid && !form.apellido2.$pristine" class="help-block red-text">
                         Formato de apellido inválido.
                     </p>
@@ -62,6 +65,5 @@
                 Tipo de registro editado correctamente
                 <button type="button" class="btn btn-primary mx-2" ng-click="volver()">Volver atrás</button>
             </div>
-        </div>
     </div>
 </div>

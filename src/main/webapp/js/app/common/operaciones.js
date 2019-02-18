@@ -2,8 +2,10 @@
 
 'use strict';
 
-moduleCommon.controller('operacionesController', ['$scope', 'toolService', 'sessionService', '$location',
-    function ($scope, toolService, oSessionService, $location) {
+moduleCommon.controller('operacionesController', ['$scope', 'toolService', 'sessionService', '$location', '$anchorScroll',
+    function ($scope, toolService, oSessionService, $location, $anchorScroll) {
+        $anchorScroll();
+        
         $scope.isAdmin = oSessionService.isAdmin();
         $scope.isBoss = oSessionService.isBoss();
         $scope.isActive = toolService.isActive;

@@ -1,178 +1,180 @@
 <mainheader-component></mainheader-component>
-<div class="container-fluid margin-top">
-    <div class="row">
-        <div class="col-8 border-bottom text-center mx-auto">
-            <h2><i class="fas fa-users"></i> Usuarios</h2>
-            <button type="button" class="btn btn-outline-primary mb-2" ng-click="crear()">Crear</button>
-            <button type="button" class="btn btn-outline-danger mb-2" ng-click="atras()">Volver atrás</button>
+<main role="main" class="container margin-top">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-8 border-bottom text-center mx-auto">
+                <h2><i class="fas fa-users"></i> Usuarios</h2>
+                <button type="button" class="btn btn-outline-primary mb-2" ng-click="crear()">Crear</button>
+                <button type="button" class="btn btn-outline-danger mb-2" ng-click="atras()">Volver atrás</button>
+            </div>
+        </div>
+
+        <div class="row mt-3" ng-show="registros">
+            <div class="col-12">
+                <h5 class="text-center">Selecciona Registros: </h5>
+            </div>
+            <div class="col-12">
+                <select class="form-control mx-auto col-6 col-lg-4" ng-change="update()" ng-model="rpp">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+            <div class="col-12 text-center mt-2">
+                <button type="button" class="btn btn-outline-primary" ng-click="resetOrder()">Resetear Orden</button>
+            </div>
+        </div>
+
+        <div class="row mt-5 mx-auto">
+            <div class="col-12 text-center table-responsive" ng-show="registros">
+                <table class="table table-striped">
+                    <tr>
+                        <th>
+                            <p>ID</p>
+                            <div class="btn-group">
+                                <button type="button" class="btn" ng-click="ordenar('id', 'asc')">
+                                    <i class="fas fa-long-arrow-alt-up"></i>
+                                </button>
+                                <button type="button" class="btn" ng-click="ordenar('id', 'desc')">
+                                    <i class="fas fa-long-arrow-alt-down"></i>
+                                </button>
+                            </div>
+                        </th>
+                        <th>
+                            <p>Dni</p>
+                            <div class="btn-group">
+                                <button type="button" class="btn" ng-click="ordenar('dni', 'asc')">
+                                    <i class="fas fa-long-arrow-alt-up"></i>
+                                </button>
+                                <button type="button" class="btn" ng-click="ordenar('dni', 'desc')">
+                                    <i class="fas fa-long-arrow-alt-down"></i>
+                                </button>
+                            </div>
+                        </th>
+                        <th>
+                            <p>Nombre</p>
+                            <div class="btn-group">
+                                <button type="button" class="btn" ng-click="ordenar('nombre', 'asc')">
+                                    <i class="fas fa-long-arrow-alt-up"></i>
+                                </button>
+                                <button type="button" class="btn" ng-click="ordenar('nombre', 'desc')">
+                                    <i class="fas fa-long-arrow-alt-down"></i>
+                                </button>
+                            </div>
+                        </th>
+                        <th>
+                            <p>Primer apellido</p>
+                            <div class="btn-group">
+                                <button type="button" class="btn" ng-click="ordenar('apellido1', 'asc')">
+                                    <i class="fas fa-long-arrow-alt-up"></i>
+                                </button>
+                                <button type="button" class="btn" ng-click="ordenar('apellido1', 'desc')">
+                                    <i class="fas fa-long-arrow-alt-down"></i>
+                                </button>
+                            </div>
+                        </th>
+                        <th>
+                            <p>Segundo apellido</p>
+                            <div class="btn-group">
+                                <button type="button" class="btn" ng-click="ordenar('apellido2', 'asc')">
+                                    <i class="fas fa-long-arrow-alt-up"></i>
+                                </button>
+                                <button type="button" class="btn" ng-click="ordenar('apellido2', 'desc')">
+                                    <i class="fas fa-long-arrow-alt-down"></i>
+                                </button>
+                            </div>
+                        </th>
+                        <th>
+                            <p>Fecha de alta</p>
+                            <div class="btn-group">
+                                <button type="button" class="btn" ng-click="ordenar('fecha_alta', 'asc')">
+                                    <i class="fas fa-long-arrow-alt-up"></i>
+                                </button>
+                                <button type="button" class="btn" ng-click="ordenar('fecha_alta', 'desc')">
+                                    <i class="fas fa-long-arrow-alt-down"></i>
+                                </button>
+                            </div>
+                        </th>
+                        <th>
+                            <p>Nombre de usuario</p>
+                            <div class="btn-group">
+                                <button type="button" class="btn" ng-click="ordenar('username', 'asc')">
+                                    <i class="fas fa-long-arrow-alt-up"></i>
+                                </button>
+                                <button type="button" class="btn" ng-click="ordenar('username', 'desc')">
+                                    <i class="fas fa-long-arrow-alt-down"></i>
+                                </button>
+                            </div>
+                        </th>
+                        <th>
+                            <p>Tipo de usuario</p>
+                            <div class="btn-group">
+                                <button type="button" class="btn" ng-click="ordenar('id_tipousuario', 'asc')">
+                                    <i class="fas fa-long-arrow-alt-up"></i>
+                                </button>
+                                <button type="button" class="btn" ng-click="ordenar('id_tipousuario', 'desc')">
+                                    <i class="fas fa-long-arrow-alt-down"></i>
+                                </button>
+                            </div>
+                        </th>
+                        <th>Operaciones</th>
+                    </tr>
+                    <tr ng-repeat="fila in ajaxData">
+                        <td class="align-middle">{{fila.id}}</td>
+                        <td class="align-middle">{{fila.dni}}</td>
+                        <td class="align-middle">{{fila.nombre}}</td>
+                        <td class="align-middle">{{fila.apellido1}}</td>
+                        <td class="align-middle">{{fila.apellido2}}</td>
+                        <td class="align-middle">{{fila.fecha_alta}}</td>
+                        <td class="align-middle">{{fila.username}}</td>
+                        <td class="align-middle"><a class="enlace" href="tipousuario/view/{{fila.obj_tipousuario.id}}">{{fila.obj_tipousuario.descripcion}}</a></td>
+                        <td class="align-middle">
+                            <div class="btn-group">
+                                <a role="button" class="btn btn-outline-primary fas fa-eye" href="usuario/view/{{fila.id}}"></a>
+                                <a role="button" class="btn btn-outline-primary fas fa-edit" href="usuario/update/{{fila.id}}"></a>
+                                <a role="button" class="btn btn-outline-primary fas fa-trash-alt" href="usuario/remove/{{fila.id}}"></a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="row mt-5" ng-show="registros">
+            <nav aria-label="paginacion" class="mx-auto">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" ng-class="{'disabled':(page == 1)}">
+                        <a class="page-link" href="usuario/plist/{{rpp}}/1/{{orderURLCliente}}"><span>&laquo;</span></a>
+                    </li>
+                    <li class="page-item" ng-class="{'disabled':(page == 1)}">
+                        <a class="page-link" href="usuario/plist/{{rpp}}/{{page - 1}}/{{orderURLCliente}}"><span>&lsaquo;</span></a>
+                    </li>
+                    <li class="page-item" ng-class="{'disabled':(page == 1)}">
+                        <a class="page-link" href="usuario/plist/{{rpp}}/1/{{orderURLCliente}}">1</a>
+                    </li>
+
+                    <li class="page-item" ng-class="{'active':(p == page), 'disabled':(p === '...')}" ng-repeat="p in list track by $index">
+                        <a class="page-link" href="usuario/plist/{{rpp}}/{{p}}/{{orderURLCliente}}">{{p}}</a>
+                    </li>
+
+                    <li class="page-item" ng-class="{'disabled':(page == totalPages), 'ng-hide':(totalPages == 1)}">
+                        <a class="page-link" href="usuario/plist/{{rpp}}/{{totalPages}}/{{orderURLCliente}}">{{totalPages}}</a>
+                    </li>
+                    <li class="page-item" ng-class="{'disabled':(page == totalPages)}">
+                        <a class="page-link" href="usuario/plist/{{rpp}}/{{page--1}}/{{orderURLCliente}}"><span>&rsaquo;</span></a>
+                    </li>
+                    <li class="page-item" ng-class="{'disabled':(page == totalPages)}">
+                        <a class="page-link" href="usuario/plist/{{rpp}}/{{totalPages}}/{{orderURLCliente}}"><span>&raquo;</span></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="row" ng-show="alerta">
+            <div class="mx-auto mt-4 alert alert-warning text-center" role="alert">
+                No existen usuarios
+            </div>
         </div>
     </div>
-
-    <div class="row mt-3" ng-show="registros">
-        <div class="col-12">
-            <h5 class="text-center">Selecciona Registros: </h5>
-        </div>
-        <div class="col-12">
-            <select class="form-control mx-auto col-6 col-lg-4" ng-change="update()" ng-model="rpp">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-            </select>
-        </div>
-        <div class="col-12 text-center mt-2">
-            <button type="button" class="btn btn-outline-primary" ng-click="resetOrder()">Resetear Orden</button>
-        </div>
-    </div>
-
-    <div class="row mt-5">
-        <div class="col-12 table-responsive" ng-show="registros">
-            <table class="table table-striped text-center">
-                <tr>
-                    <th>
-                        <p>ID</p>
-                        <div class="btn-group">
-                            <button type="button" class="btn" ng-click="ordenar('id', 'asc')">
-                                <i class="fas fa-long-arrow-alt-up"></i>
-                            </button>
-                            <button type="button" class="btn" ng-click="ordenar('id', 'desc')">
-                                <i class="fas fa-long-arrow-alt-down"></i>
-                            </button>
-                        </div>
-                    </th>
-                    <th>
-                        <p>Dni</p>
-                        <div class="btn-group">
-                            <button type="button" class="btn" ng-click="ordenar('dni', 'asc')">
-                                <i class="fas fa-long-arrow-alt-up"></i>
-                            </button>
-                            <button type="button" class="btn" ng-click="ordenar('dni', 'desc')">
-                                <i class="fas fa-long-arrow-alt-down"></i>
-                            </button>
-                        </div>
-                    </th>
-                    <th>
-                        <p>Nombre</p>
-                        <div class="btn-group">
-                            <button type="button" class="btn" ng-click="ordenar('nombre', 'asc')">
-                                <i class="fas fa-long-arrow-alt-up"></i>
-                            </button>
-                            <button type="button" class="btn" ng-click="ordenar('nombre', 'desc')">
-                                <i class="fas fa-long-arrow-alt-down"></i>
-                            </button>
-                        </div>
-                    </th>
-                    <th>
-                        <p>Primer apellido</p>
-                        <div class="btn-group">
-                            <button type="button" class="btn" ng-click="ordenar('apellido1', 'asc')">
-                                <i class="fas fa-long-arrow-alt-up"></i>
-                            </button>
-                            <button type="button" class="btn" ng-click="ordenar('apellido1', 'desc')">
-                                <i class="fas fa-long-arrow-alt-down"></i>
-                            </button>
-                        </div>
-                    </th>
-                    <th>
-                        <p>Segundo apellido</p>
-                        <div class="btn-group">
-                            <button type="button" class="btn" ng-click="ordenar('apellido2', 'asc')">
-                                <i class="fas fa-long-arrow-alt-up"></i>
-                            </button>
-                            <button type="button" class="btn" ng-click="ordenar('apellido2', 'desc')">
-                                <i class="fas fa-long-arrow-alt-down"></i>
-                            </button>
-                        </div>
-                    </th>
-                    <th>
-                        <p>Fecha de alta</p>
-                        <div class="btn-group">
-                            <button type="button" class="btn" ng-click="ordenar('fecha_alta', 'asc')">
-                                <i class="fas fa-long-arrow-alt-up"></i>
-                            </button>
-                            <button type="button" class="btn" ng-click="ordenar('fecha_alta', 'desc')">
-                                <i class="fas fa-long-arrow-alt-down"></i>
-                            </button>
-                        </div>
-                    </th>
-                    <th>
-                        <p>Nombre de usuario</p>
-                        <div class="btn-group">
-                            <button type="button" class="btn" ng-click="ordenar('username', 'asc')">
-                                <i class="fas fa-long-arrow-alt-up"></i>
-                            </button>
-                            <button type="button" class="btn" ng-click="ordenar('username', 'desc')">
-                                <i class="fas fa-long-arrow-alt-down"></i>
-                            </button>
-                        </div>
-                    </th>
-                    <th>
-                        <p>Tipo de usuario</p>
-                        <div class="btn-group">
-                            <button type="button" class="btn" ng-click="ordenar('id_tipousuario', 'asc')">
-                                <i class="fas fa-long-arrow-alt-up"></i>
-                            </button>
-                            <button type="button" class="btn" ng-click="ordenar('id_tipousuario', 'desc')">
-                                <i class="fas fa-long-arrow-alt-down"></i>
-                            </button>
-                        </div>
-                    </th>
-                    <th>Operaciones</th>
-                </tr>
-                <tr ng-repeat="fila in ajaxData">
-                    <td class="align-middle">{{fila.id}}</td>
-                    <td class="align-middle">{{fila.dni}}</td>
-                    <td class="align-middle">{{fila.nombre}}</td>
-                    <td class="align-middle">{{fila.apellido1}}</td>
-                    <td class="align-middle">{{fila.apellido2}}</td>
-                    <td class="align-middle">{{fila.fecha_alta}}</td>
-                    <td class="align-middle">{{fila.username}}</td>
-                    <td class="align-middle"><a class="enlace" href="tipousuario/view/{{fila.obj_tipousuario.id}}">{{fila.obj_tipousuario.descripcion}}</a></td>
-                    <td>
-                        <div class="btn-group">
-                            <a role="button" class="btn btn-outline-primary fas fa-eye" href="usuario/view/{{fila.id}}"></a>
-                            <a role="button" class="btn btn-outline-primary fas fa-edit" href="usuario/update/{{fila.id}}"></a>
-                            <a role="button" class="btn btn-outline-primary fas fa-trash-alt" href="usuario/remove/{{fila.id}}"></a>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-
-    <div class="row mt-5" ng-show="registros">
-        <nav aria-label="paginacion" class="mx-auto">
-            <ul class="pagination justify-content-center">
-                <li class="page-item" ng-class="{'disabled':(page == 1)}">
-                    <a class="page-link" href="usuario/plist/{{rpp}}/1/{{orderURLCliente}}"><span>&laquo;</span></a>
-                </li>
-                <li class="page-item" ng-class="{'disabled':(page == 1)}">
-                    <a class="page-link" href="usuario/plist/{{rpp}}/{{page - 1}}/{{orderURLCliente}}"><span>&lsaquo;</span></a>
-                </li>
-                <li class="page-item" ng-class="{'disabled':(page == 1)}">
-                    <a class="page-link" href="usuario/plist/{{rpp}}/1/{{orderURLCliente}}">1</a>
-                </li>
-
-                <li class="page-item" ng-class="{'active':(p == page), 'disabled':(p === '...')}" ng-repeat="p in list track by $index">
-                    <a class="page-link" href="usuario/plist/{{rpp}}/{{p}}/{{orderURLCliente}}">{{p}}</a>
-                </li>
-
-                <li class="page-item" ng-class="{'disabled':(page == totalPages), 'ng-hide':(totalPages == 1)}">
-                    <a class="page-link" href="usuario/plist/{{rpp}}/{{totalPages}}/{{orderURLCliente}}">{{totalPages}}</a>
-                </li>
-                <li class="page-item" ng-class="{'disabled':(page == totalPages)}">
-                    <a class="page-link" href="usuario/plist/{{rpp}}/{{page--1}}/{{orderURLCliente}}"><span>&rsaquo;</span></a>
-                </li>
-                <li class="page-item" ng-class="{'disabled':(page == totalPages)}">
-                    <a class="page-link" href="usuario/plist/{{rpp}}/{{totalPages}}/{{orderURLCliente}}"><span>&raquo;</span></a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-
-    <div class="row" ng-show="alerta">
-        <div class="mx-auto mt-4 alert alert-warning text-center" role="alert">
-            No existen usuarios
-        </div>
-    </div>
-</div>
+</main>
