@@ -71,6 +71,7 @@ moduleComercio.controller('comercioUsoController', ['$scope', 'toolService', '$h
             if ($scope.productosSeleccionados.length === 0) {
                 $scope.alertaproductos = true;
             } else {
+                $anchorScroll();
                 $scope.alertaproductos = false;
                 $scope.usuario = $scope.usuarios[0].id;
                 $mdDialog.show({
