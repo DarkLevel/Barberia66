@@ -2,8 +2,8 @@
 
 'use strict';
 
-moduleEstadocita.controller('estadocitaViewController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll',
-    function ($scope, $http, toolService, $routeParams, $anchorScroll) {
+moduleEstadocita.controller('estadocitaViewController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll', '$location',
+    function ($scope, $http, toolService, $routeParams, $anchorScroll, $location) {
         $anchorScroll();
         
         if (!$routeParams.id) {
@@ -24,7 +24,7 @@ moduleEstadocita.controller('estadocitaViewController', ['$scope', '$http', 'too
         });
 
         $scope.volver = function () {
-            window.history.back();
+            $location.url('estadocita/plist');
         };
 
         $scope.isActive = toolService.isActive;

@@ -2,8 +2,8 @@
 
 'use strict';
 
-moduleTipocita.controller('tipocitaCreateController', ['$scope', '$http', 'toolService', '$anchorScroll',
-    function ($scope, $http, toolService, $anchorScroll) {
+moduleTipocita.controller('tipocitaCreateController', ['$scope', '$http', 'toolService', '$anchorScroll', '$location',
+    function ($scope, $http, toolService, $anchorScroll, $location) {
         $anchorScroll();
 
         $scope.formulario = true;
@@ -11,7 +11,7 @@ moduleTipocita.controller('tipocitaCreateController', ['$scope', '$http', 'toolS
         $scope.correcto = false;
 
         $scope.volver = function () {
-            window.history.back();
+            $location.url('tipocita/plist');
         };
 
         $scope.crear = function () {

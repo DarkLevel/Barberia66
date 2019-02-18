@@ -2,8 +2,8 @@
 
 'use strict';
 
-moduleUsuario.controller('usuarioRemoveController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll',
-    function ($scope, $http, toolService, $routeParams, $anchorScroll) {
+moduleUsuario.controller('usuarioRemoveController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll', '$location',
+    function ($scope, $http, toolService, $routeParams, $anchorScroll, $location) {
         $anchorScroll();
         
         $scope.botones = true;
@@ -29,7 +29,7 @@ moduleUsuario.controller('usuarioRemoveController', ['$scope', '$http', 'toolSer
         });
 
         $scope.volver = function () {
-            window.history.back();
+            $location.url('usuario/plist');
         };
 
         $scope.borrar = function () {

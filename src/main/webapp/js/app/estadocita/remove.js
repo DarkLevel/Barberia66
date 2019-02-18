@@ -2,8 +2,8 @@
 
 'use strict';
 
-moduleEstadocita.controller('estadocitaRemoveController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll',
-    function ($scope, $http, toolService, $routeParams, $anchorScroll) {
+moduleEstadocita.controller('estadocitaRemoveController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll', '$location',
+    function ($scope, $http, toolService, $routeParams, $anchorScroll, $location) {
         $anchorScroll();
         
         $scope.botones = true;
@@ -28,7 +28,7 @@ moduleEstadocita.controller('estadocitaRemoveController', ['$scope', '$http', 't
         });
 
         $scope.volver = function () {
-            window.history.back();
+            $location.url('estadocita/plist');
         };
 
         $scope.borrar = function () {

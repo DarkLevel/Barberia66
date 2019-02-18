@@ -2,8 +2,8 @@
 
 'use strict';
 
-moduleTipocita.controller('tipocitaRemoveController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll',
-    function ($scope, $http, toolService, $routeParams, $anchorScroll) {
+moduleTipocita.controller('tipocitaRemoveController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll', '$location',
+    function ($scope, $http, toolService, $routeParams, $anchorScroll, $location) {
         $anchorScroll();
         
         $scope.botones = true;
@@ -28,7 +28,7 @@ moduleTipocita.controller('tipocitaRemoveController', ['$scope', '$http', 'toolS
         });
 
         $scope.volver = function () {
-            window.history.back();
+            $location.url('tipocita/plist');
         };
 
         $scope.borrar = function () {

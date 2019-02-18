@@ -2,8 +2,8 @@
 
 'use strict';
 
-moduleTipousuario.controller('tipousuarioViewController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll',
-    function ($scope, $http, toolService, $routeParams, $anchorScroll) {
+moduleTipousuario.controller('tipousuarioViewController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll', '$location',
+    function ($scope, $http, toolService, $routeParams, $anchorScroll, $location) {
         $anchorScroll();
         
         if (!$routeParams.id) {
@@ -24,7 +24,7 @@ moduleTipousuario.controller('tipousuarioViewController', ['$scope', '$http', 't
         });
 
         $scope.volver = function () {
-            window.history.back();
+            $location.url('tipousuario/plist');
         };
 
         $scope.isActive = toolService.isActive;

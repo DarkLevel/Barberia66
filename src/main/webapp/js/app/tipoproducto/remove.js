@@ -2,8 +2,8 @@
 
 'use strict';
 
-moduleTipoproducto.controller('tipoproductoRemoveController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll',
-    function ($scope, $http, toolService, $routeParams, $anchorScroll) {
+moduleTipoproducto.controller('tipoproductoRemoveController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll', '$location',
+    function ($scope, $http, toolService, $routeParams, $anchorScroll, $location) {
         $anchorScroll();
         
         $scope.botones = true;
@@ -28,7 +28,7 @@ moduleTipoproducto.controller('tipoproductoRemoveController', ['$scope', '$http'
         });
 
         $scope.volver = function () {
-            window.history.back();
+            $location.url('tipoproducto/plist');
         };
 
         $scope.borrar = function () {

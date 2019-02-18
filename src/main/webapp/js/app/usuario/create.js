@@ -2,8 +2,8 @@
 
 'use strict';
 
-moduleUsuario.controller('usuarioCreateController', ['$scope', '$http', 'toolService', '$anchorScroll',
-    function ($scope, $http, toolService, $anchorScroll) {
+moduleUsuario.controller('usuarioCreateController', ['$scope', '$http', 'toolService', '$anchorScroll', '$location',
+    function ($scope, $http, toolService, $anchorScroll, $location) {
         $anchorScroll();
 
         $scope.formulario = true;
@@ -31,7 +31,7 @@ moduleUsuario.controller('usuarioCreateController', ['$scope', '$http', 'toolSer
         });
 
         $scope.volver = function () {
-            window.history.back();
+            $location.url('usuario/plist');
         };
 
         $scope.crear = function () {

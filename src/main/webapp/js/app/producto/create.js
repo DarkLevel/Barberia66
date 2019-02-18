@@ -2,8 +2,8 @@
 
 'use strict';
 
-moduleProducto.controller('productoCreateController', ['$scope', '$http', 'toolService', '$anchorScroll',
-    function ($scope, $http, toolService, $anchorScroll) {
+moduleProducto.controller('productoCreateController', ['$scope', '$http', 'toolService', '$anchorScroll', '$location',
+    function ($scope, $http, toolService, $anchorScroll, $location) {
         $anchorScroll();
 
         $scope.formulario = true;
@@ -23,7 +23,7 @@ moduleProducto.controller('productoCreateController', ['$scope', '$http', 'toolS
         });
 
         $scope.volver = function () {
-            window.history.back();
+            $location.url('producto/plist');
         };
 
         $scope.crear = function () {

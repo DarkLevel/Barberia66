@@ -2,8 +2,8 @@
 
 'use strict';
 
-moduleProducto.controller('productoViewController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll',
-    function ($scope, $http, toolService, $routeParams, $anchorScroll) {
+moduleProducto.controller('productoViewController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll', '$location',
+    function ($scope, $http, toolService, $routeParams, $anchorScroll, $location) {
         $anchorScroll();
         
         if (!$routeParams.id) {
@@ -24,7 +24,7 @@ moduleProducto.controller('productoViewController', ['$scope', '$http', 'toolSer
         });
 
         $scope.volver = function () {
-            window.history.back();
+            $location.url('producto/plist');
         };
 
         $scope.isActive = toolService.isActive;

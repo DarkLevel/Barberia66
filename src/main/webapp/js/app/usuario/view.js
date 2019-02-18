@@ -2,8 +2,8 @@
 
 'use strict';
 
-moduleUsuario.controller('usuarioViewController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll',
-    function ($scope, $http, toolService, $routeParams, $anchorScroll) {
+moduleUsuario.controller('usuarioViewController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll', '$location',
+    function ($scope, $http, toolService, $routeParams, $anchorScroll, $location) {
         $anchorScroll();
         
         if (!$routeParams.id) {
@@ -25,7 +25,7 @@ moduleUsuario.controller('usuarioViewController', ['$scope', '$http', 'toolServi
         });
 
         $scope.volver = function () {
-            window.history.back();
+            $location.url('usuario/plist');
         };
         
         function formatDate(fecha) {

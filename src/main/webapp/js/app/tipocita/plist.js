@@ -108,7 +108,7 @@ moduleTipocita.controller('tipocitaPlistController',  ['$scope', '$http', '$loca
         }
         
         $scope.atras = function () {
-            window.history.back();
+            $location.url('operaciones');
         };
 
         $scope.isActive = toolService.isActive;

@@ -2,8 +2,8 @@
 
 'use strict';
 
-moduleProducto.controller('productoRemoveController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll',
-    function ($scope, $http, toolService, $routeParams, $anchorScroll) {
+moduleProducto.controller('productoRemoveController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll', '$location',
+    function ($scope, $http, toolService, $routeParams, $anchorScroll, $location) {
         $anchorScroll();
         
         $scope.botones = true;
@@ -28,7 +28,7 @@ moduleProducto.controller('productoRemoveController', ['$scope', '$http', 'toolS
         });
 
         $scope.volver = function () {
-            window.history.back();
+            $location.url('producto/plist');
         };
 
         $scope.borrar = function () {

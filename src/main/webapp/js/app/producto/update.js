@@ -2,8 +2,8 @@
 
 'use strict';
 
-moduleProducto.controller('productoUpdateController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll',
-    function ($scope, $http, toolService, $routeParams, $anchorScroll) {
+moduleProducto.controller('productoUpdateController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll', '$location',
+    function ($scope, $http, toolService, $routeParams, $anchorScroll, $location) {
         $anchorScroll();
 
         $scope.formulario = true;
@@ -40,7 +40,7 @@ moduleProducto.controller('productoUpdateController', ['$scope', '$http', 'toolS
         });
 
         $scope.volver = function () {
-            window.history.back();
+            $location.url('producto/plist');
         };
 
         $scope.editar = function () {

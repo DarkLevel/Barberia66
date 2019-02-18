@@ -2,8 +2,8 @@
 
 'use strict';
 
-moduleEstadocita.controller('estadocitaCreateController', ['$scope', '$http', 'toolService', '$anchorScroll',
-    function ($scope, $http, toolService, $anchorScroll) {
+moduleEstadocita.controller('estadocitaCreateController', ['$scope', '$http', 'toolService', '$anchorScroll', '$location',
+    function ($scope, $http, toolService, $anchorScroll, $location) {
         $anchorScroll();
 
         $scope.formulario = true;
@@ -11,7 +11,7 @@ moduleEstadocita.controller('estadocitaCreateController', ['$scope', '$http', 't
         $scope.correcto = false;
 
         $scope.volver = function () {
-            window.history.back();
+            $location.url('estadocita/plist');
         };
 
         $scope.crear = function () {

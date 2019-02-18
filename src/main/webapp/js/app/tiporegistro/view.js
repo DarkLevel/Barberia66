@@ -2,8 +2,8 @@
 
 'use strict';
 
-moduleTiporegistro.controller('tiporegistroViewController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll',
-    function ($scope, $http, toolService, $routeParams, $anchorScroll) {
+moduleTiporegistro.controller('tiporegistroViewController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll', '$location',
+    function ($scope, $http, toolService, $routeParams, $anchorScroll, $location) {
         $anchorScroll();
         
         if (!$routeParams.id) {
@@ -24,7 +24,7 @@ moduleTiporegistro.controller('tiporegistroViewController', ['$scope', '$http', 
         });
 
         $scope.volver = function () {
-            window.history.back();
+            $location.url('tiporegistro/plist');
         };
 
         $scope.isActive = toolService.isActive;

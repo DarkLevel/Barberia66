@@ -2,8 +2,8 @@
 
 'use strict';
 
-moduleTiporegistro.controller('tiporegistroRemoveController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll',
-    function ($scope, $http, toolService, $routeParams, $anchorScroll) {
+moduleTiporegistro.controller('tiporegistroRemoveController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll', '$location',
+    function ($scope, $http, toolService, $routeParams, $anchorScroll, $location) {
         $anchorScroll();
         
         $scope.botones = true;
@@ -28,7 +28,7 @@ moduleTiporegistro.controller('tiporegistroRemoveController', ['$scope', '$http'
         });
 
         $scope.volver = function () {
-            window.history.back();
+            $location.url('tiporegistro/plist');
         };
 
         $scope.borrar = function () {

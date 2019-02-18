@@ -2,8 +2,8 @@
 
 'use strict';
 
-moduleTipoproducto.controller('tipoproductoViewController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll',
-    function ($scope, $http, toolService, $routeParams, $anchorScroll) {
+moduleTipoproducto.controller('tipoproductoViewController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll', '$location',
+    function ($scope, $http, toolService, $routeParams, $anchorScroll, $location) {
         $anchorScroll();
         
         if (!$routeParams.id) {
@@ -24,7 +24,7 @@ moduleTipoproducto.controller('tipoproductoViewController', ['$scope', '$http', 
         });
 
         $scope.volver = function () {
-            window.history.back();
+            $location.url('tipoproducto/plist');
         };
 
         $scope.isActive = toolService.isActive;

@@ -2,8 +2,8 @@
 
 'use strict';
 
-moduleTipocita.controller('tipocitaViewController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll',
-    function ($scope, $http, toolService, $routeParams, $anchorScroll) {
+moduleTipocita.controller('tipocitaViewController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll', '$location',
+    function ($scope, $http, toolService, $routeParams, $anchorScroll, $location) {
         $anchorScroll();
         
         if (!$routeParams.id) {
@@ -24,7 +24,7 @@ moduleTipocita.controller('tipocitaViewController', ['$scope', '$http', 'toolSer
         });
 
         $scope.volver = function () {
-            window.history.back();
+            $location.url('tipocita/plist');
         };
 
         $scope.isActive = toolService.isActive;

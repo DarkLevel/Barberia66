@@ -2,8 +2,8 @@
 
 'use strict';
 
-moduleTipousuario.controller('tipousuarioCreateController', ['$scope', '$http', 'toolService', '$anchorScroll',
-    function ($scope, $http, toolService, $anchorScroll) {
+moduleTipousuario.controller('tipousuarioCreateController', ['$scope', '$http', 'toolService', '$anchorScroll', '$location',
+    function ($scope, $http, toolService, $anchorScroll, $location) {
         $anchorScroll();
 
         $scope.formulario = true;
@@ -11,7 +11,7 @@ moduleTipousuario.controller('tipousuarioCreateController', ['$scope', '$http', 
         $scope.correcto = false;
 
         $scope.volver = function () {
-            window.history.back();
+            $location.url('tipousuario/plist');
         };
 
         $scope.crear = function () {

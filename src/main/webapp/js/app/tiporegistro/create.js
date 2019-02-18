@@ -2,8 +2,8 @@
 
 'use strict';
 
-moduleTiporegistro.controller('tiporegistroCreateController', ['$scope', '$http', 'toolService', '$anchorScroll',
-    function ($scope, $http, toolService, $anchorScroll) {
+moduleTiporegistro.controller('tiporegistroCreateController', ['$scope', '$http', 'toolService', '$anchorScroll', '$location',
+    function ($scope, $http, toolService, $anchorScroll, $location) {
         $anchorScroll();
 
         $scope.formulario = true;
@@ -11,7 +11,7 @@ moduleTiporegistro.controller('tiporegistroCreateController', ['$scope', '$http'
         $scope.correcto = false;
 
         $scope.volver = function () {
-            window.history.back();
+            $location.url('tiporegistro/plist');
         };
 
         $scope.crear = function () {

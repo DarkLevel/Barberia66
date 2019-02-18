@@ -2,8 +2,8 @@
 
 'use strict';
 
-moduleUsuario.controller('usuarioUpdateController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll',
-    function ($scope, $http, toolService, $routeParams, $anchorScroll) {
+moduleUsuario.controller('usuarioUpdateController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll', '$location',
+    function ($scope, $http, toolService, $routeParams, $anchorScroll, $location) {
         $anchorScroll();
 
         $scope.formulario = true;
@@ -49,7 +49,7 @@ moduleUsuario.controller('usuarioUpdateController', ['$scope', '$http', 'toolSer
         });
 
         $scope.volver = function () {
-            window.history.back();
+            $location.url('usuario/plist');
         };
 
         $scope.editar = function () {
