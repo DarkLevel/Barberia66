@@ -35,7 +35,7 @@ moduleTipousuario.controller('tipousuarioPlistController',  ['$scope', '$http', 
         }
 
         $scope.resetOrder = function () {
-            $location.url(`tiporegistro/plist/` + $scope.rpp + `/` + $scope.page);
+            $location.url(`tipousuario/plist/` + $scope.rpp + `/` + $scope.page);
         };
 
         $scope.ordenar = function (order, align) {
@@ -46,7 +46,7 @@ moduleTipousuario.controller('tipousuarioPlistController',  ['$scope', '$http', 
                 $scope.orderURLServidor = $scope.orderURLServidor + "-" + order + "," + align;
                 $scope.orderURLCliente = $scope.orderURLCliente + "-" + order + "," + align;
             }
-            $location.url(`tiporegistro/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
+            $location.url(`tipousuario/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
         };
 
         $http({
@@ -83,11 +83,11 @@ moduleTipousuario.controller('tipousuarioPlistController',  ['$scope', '$http', 
 
         $scope.update = function () {
             $scope.page = 1;
-            $location.url(`tiporegistro/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
+            $location.url(`tipousuario/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
         };
         
         $scope.crear = function () {
-            $location.url('tiporegistro/create');
+            $location.url('tipousuario/create');
         };
 
         function pagination() {
