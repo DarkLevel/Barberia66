@@ -182,7 +182,7 @@ barberia66.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/comercio/compra', {templateUrl: 'js/app/comercio/compra.html', controller: 'comercioCompraController', resolve: {auth: autenticacionEmpleado}});
         $routeProvider.when('/comercio/uso', {templateUrl: 'js/app/comercio/uso.html', controller: 'comercioUsoController', resolve: {auth: autenticacionEmpleado}});
         
-        //$routeProvider.when('/cita/calendario', {templateUrl: 'js/app/cita/calendario.html', controller: 'citaCalendarioController', resolve: {auth: autenticacionEmpleado}});
+        $routeProvider.when('/cita/calendario', {templateUrl: 'js/app/cita/calendario.html', controller: 'citaCalendarioController', resolve: {auth: autenticacionEmpleado}});
         
         $routeProvider.when('/estadocita/create', {templateUrl: 'js/app/estadocita/create.html', controller: 'estadocitaCreateController', resolve: {auth: autenticacionJefe}});
         $routeProvider.when('/estadocita/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/estadocita/plist.html', controller: 'estadocitaPlistController', resolve: {auth: autenticacionJefe}});

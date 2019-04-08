@@ -173,7 +173,6 @@ public class GenericDaoImplementation implements DaoInterface {
             throw new Exception("Error en Dao getpage de " + ob);
         }
         return alBean;
-
     }
 
 }
