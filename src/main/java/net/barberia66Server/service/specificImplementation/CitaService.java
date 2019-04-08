@@ -10,20 +10,14 @@ import com.google.gson.GsonBuilder;
 import java.sql.Connection;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import net.barberia66Server.bean.specificImplementation.CitaBean;
 import net.barberia66Server.bean.specificImplementation.ReplyBean;
-import net.barberia66Server.bean.specificImplementation.UsuarioBean;
 import net.barberia66Server.connection.publicInterface.ConnectionInterface;
 import net.barberia66Server.constants.ConnectionConstants;
 import net.barberia66Server.dao.specificImplementation.CitaDao;
 import net.barberia66Server.factory.BeanFactory;
 import net.barberia66Server.factory.ConnectionFactory;
-import net.barberia66Server.factory.DaoFactory;
-import net.barberia66Server.helper.EncodingHelper;
-import net.barberia66Server.helper.ParameterCook;
 import net.barberia66Server.helper.Validator;
 import net.barberia66Server.service.genericImplementation.GenericServiceImplementation;
 import net.barberia66Server.service.publicInterface.ServiceInterface;
@@ -53,7 +47,7 @@ public class CitaService extends GenericServiceImplementation implements Service
             CitaDao citaDao = new CitaDao(oConnection, ob);
             LocalDateTime fecha_inicio = citaBean.getFecha_inicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
             LocalDateTime fecha_fin = citaBean.getFecha_fin().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-            if (Validator.validateDates(fecha_inicio, fecha_fin)) {
+            if (Validator.validateDates(fecha_inicio, fecha_fin) && fecha_inicio.getDayOfYear() == fecha_fin.getDayOfYear()) {
                 if (citaDao.comprobarCitas(citaBean.getId_usuario(), fecha_inicio, fecha_fin, 1)) {
                     citaBean = (CitaBean) citaDao.create(citaBean);
                     oReplyBean = new ReplyBean(200, oGson.toJson(citaBean));
@@ -61,7 +55,7 @@ public class CitaService extends GenericServiceImplementation implements Service
                     oReplyBean = new ReplyBean(400, "Ya existe una cita para esa fecha");
                 }
             } else {
-                oReplyBean = new ReplyBean(400, "La fecha de inicio tiene que ser anterior a la fecha de finalización");
+                oReplyBean = new ReplyBean(400, "La fecha de inicio o la fecha de finalización tienen valores no válidos");
             }
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: create method: " + ob + " object", ex);
@@ -85,7 +79,7 @@ public class CitaService extends GenericServiceImplementation implements Service
             CitaDao citaDao = new CitaDao(oConnection, ob);
             LocalDateTime fecha_inicio = citaBean.getFecha_inicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
             LocalDateTime fecha_fin = citaBean.getFecha_fin().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-            if (Validator.validateDates(fecha_inicio, fecha_fin)) {
+            if (Validator.validateDates(fecha_inicio, fecha_fin) && fecha_inicio.getDayOfYear() == fecha_fin.getDayOfYear()) {
                 if (citaDao.comprobarCitas(citaBean.getId_usuario(), fecha_inicio, fecha_fin, 1)) {
                     int iRes = citaDao.update(citaBean);
                     oReplyBean = new ReplyBean(200, Integer.toString(iRes));
@@ -93,105 +87,13 @@ public class CitaService extends GenericServiceImplementation implements Service
                     oReplyBean = new ReplyBean(400, "Ya existe una cita para esa fecha");
                 }
             } else {
-                oReplyBean = new ReplyBean(400, "La fecha de inicio tiene que ser anterior a la fecha de finalización");
+                oReplyBean = new ReplyBean(400, "La fecha de inicio o la fecha de finalización tienen valores no válidos");
             }
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: update method: " + ob + " object", ex);
         } finally {
             oConnectionPool.disposeConnection();
         }
-        return oReplyBean;
-    }
-
-    public ReplyBean getcountX() throws Exception {
-        ReplyBean oReplyBean;
-        ConnectionInterface oConnectionPool = null;
-        Connection oConnection;
-        try {
-            Integer id_user = Integer.parseInt(oRequest.getParameter("id_user"));
-            oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
-            oConnection = oConnectionPool.newConnection();
-            CitaDao oCitaDao = new CitaDao(oConnection, ob);
-            int registros = oCitaDao.getcountX(id_user);
-            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
-            oReplyBean = new ReplyBean(200, oGson.toJson(registros));
-        } catch (Exception ex) {
-            oReplyBean = new ReplyBean(500,
-                    "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
-        } finally {
-            oConnectionPool.disposeConnection();
-        }
-        return oReplyBean;
-    }
-
-    public ReplyBean getpageX() throws Exception {
-        ReplyBean oReplyBean;
-        ConnectionInterface oConnectionPool = null;
-        Connection oConnection;
-        try {
-            Integer id_usuario = Integer.parseInt(oRequest.getParameter("id_user"));
-            Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
-            Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
-            HashMap<String, String> hmOrder = ParameterCook.getOrderParams(oRequest.getParameter("order"));
-            oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
-            oConnection = oConnectionPool.newConnection();
-            CitaDao oCitaDao = new CitaDao(oConnection, ob);
-            ArrayList<CitaBean> alCitaBean = oCitaDao.getpageX(id_usuario, iRpp, iPage, hmOrder, 1);
-            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
-            oReplyBean = new ReplyBean(200, oGson.toJson(alCitaBean));
-        } catch (Exception ex) {
-            oReplyBean = new ReplyBean(500,
-                    "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
-        } finally {
-            oConnectionPool.disposeConnection();
-        }
-
-        return oReplyBean;
-    }
-
-    public ReplyBean getcountcitauser() throws Exception {
-        ReplyBean oReplyBean;
-        ConnectionInterface oConnectionPool = null;
-        Connection oConnection;
-        try {
-            Integer id_user = ((UsuarioBean) oRequest.getSession().getAttribute("user")).getId();
-            oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
-            oConnection = oConnectionPool.newConnection();
-            CitaDao oCitaDao = new CitaDao(oConnection, ob);
-            int registros = oCitaDao.getcountX(id_user);
-            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
-            oReplyBean = new ReplyBean(200, oGson.toJson(registros));
-        } catch (Exception ex) {
-            oReplyBean = new ReplyBean(500,
-                    "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
-        } finally {
-            oConnectionPool.disposeConnection();
-        }
-        return oReplyBean;
-    }
-
-    public ReplyBean getpagecitauser() throws Exception {
-        ReplyBean oReplyBean;
-        ConnectionInterface oConnectionPool = null;
-        Connection oConnection;
-        try {
-            Integer id_usuario = ((UsuarioBean) oRequest.getSession().getAttribute("user")).getId();
-            Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
-            Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
-            HashMap<String, String> hmOrder = ParameterCook.getOrderParams(oRequest.getParameter("order"));
-            oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
-            oConnection = oConnectionPool.newConnection();
-            CitaDao oCitaDao = new CitaDao(oConnection, "cita");
-            ArrayList<CitaBean> alCitaBean = oCitaDao.getpageX(id_usuario, iRpp, iPage, hmOrder, 1);
-            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
-            oReplyBean = new ReplyBean(200, oGson.toJson(alCitaBean));
-        } catch (Exception ex) {
-            oReplyBean = new ReplyBean(500,
-                    "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
-        } finally {
-            oConnectionPool.disposeConnection();
-        }
-
         return oReplyBean;
     }
 

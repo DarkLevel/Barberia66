@@ -69,20 +69,8 @@ public class ServiceFactory {
                             case "getcount":
                                 oReplyBean = oCitaService.getcount();
                                 break;
-                            case "getcountcitauser":
-                                oReplyBean = oCitaService.getcountcitauser();
-                                break;
-                            case "getcountX":
-                                oReplyBean = oCitaService.getcountX();
-                                break;
                             case "getpage":
                                 oReplyBean = oCitaService.getpage();
-                                break;
-                            case "getpagecitauser":
-                                oReplyBean = oCitaService.getpagecitauser();
-                                break;
-                            case "getpageX":
-                                oReplyBean = oCitaService.getpageX();
                                 break;
                             case "remove":
                                 oReplyBean = oCitaService.remove();
@@ -407,20 +395,8 @@ public class ServiceFactory {
                             case "getcount":
                                 oReplyBean = oCitaService.getcount();
                                 break;
-                            case "getcountcitauser":
-                                oReplyBean = oCitaService.getcountcitauser();
-                                break;
-                            case "getcountX":
-                                oReplyBean = oCitaService.getcountX();
-                                break;
                             case "getpage":
                                 oReplyBean = oCitaService.getpage();
-                                break;
-                            case "getpagecitauser":
-                                oReplyBean = oCitaService.getpagecitauser();
-                                break;
-                            case "getpageX":
-                                oReplyBean = oCitaService.getpageX();
                                 break;
                             case "remove":
                                 oReplyBean = oCitaService.remove();
@@ -655,20 +631,8 @@ public class ServiceFactory {
                             case "getcount":
                                 oReplyBean = oCitaService.getcount();
                                 break;
-                            case "getcountcitauser":
-                                oReplyBean = oCitaService.getcountcitauser();
-                                break;
-                            case "getcountX":
-                                oReplyBean = oCitaService.getcountX();
-                                break;
                             case "getpage":
                                 oReplyBean = oCitaService.getpage();
-                                break;
-                            case "getpagecitauser":
-                                oReplyBean = oCitaService.getpagecitauser();
-                                break;
-                            case "getpageX":
-                                oReplyBean = oCitaService.getpageX();
                                 break;
                             case "remove":
                                 oReplyBean = oCitaService.remove();
