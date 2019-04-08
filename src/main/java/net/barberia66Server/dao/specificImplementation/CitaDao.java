@@ -55,14 +55,14 @@ public class CitaDao extends GenericDaoImplementation implements DaoInterface {
         return alBean.isEmpty();
     }
     
-    public ArrayList<BeanInterface> getListaCitas(String modo, int id_estadocita, LocalDateTime fecha_inicio, LocalDateTime fecha_fin, Integer expand) throws Exception {
+    public ArrayList<BeanInterface> getListaCitas(String modo, Integer id_estadocita, LocalDateTime fecha_inicio, LocalDateTime fecha_fin, Integer expand) throws Exception {
         String strSQL;
         if(modo.equals("resourceTimeGridWeek")){
             strSQL = "SET datefirst 1; SELECT * FROM " + ob;
         }else{
             strSQL = "SELECT * FROM " + ob;
         }
-        if(id_estadocita != 0){
+        if(id_estadocita != null){
             strSQL += " WHERE id_estadocita=" + id_estadocita + " AND ";
         } else{
             strSQL += " WHERE ";
