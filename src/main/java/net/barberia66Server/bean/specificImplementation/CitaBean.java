@@ -27,7 +27,9 @@ import net.barberia66Server.helper.EncodingHelper;
 public class CitaBean extends GenericBeanImplementation implements BeanInterface {
     
     @Expose
-    private Date fecha;
+    private Date fecha_inicio;
+    @Expose
+    private Date fecha_fin;
     @Expose
     private String descripcion;
     @Expose(serialize = false)
@@ -43,12 +45,20 @@ public class CitaBean extends GenericBeanImplementation implements BeanInterface
     @Expose(deserialize = false)
     private EstadoCitaBean obj_estadocita;
 
-    public Date getFecha() {
-        return fecha;
+    public Date getFecha_inicio() {
+        return fecha_inicio;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setFecha_inicio(Date fecha_inicio) {
+        this.fecha_inicio = fecha_inicio;
+    }
+
+    public Date getFecha_fin() {
+        return fecha_fin;
+    }
+
+    public void setFecha_fin(Date fecha_fin) {
+        this.fecha_fin = fecha_fin;
     }
 
     public String getDescripcion() {
@@ -110,8 +120,10 @@ public class CitaBean extends GenericBeanImplementation implements BeanInterface
     @Override
     public CitaBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws Exception {
         this.setId(oResultSet.getInt("id"));
-        Timestamp fechaHora = oResultSet.getTimestamp("fecha");
-        this.setFecha(fechaHora);
+        Timestamp fechaHoraInicio = oResultSet.getTimestamp("fecha_inicio");
+        this.setFecha_inicio(fechaHoraInicio);
+        Timestamp fechaHoraFin = oResultSet.getTimestamp("fecha_fin");
+        this.setFecha_fin(fechaHoraFin);
         this.setDescripcion(oResultSet.getString("descripcion"));
         if (expand > 0) {
             UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, "usuario");
@@ -132,7 +144,8 @@ public class CitaBean extends GenericBeanImplementation implements BeanInterface
     public String getColumns() {
         String strColumns = "";
         strColumns += "id,";
-        strColumns += "fecha,";
+        strColumns += "fecha_inicio,";
+        strColumns += "fecha_fin,";
         strColumns += "descripcion,";
         strColumns += "id_usuario,";
         strColumns += "id_tipocita,";
@@ -146,14 +159,17 @@ public class CitaBean extends GenericBeanImplementation implements BeanInterface
         ZoneId defaultZoneId = ZoneId.systemDefault();
 
         //Converting the date to Instant
-        Instant instant = fecha.toInstant();
+        Instant instantInicio = fecha_inicio.toInstant();
+        Instant instantFin = fecha_fin.toInstant();
 
         //Converting the Date to LocalDate
-        LocalDateTime localDateTime = instant.atZone(defaultZoneId).toLocalDateTime();
+        LocalDateTime fecha_inicioLocalDateTime = instantInicio.atZone(defaultZoneId).toLocalDateTime();
+        LocalDateTime fecha_finLocalDateTime = instantFin.atZone(defaultZoneId).toLocalDateTime();
         
         String strColumns = "";
         strColumns += "null,";
-        strColumns += EncodingHelper.quotate(localDateTime.toString()) + ",";
+        strColumns += EncodingHelper.quotate(fecha_inicioLocalDateTime.toString()) + ",";
+        strColumns += EncodingHelper.quotate(fecha_finLocalDateTime.toString()) + ",";
         strColumns += EncodingHelper.quotate(descripcion) + ",";
         strColumns += id_usuario + ",";
         strColumns += id_tipocita + ",";
@@ -167,14 +183,17 @@ public class CitaBean extends GenericBeanImplementation implements BeanInterface
         ZoneId defaultZoneId = ZoneId.systemDefault();
 
         //Converting the date to Instant
-        Instant instant = fecha.toInstant();
+        Instant instantInicio = fecha_inicio.toInstant();
+        Instant instantFin = fecha_fin.toInstant();
 
         //Converting the Date to LocalDate
-        LocalDateTime localDateTime = instant.atZone(defaultZoneId).toLocalDateTime();
-
+        LocalDateTime fecha_inicioLocalDateTime = instantInicio.atZone(defaultZoneId).toLocalDateTime();
+        LocalDateTime fecha_finLocalDateTime = instantFin.atZone(defaultZoneId).toLocalDateTime();
+        
         String strPairs = "";
         strPairs += "id=" + id + ",";
-        strPairs += "fecha=" + EncodingHelper.quotate(localDateTime.toString()) + ",";
+        strPairs += "fecha_inicio=" + EncodingHelper.quotate(fecha_inicioLocalDateTime.toString()) + ",";
+        strPairs += "fecha_fin=" + EncodingHelper.quotate(fecha_finLocalDateTime.toString()) + ",";
         strPairs += "descripcion=" + EncodingHelper.quotate(descripcion) + ",";
         strPairs += "id_usuario=" + id_usuario + ",";
         strPairs += "id_tipocita=" + id_tipocita + ",";
