@@ -64,7 +64,7 @@ public class CitaService extends GenericServiceImplementation implements Service
         }
         return oReplyBean;
     }
-    
+
     @Override
     public ReplyBean update() throws Exception {
         ReplyBean oReplyBean;

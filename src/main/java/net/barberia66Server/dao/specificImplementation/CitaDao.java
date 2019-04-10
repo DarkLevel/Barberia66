@@ -54,23 +54,23 @@ public class CitaDao extends GenericDaoImplementation implements DaoInterface {
         }
         return alBean.isEmpty();
     }
-    
+
     public ArrayList<BeanInterface> getListaCitas(String modo, Integer id_estadocita, LocalDateTime fecha_inicio, LocalDateTime fecha_fin, Integer expand) throws Exception {
         String strSQL;
-        if(modo.equals("resourceTimeGridWeek")){
+        if (modo.equals("resourceTimeGridWeek")) {
             strSQL = "SET datefirst 1; SELECT * FROM " + ob;
-        }else{
+        } else {
             strSQL = "SELECT * FROM " + ob;
         }
-        if(id_estadocita != null){
+        if (id_estadocita != null) {
             strSQL += " WHERE id_estadocita=" + id_estadocita + " AND ";
-        } else{
+        } else {
             strSQL += " WHERE ";
         }
         String week = new SimpleDateFormat("w").format(fecha_inicio);
         int month = fecha_inicio.getMonthValue();
         int year = fecha_inicio.getYear();
-        switch(modo){
+        switch (modo) {
             case "resourceTimeGridDay":
                 strSQL += "fecha_inicio >= '" + fecha_inicio + "' AND fecha_inicio<'" + fecha_inicio + "'";
                 break;
@@ -78,7 +78,6 @@ public class CitaDao extends GenericDaoImplementation implements DaoInterface {
                 strSQL += "DATEPART(week, fecha_inicio)=" + week + " AND YEAR(fecha_inicio)=" + year;
                 break;
             case "dayGridMonth":
-                
                 strSQL += "MONTH(fecha_inicio)=" + month + " AND YEAR(fecha_inicio)=" + year;
                 break;
         }

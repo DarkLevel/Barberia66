@@ -25,7 +25,7 @@ import net.barberia66Server.helper.EncodingHelper;
  * @author a073597589g
  */
 public class CitaBean extends GenericBeanImplementation implements BeanInterface {
-    
+
     @Expose
     private Date fecha_inicio;
     @Expose
@@ -116,7 +116,7 @@ public class CitaBean extends GenericBeanImplementation implements BeanInterface
     public void setObj_estadocita(EstadoCitaBean obj_estadocita) {
         this.obj_estadocita = obj_estadocita;
     }
-    
+
     @Override
     public CitaBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws Exception {
         this.setId(oResultSet.getInt("id"));
@@ -139,7 +139,7 @@ public class CitaBean extends GenericBeanImplementation implements BeanInterface
         }
         return this;
     }
-    
+
     @Override
     public String getColumns() {
         String strColumns = "";
@@ -165,7 +165,7 @@ public class CitaBean extends GenericBeanImplementation implements BeanInterface
         //Converting the Date to LocalDate
         LocalDateTime fecha_inicioLocalDateTime = instantInicio.atZone(defaultZoneId).toLocalDateTime();
         LocalDateTime fecha_finLocalDateTime = instantFin.atZone(defaultZoneId).toLocalDateTime();
-        
+
         String strColumns = "";
         strColumns += "null,";
         strColumns += EncodingHelper.quotate(fecha_inicioLocalDateTime.toString()) + ",";
@@ -189,7 +189,7 @@ public class CitaBean extends GenericBeanImplementation implements BeanInterface
         //Converting the Date to LocalDate
         LocalDateTime fecha_inicioLocalDateTime = instantInicio.atZone(defaultZoneId).toLocalDateTime();
         LocalDateTime fecha_finLocalDateTime = instantFin.atZone(defaultZoneId).toLocalDateTime();
-        
+
         String strPairs = "";
         strPairs += "id=" + id + ",";
         strPairs += "fecha_inicio=" + EncodingHelper.quotate(fecha_inicioLocalDateTime.toString()) + ",";
@@ -201,5 +201,5 @@ public class CitaBean extends GenericBeanImplementation implements BeanInterface
         strPairs += " WHERE id = " + id;
         return strPairs;
     }
-    
+
 }

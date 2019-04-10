@@ -147,21 +147,21 @@ public class GenericServiceImplementation implements ServiceInterface {
         ReplyBean oReplyBean;
         ConnectionInterface oConnectionPool = null;
         Connection oConnection;
-            try {
-                Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
-                Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
-                HashMap<String, String> hmOrder = ParameterCook.getOrderParams(oRequest.getParameter("order"));
-                oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
-                oConnection = oConnectionPool.newConnection();
-                DaoInterface oDao = DaoFactory.getDao(oConnection, ob);
-                ArrayList<BeanInterface> alBean = oDao.getpage(iRpp, iPage, hmOrder, 1);
-                Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
-                oReplyBean = new ReplyBean(200, oGson.toJson(alBean));
-            } catch (Exception ex) {
-                throw new Exception("ERROR: Service level: get page: " + ob + " object", ex);
-            } finally {
-                oConnectionPool.disposeConnection();
-            }
+        try {
+            Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
+            Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
+            HashMap<String, String> hmOrder = ParameterCook.getOrderParams(oRequest.getParameter("order"));
+            oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
+            oConnection = oConnectionPool.newConnection();
+            DaoInterface oDao = DaoFactory.getDao(oConnection, ob);
+            ArrayList<BeanInterface> alBean = oDao.getpage(iRpp, iPage, hmOrder, 1);
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
+            oReplyBean = new ReplyBean(200, oGson.toJson(alBean));
+        } catch (Exception ex) {
+            throw new Exception("ERROR: Service level: get page: " + ob + " object", ex);
+        } finally {
+            oConnectionPool.disposeConnection();
+        }
         return oReplyBean;
     }
 
