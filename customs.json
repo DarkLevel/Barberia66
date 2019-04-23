@@ -1,7 +1,20 @@
 {
     "elements": {
+        "md-dialog-content": {},
+        "md-dialog": {},
+        "md-toolbar": {},
         "footer-component": {},
-        "mainheader-component": {}
+        "mainheader-component": {},
+        "md-dialog-actions": {
+            "attributes": {
+                "layout": {}
+            }
+        }
     },
-    "attributes": {}
+    "attributes": {
+        "flex": {
+            "context": "span"
+        },
+        "aria-label": {}
+    }
 }

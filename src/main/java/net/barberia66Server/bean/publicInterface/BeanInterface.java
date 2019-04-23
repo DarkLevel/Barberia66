@@ -25,4 +25,5 @@ public interface BeanInterface {
     public String getValues();
 
     public String getPairs();
+    
 }

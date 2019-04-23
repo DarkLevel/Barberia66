@@ -15,7 +15,6 @@ import java.time.ZoneId;
 import java.util.Date;
 import net.barberia66Server.bean.genericImplementation.GenericBeanImplementation;
 import net.barberia66Server.bean.publicInterface.BeanInterface;
-import net.barberia66Server.dao.specificImplementation.CitaDao;
 import net.barberia66Server.dao.specificImplementation.RegistroDao;
 import net.barberia66Server.dao.specificImplementation.TipoUsuarioDao;
 import net.barberia66Server.helper.EncodingHelper;

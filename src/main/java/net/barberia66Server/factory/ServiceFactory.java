@@ -63,17 +63,8 @@ public class ServiceFactory {
                             case "create":
                                 oReplyBean = oCitaService.create();
                                 break;
-                            case "get":
-                                oReplyBean = oCitaService.get();
-                                break;
-                            case "getcount":
-                                oReplyBean = oCitaService.getcount();
-                                break;
                             case "getpage":
                                 oReplyBean = oCitaService.getpage();
-                                break;
-                            case "remove":
-                                oReplyBean = oCitaService.remove();
                                 break;
                             case "update":
                                 oReplyBean = oCitaService.update();
@@ -339,6 +330,9 @@ public class ServiceFactory {
                             case "getpage":
                                 oReplyBean = oUsuarioService.getpage();
                                 break;
+                            case "getpagetrabajadores":
+                                oReplyBean = oUsuarioService.getpageall();
+                                break;
                             case "getprofile":
                                 oReplyBean = oUsuarioService.getprofile();
                                 break;
@@ -575,6 +569,9 @@ public class ServiceFactory {
                             case "getpage":
                                 oReplyBean = oUsuarioService.getpage();
                                 break;
+                            case "getpagetrabajadores":
+                                oReplyBean = oUsuarioService.getpageall();
+                                break;
                             case "getprofile":
                                 oReplyBean = oUsuarioService.getprofile();
                                 break;
@@ -768,6 +765,9 @@ public class ServiceFactory {
                                 break;
                             case "getpage":
                                 oReplyBean = oUsuarioService.getpage();
+                                break;
+                            case "getpagetrabajadores":
+                                oReplyBean = oUsuarioService.getpageall();
                                 break;
                             case "getprofile":
                                 oReplyBean = oUsuarioService.getprofile();

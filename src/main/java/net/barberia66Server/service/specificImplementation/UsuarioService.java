@@ -8,6 +8,8 @@ package net.barberia66Server.service.specificImplementation;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import net.barberia66Server.bean.publicInterface.BeanInterface;
 import net.barberia66Server.bean.specificImplementation.ReplyBean;
@@ -20,6 +22,7 @@ import net.barberia66Server.factory.BeanFactory;
 import net.barberia66Server.factory.ConnectionFactory;
 import net.barberia66Server.factory.DaoFactory;
 import net.barberia66Server.helper.EncodingHelper;
+import net.barberia66Server.helper.ParameterCook;
 import net.barberia66Server.service.genericImplementation.GenericServiceImplementation;
 import net.barberia66Server.service.publicInterface.ServiceInterface;
 
@@ -74,6 +77,25 @@ public class UsuarioService extends GenericServiceImplementation implements Serv
             oReplyBean = new ReplyBean(200, oGson.toJson(oUsuarioBean));
         } else {
             oReplyBean = new ReplyBean(401, "No active session");
+        }
+        return oReplyBean;
+    }
+    
+    public ReplyBean getpageall() throws Exception {
+        ReplyBean oReplyBean;
+        ConnectionInterface oConnectionPool = null;
+        Connection oConnection;
+        try {
+            oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
+            oConnection = oConnectionPool.newConnection();
+            UsuarioDao usuarioDao = (UsuarioDao) DaoFactory.getDao(oConnection, ob);
+            ArrayList<BeanInterface> alBean = usuarioDao.getpageall();
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
+            oReplyBean = new ReplyBean(200, oGson.toJson(alBean));
+        } catch (Exception ex) {
+            throw new Exception("ERROR: Service level: get page: " + ob + " object", ex);
+        } finally {
+            oConnectionPool.disposeConnection();
         }
         return oReplyBean;
     }

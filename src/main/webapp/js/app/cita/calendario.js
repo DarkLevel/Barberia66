@@ -2,10 +2,12 @@
 
 'use strict';
 
-moduleCita.controller('citaCalendarioController', ['$scope', 'toolService', '$anchorScroll',
-    function ($scope, toolService, $anchorScroll) {
+moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolService', '$anchorScroll', '$mdDialog',
+    function ($scope, $http, toolService, $anchorScroll, $mdDialog) {
         $anchorScroll();
         $scope.isActive = toolService.isActive;
+        
+        console.log(new Date());
 
         var calendarEl = $('#calendar')[0];
 
