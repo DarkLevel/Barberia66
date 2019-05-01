@@ -9,10 +9,12 @@ import com.google.gson.annotations.Expose;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.TimeZone;
 import net.barberia66Server.bean.genericImplementation.GenericBeanImplementation;
 import net.barberia66Server.bean.publicInterface.BeanInterface;
 import net.barberia66Server.dao.specificImplementation.EstadoCitaDao;
@@ -120,10 +122,8 @@ public class CitaBean extends GenericBeanImplementation implements BeanInterface
     @Override
     public CitaBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws Exception {
         this.setId(oResultSet.getInt("id"));
-        Timestamp fechaHoraInicio = oResultSet.getTimestamp("fecha_inicio");
-        this.setFecha_inicio(fechaHoraInicio);
-        Timestamp fechaHoraFin = oResultSet.getTimestamp("fecha_fin");
-        this.setFecha_fin(fechaHoraFin);
+        this.setFecha_inicio(oResultSet.getTimestamp("fecha_inicio"));
+        this.setFecha_fin(oResultSet.getTimestamp("fecha_fin"));
         this.setDescripcion(oResultSet.getString("descripcion"));
         if (expand > 0) {
             UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, "usuario");

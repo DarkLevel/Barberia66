@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import net.barberia66Server.bean.publicInterface.BeanInterface;
@@ -30,7 +31,7 @@ public class CitaDao extends GenericDaoImplementation implements DaoInterface {
     public boolean comprobarCitas(int id_usuario, LocalDateTime fecha_inicio, LocalDateTime fecha_fin, Integer expand) throws Exception {
         String strSQL = "SELECT * FROM " + ob;
         ArrayList<BeanInterface> alBean;
-        strSQL += " WHERE id_usuario=" + id_usuario + " AND fecha_inicio BETWEEN '" + fecha_inicio + "' AND '" + fecha_fin + "' OR fecha_fin BETWEEN '" + fecha_inicio + "' AND '" + fecha_fin;
+        strSQL += " WHERE id_usuario=" + id_usuario + " AND fecha_inicio BETWEEN \"" + fecha_inicio + "\" AND \"" + fecha_fin + "\" OR fecha_fin BETWEEN \"" + fecha_inicio + "\" AND \"" + fecha_fin + "\"";
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
         try {
@@ -55,27 +56,27 @@ public class CitaDao extends GenericDaoImplementation implements DaoInterface {
         return alBean.isEmpty();
     }
 
-    public ArrayList<BeanInterface> getpage(String modo, Integer id_estadocitas, LocalDateTime fecha, Integer expand) throws Exception {
+    public ArrayList<BeanInterface> getpage(String modo, boolean canceladas, LocalDate fecha, Integer expand) throws Exception {
         String strSQL;
-        if (modo.equals("resourceTimeGridWeek")) {
+        if (modo.equals("resourceTimeGridWeek")){
             strSQL = "SET datefirst 1; SELECT * FROM " + ob;
         } else {
             strSQL = "SELECT * FROM " + ob;
         }
-        if (id_estadocitas != null) {
-            strSQL += " WHERE id_estadocita=" + id_estadocitas + " AND ";
+        if (canceladas) {
+            strSQL += " WHERE id_estadocita=" + 3 + " AND ";
         } else {
             strSQL += " WHERE ";
         }
         switch (modo) {
             case "resourceTimeGridDay":
-                strSQL += "DATEPART(dayofyear, fecha_inicio) = DATEPART(dayofyear, " + fecha + ") AND YEAR(fecha_inicio) = " + fecha.getYear();
+                strSQL += "fecha_inicio BETWEEN \"" + fecha + " 00:00:00\" AND \"" + fecha + " 23:59:59\"";
                 break;
             case "resourceTimeGridWeek":
                 strSQL += "DATEPART(week, fecha_inicio) = " + Integer.parseInt(new SimpleDateFormat("w").format(fecha)) + " AND YEAR(fecha_inicio) = " + fecha.getYear();
                 break;
             case "dayGridMonth":
-                strSQL += "MONTH(fecha_inicio) = " + fecha.getMonthValue() + " AND YEAR(fecha_inicio) = " + fecha.getYear();
+                strSQL += "MONTH(fecha_inicio) = " + fecha.getMonth() + " AND YEAR(fecha_inicio) = " + fecha.getYear();
                 break;
         }
         ArrayList<BeanInterface> alBean;
@@ -92,6 +93,33 @@ public class CitaDao extends GenericDaoImplementation implements DaoInterface {
             }
         } catch (SQLException e) {
             throw new Exception("Error en Dao comprobarCitas de " + ob, e);
+        } finally {
+            if (oResultSet != null) {
+                oResultSet.close();
+            }
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return alBean;
+    }
+
+    public ArrayList<BeanInterface> getresources() throws Exception {
+        String strSQL = "SELECT * FROM usuario WHERE id_tipousuario > 1";
+        ArrayList<BeanInterface> alBean;
+        ResultSet oResultSet = null;
+        PreparedStatement oPreparedStatement = null;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oResultSet = oPreparedStatement.executeQuery();
+            alBean = new ArrayList<>();
+            while (oResultSet.next()) {
+                BeanInterface oBean = BeanFactory.getBean("usuario");
+                oBean.fill(oResultSet, oConnection, 0);
+                alBean.add(oBean);
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error en Dao getpage de " + ob, e);
         } finally {
             if (oResultSet != null) {
                 oResultSet.close();

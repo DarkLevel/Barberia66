@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -23,7 +24,6 @@ import net.barberia66Server.factory.BeanFactory;
 import net.barberia66Server.factory.ConnectionFactory;
 import net.barberia66Server.factory.DaoFactory;
 import static net.barberia66Server.helper.Validator.validateDates;
-import static net.barberia66Server.helper.Validator.validateId;
 import net.barberia66Server.service.genericImplementation.GenericServiceImplementation;
 import net.barberia66Server.service.publicInterface.ServiceInterface;
 
@@ -54,8 +54,9 @@ public class CitaService extends GenericServiceImplementation implements Service
             LocalDateTime fecha_fin = citaBean.getFecha_fin().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
             if (validateDates(fecha_inicio, fecha_fin) && fecha_inicio.getDayOfYear() == fecha_fin.getDayOfYear()) {
                 if (citaDao.comprobarCitas(citaBean.getId_usuario(), fecha_inicio, fecha_fin, 1)) {
-                    citaBean = (CitaBean) citaDao.create(citaBean);
-                    oReplyBean = new ReplyBean(200, oGson.toJson(citaBean));
+                    citaDao.create(citaBean);
+                    ArrayList<BeanInterface> alBean = citaDao.getpage("resourceTimeGridDay", false, citaBean.getFecha_inicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), 1);
+                    oReplyBean = new ReplyBean(200, oGson.toJson(alBean));
                 } else {
                     oReplyBean = new ReplyBean(400, "Ya existe una cita para esa fecha");
                 }
@@ -86,8 +87,9 @@ public class CitaService extends GenericServiceImplementation implements Service
             LocalDateTime fecha_fin = citaBean.getFecha_fin().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
             if (validateDates(fecha_inicio, fecha_fin) && fecha_inicio.getDayOfYear() == fecha_fin.getDayOfYear()) {
                 if (citaDao.comprobarCitas(citaBean.getId_usuario(), fecha_inicio, fecha_fin, 1)) {
-                    int iRes = citaDao.update(citaBean);
-                    oReplyBean = new ReplyBean(200, Integer.toString(iRes));
+                    citaDao.update(citaBean);
+                    ArrayList<BeanInterface> alBean = citaDao.getpage("resourceTimeGridDay", false, citaBean.getFecha_inicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), 1);
+                    oReplyBean = new ReplyBean(200, oGson.toJson(alBean));
                 } else {
                     oReplyBean = new ReplyBean(400, "Ya existe una cita para esa fecha");
                 }
@@ -109,15 +111,34 @@ public class CitaService extends GenericServiceImplementation implements Service
         Connection oConnection;
         try {
             String modo = oRequest.getParameter("modo");
-            Integer id_estadocita = null;
-            if(validateId(oRequest.getParameter("id_estadocita"))){
-                id_estadocita = Integer.parseInt(oRequest.getParameter("id_estadocita"));
+            boolean canceladas = false;
+            if(oRequest.getParameter("estadocitas") != null){
+                canceladas = oRequest.getParameter("estadocitas").equals("canceladas");
             }
-            LocalDateTime fecha = new SimpleDateFormat("yyyy-MM-dd").parse(oRequest.getParameter("fecha")).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+            LocalDate fecha = (new SimpleDateFormat("yyyy-MM-dd").parse(oRequest.getParameter("fecha"))).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
             CitaDao citaDao = (CitaDao) DaoFactory.getDao(oConnection, ob);
-            ArrayList<BeanInterface> alBean = citaDao.getpage(modo, id_estadocita, fecha, 0);
+            ArrayList<BeanInterface> alBean = citaDao.getpage(modo, canceladas, fecha, 1);
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
+            oReplyBean = new ReplyBean(200, oGson.toJson(alBean));
+        } catch (Exception ex) {
+            throw new Exception("ERROR: Service level: get page: " + ob + " object", ex);
+        } finally {
+            oConnectionPool.disposeConnection();
+        }
+        return oReplyBean;
+    }
+    
+    public ReplyBean getresources() throws Exception {
+        ReplyBean oReplyBean;
+        ConnectionInterface oConnectionPool = null;
+        Connection oConnection;
+        try {
+            oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
+            oConnection = oConnectionPool.newConnection();
+            CitaDao oCitaDao = (CitaDao) DaoFactory.getDao(oConnection, ob);
+            ArrayList<BeanInterface> alBean = oCitaDao.getresources();
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             oReplyBean = new ReplyBean(200, oGson.toJson(alBean));
         } catch (Exception ex) {
