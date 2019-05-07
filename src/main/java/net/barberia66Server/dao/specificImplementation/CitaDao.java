@@ -9,11 +9,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Locale;
 import net.barberia66Server.bean.publicInterface.BeanInterface;
+import net.barberia66Server.bean.specificImplementation.CitaBean;
 import net.barberia66Server.dao.genericImplementation.GenericDaoImplementation;
 import net.barberia66Server.dao.publicInterface.DaoInterface;
 import net.barberia66Server.factory.BeanFactory;
@@ -39,9 +41,11 @@ public class CitaDao extends GenericDaoImplementation implements DaoInterface {
             oResultSet = oPreparedStatement.executeQuery();
             alBean = new ArrayList<>();
             while (oResultSet.next()) {
-                BeanInterface oBean = BeanFactory.getBean(ob);
-                oBean.fill(oResultSet, oConnection, expand);
-                alBean.add(oBean);
+                CitaBean citaBean = (CitaBean) BeanFactory.getBean(ob);
+                citaBean.fill(oResultSet, oConnection, expand);
+                if(citaBean.getObj_usuario().getId() == id_usuario){
+                    alBean.add(citaBean);
+                }
             }
         } catch (SQLException e) {
             throw new Exception("Error en Dao comprobarCitas de " + ob, e);
@@ -57,26 +61,17 @@ public class CitaDao extends GenericDaoImplementation implements DaoInterface {
     }
 
     public ArrayList<BeanInterface> getpage(String modo, boolean canceladas, LocalDate fecha, Integer expand) throws Exception {
-        String strSQL;
-        if (modo.equals("resourceTimeGridWeek")){
-            strSQL = "SET datefirst 1; SELECT * FROM " + ob;
-        } else {
-            strSQL = "SELECT * FROM " + ob;
-        }
-        if (canceladas) {
-            strSQL += " WHERE id_estadocita=" + 3 + " AND ";
-        } else {
-            strSQL += " WHERE ";
-        }
+        String strSQL = "SELECT * FROM " + ob + " WHERE id_estadocita";
+        strSQL += canceladas ? " = 3 " : " != 3 ";
         switch (modo) {
             case "resourceTimeGridDay":
-                strSQL += "fecha_inicio BETWEEN \"" + fecha + " 00:00:00\" AND \"" + fecha + " 23:59:59\"";
+                strSQL += "AND fecha_inicio BETWEEN \"" + fecha + " 00:00:00\" AND \"" + fecha + " 23:59:59\"";
                 break;
             case "resourceTimeGridWeek":
-                strSQL += "DATEPART(week, fecha_inicio) = " + Integer.parseInt(new SimpleDateFormat("w").format(fecha)) + " AND YEAR(fecha_inicio) = " + fecha.getYear();
+                strSQL += "AND week(fecha_inicio, 1) = " + fecha.get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()) + " AND YEAR(fecha_inicio) = " + fecha.getYear();
                 break;
             case "dayGridMonth":
-                strSQL += "MONTH(fecha_inicio) = " + fecha.getMonth() + " AND YEAR(fecha_inicio) = " + fecha.getYear();
+                strSQL += "AND MONTH(fecha_inicio) = " + fecha.getMonthValue() + " AND YEAR(fecha_inicio) = " + fecha.getYear();
                 break;
         }
         ArrayList<BeanInterface> alBean;

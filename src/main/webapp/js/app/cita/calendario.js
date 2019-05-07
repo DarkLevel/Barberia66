@@ -28,32 +28,7 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                     datarecursos.push(resource);
                 });
                 $scope.recursos = datarecursos;
-
-                $http({
-                    method: 'GET',
-                    url: 'http://localhost:8081/barberia66/barberia66?ob=cita&op=getpage&modo=dayGridMonth&fecha=' + moment(new Date()).format('YYYY-MM-DD')
-                }).then(function (response) {
-                    if (response.data.status === 200) {
-                        $scope.citas = response.data.message;
-                        var dataeventos = [];
-                        response.data.message.forEach(element => {
-                            var evento = {
-                                resourceId: element.obj_usuario.id,
-                                id: element.id,
-                                title: element.obj_tipocita.descripcion,
-                                start: new Date(element.fecha_inicio),
-                                end: new Date(element.fecha_fin)
-                            };
-                            dataeventos.push(evento);
-                        });
-                        $scope.fuenteEventos = [{events: dataeventos, id: 1}];
-                        $('#calendar').empty();
-                        renderCalendar();
-                    }
-                }, function (response) {
-                    $scope.status = response.status;
-                    response.data.message = response.data.message || 'Request failed';
-                });
+                getpageCalendar('dayGridMonth', new Date());
             }
         }, function (response) {
             $scope.status = response.status;
@@ -105,14 +80,15 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                             $scope.calendar.prev();
                             switch ($scope.calendar.view.type) {
                                 case 'resourceTimeGridDay':
-                                    moveDay($scope.calendar.getDate());
+                                    getpageCalendar('resourceTimeGridDay', $scope.calendar.getDate());
                                     break;
                                 case 'resourceTimeGridWeek':
+                                    getpageCalendar('resourceTimeGridWeek', $scope.calendar.getDate());
                                     break;
                                 case 'dayGridMonth':
+                                    getpageCalendar('dayGridMonth', $scope.calendar.getDate());
                                     break;
                             }
-                            console.log(moment($scope.calendar.getDate()).format('YYYY-MM-DD'));
                         }
                     },
                     siguiente: {
@@ -121,14 +97,15 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                             $scope.calendar.next();
                             switch ($scope.calendar.view.type) {
                                 case 'resourceTimeGridDay':
-                                    moveDay($scope.calendar.getDate());
+                                    getpageCalendar('resourceTimeGridDay', $scope.calendar.getDate());
                                     break;
                                 case 'resourceTimeGridWeek':
+                                    getpageCalendar('resourceTimeGridWeek', $scope.calendar.getDate());
                                     break;
                                 case 'dayGridMonth':
+                                    getpageCalendar('dayGridMonth', $scope.calendar.getDate());
                                     break;
                             }
-                            console.log(moment($scope.calendar.getDate()).format('YYYY-MM-DD'));
                         }
                     },
                     hoy: {
@@ -140,14 +117,15 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                                 $scope.calendar.today();
                                 switch ($scope.calendar.view.type) {
                                     case 'resourceTimeGridDay':
-                                        moveDay($scope.calendar.getDate());
+                                        getpageCalendar('resourceTimeGridDay', $scope.calendar.getDate());
                                         break;
                                     case 'resourceTimeGridWeek':
+                                        getpageCalendar('resourceTimeGridWeek', $scope.calendar.getDate());
                                         break;
                                     case 'dayGridMonth':
+                                        getpageCalendar('dayGridMonth', $scope.calendar.getDate());
                                         break;
                                 }
-                                console.log(moment($scope.calendar.getDate()).format('YYYY-MM-DD'));
                             }
                         }
                     },
@@ -156,7 +134,7 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                         click: function () {
                             if ($scope.calendar.view.type !== 'resourceTimeGridDay') {
                                 $scope.calendar.changeView('resourceTimeGridDay');
-                                moveDay($scope.calendar.getDate());
+                                getpageCalendar('resourceTimeGridDay', $scope.calendar.getDate());
                             }
                         }
                     },
@@ -165,7 +143,7 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                         click: function () {
                             if ($scope.calendar.view.type !== 'resourceTimeGridWeek') {
                                 $scope.calendar.changeView('resourceTimeGridWeek');
-                                console.log(moment($scope.calendar.getDate()).format('YYYY-MM-DD'));
+                                getpageCalendar('resourceTimeGridWeek', $scope.calendar.getDate());
                             }
                         }
                     },
@@ -174,7 +152,7 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                         click: function () {
                             if ($scope.calendar.view.type !== 'dayGridMonth') {
                                 $scope.calendar.changeView('dayGridMonth');
-                                console.log(moment($scope.calendar.getDate()).format('YYYY-MM-DD'));
+                                getpageCalendar('dayGridMonth', $scope.calendar.getDate());
                             }
                         }
                     }
@@ -195,10 +173,11 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                 eventClick: function (info) {
                     if ($scope.calendar.view.type === 'dayGridMonth') {
                         $scope.calendar.changeView('resourceTimeGridDay', moment(info.start).format('YYYY-MM-DD'));
+                    } else{
+                        
                     }
                 }
             });
-
             $scope.calendar.render();
         }
 
@@ -261,11 +240,11 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                 $mdDialog.hide();
             };
         }
-
-        function moveDay(fecha) {
+        
+        function getpageCalendar(formato, fecha) {
             $http({
                 method: 'GET',
-                url: 'http://localhost:8081/barberia66/barberia66?ob=cita&op=getpage&modo=resourceTimeGridDay&fecha=' + moment(fecha).format('YYYY-MM-DD')
+                url: 'http://localhost:8081/barberia66/barberia66?ob=cita&op=getpage&modo=' + formato + '&fecha=' + moment(fecha).format('YYYY-MM-DD')
             }).then(function (response) {
                 if (response.data.status === 200) {
                     $scope.citas = response.data.message;
@@ -283,7 +262,7 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                     $scope.fuenteEventos = [{events: dataeventos, id: 1}];
                     $('#calendar').empty();
                     renderCalendar();
-                    $scope.calendar.changeView('resourceTimeGridDay', fecha);
+                    $scope.calendar.changeView(formato, fecha);
                 }
             }, function (response) {
                 $scope.status = response.status;
