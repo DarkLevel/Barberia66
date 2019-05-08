@@ -48,7 +48,6 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                         });
                         $scope.fuenteEventos = [{events: dataeventos, id: 1}];
                         renderCalendar();
-                        $scope.calendar.changeView('dayGridMonth', new Date());
                     }
                 }, function (response) {
                     $scope.status = response.status;
