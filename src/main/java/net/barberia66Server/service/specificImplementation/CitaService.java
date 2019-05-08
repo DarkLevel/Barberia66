@@ -19,6 +19,7 @@ import net.barberia66Server.bean.specificImplementation.CitaBean;
 import net.barberia66Server.bean.specificImplementation.ReplyBean;
 import net.barberia66Server.connection.publicInterface.ConnectionInterface;
 import net.barberia66Server.constants.ConnectionConstants;
+import net.barberia66Server.dao.publicInterface.DaoInterface;
 import net.barberia66Server.dao.specificImplementation.CitaDao;
 import net.barberia66Server.factory.BeanFactory;
 import net.barberia66Server.factory.ConnectionFactory;
@@ -70,7 +71,7 @@ public class CitaService extends GenericServiceImplementation implements Service
         }
         return oReplyBean;
     }
-
+    
     @Override
     public ReplyBean update() throws Exception {
         ReplyBean oReplyBean;
@@ -78,24 +79,15 @@ public class CitaService extends GenericServiceImplementation implements Service
         Connection oConnection;
         try {
             String strJsonFromClient = oRequest.getParameter("json");
-            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
+            String modo = oRequest.getParameter("modo");
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
             CitaBean citaBean = (CitaBean) BeanFactory.getBeanFromJson(ob, oGson, strJsonFromClient);
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
             CitaDao citaDao = new CitaDao(oConnection, ob);
-            LocalDateTime fecha_inicio = citaBean.getFecha_inicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-            LocalDateTime fecha_fin = citaBean.getFecha_fin().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-            if (validateDates(fecha_inicio, fecha_fin) && fecha_inicio.getDayOfYear() == fecha_fin.getDayOfYear()) {
-                if (citaDao.comprobarCitas(citaBean.getId_usuario(), fecha_inicio, fecha_fin, 1)) {
-                    citaDao.update(citaBean);
-                    ArrayList<BeanInterface> alBean = citaDao.getpage("resourceTimeGridDay", false, citaBean.getFecha_inicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), 1);
-                    oReplyBean = new ReplyBean(200, oGson.toJson(alBean));
-                } else {
-                    oReplyBean = new ReplyBean(400, "Ya existe una cita para esa fecha");
-                }
-            } else {
-                oReplyBean = new ReplyBean(400, "La fecha de inicio o la fecha de finalización tienen valores no válidos");
-            }
+            citaDao.update(citaBean);
+            ArrayList<BeanInterface> alBean = citaDao.getpage(modo, false, citaBean.getFecha_inicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), 1);
+            oReplyBean = new ReplyBean(200, oGson.toJson(alBean));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: update method: " + ob + " object", ex);
         } finally {

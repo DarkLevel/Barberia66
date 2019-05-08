@@ -14,6 +14,7 @@ import net.barberia66Server.service.specificImplementation.EstadoCitaService;
 import net.barberia66Server.service.specificImplementation.LineaService;
 import net.barberia66Server.service.specificImplementation.ProductoService;
 import net.barberia66Server.service.specificImplementation.RegistroService;
+import net.barberia66Server.service.specificImplementation.TipoCitaService;
 import net.barberia66Server.service.specificImplementation.TipoProductoService;
 import net.barberia66Server.service.specificImplementation.TipoRegistroService;
 import net.barberia66Server.service.specificImplementation.TipoUsuarioService;
@@ -209,7 +210,7 @@ public class ServiceFactory {
                         }
                         break;
                     case "tipocita":
-                        CitaService oService = new CitaService(oRequest);
+                        TipoCitaService oService = new TipoCitaService(oRequest);
                         switch (op) {
                             case "create":
                                 oReplyBean = oService.create();
@@ -494,7 +495,7 @@ public class ServiceFactory {
                         }
                         break;
                     case "tipocita":
-                        CitaService oService = new CitaService(oRequest);
+                        TipoCitaService oService = new TipoCitaService(oRequest);
                         switch (op) {
                             case "create":
                                 oReplyBean = oService.create();
@@ -706,7 +707,7 @@ public class ServiceFactory {
                         }
                         break;
                     case "tipocita":
-                        CitaService oService = new CitaService(oRequest);
+                        TipoCitaService oService = new TipoCitaService(oRequest);
                         switch (op) {
                             case "get":
                                 oReplyBean = oService.get();

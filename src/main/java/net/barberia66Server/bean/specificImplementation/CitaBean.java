@@ -8,13 +8,10 @@ package net.barberia66Server.bean.specificImplementation;
 import com.google.gson.annotations.Expose;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.TimeZone;
 import net.barberia66Server.bean.genericImplementation.GenericBeanImplementation;
 import net.barberia66Server.bean.publicInterface.BeanInterface;
 import net.barberia66Server.dao.specificImplementation.EstadoCitaDao;
@@ -179,25 +176,10 @@ public class CitaBean extends GenericBeanImplementation implements BeanInterface
 
     @Override
     public String getPairs() {
-        //Getting the default zone id
-        ZoneId defaultZoneId = ZoneId.systemDefault();
-
-        //Converting the date to Instant
-        Instant instantInicio = fecha_inicio.toInstant();
-        Instant instantFin = fecha_fin.toInstant();
-
-        //Converting the Date to LocalDate
-        LocalDateTime fecha_inicioLocalDateTime = instantInicio.atZone(defaultZoneId).toLocalDateTime();
-        LocalDateTime fecha_finLocalDateTime = instantFin.atZone(defaultZoneId).toLocalDateTime();
-
         String strPairs = "";
         strPairs += "id=" + id + ",";
-        strPairs += "fecha_inicio=" + EncodingHelper.quotate(fecha_inicioLocalDateTime.toString()) + ",";
-        strPairs += "fecha_fin=" + EncodingHelper.quotate(fecha_finLocalDateTime.toString()) + ",";
         strPairs += "descripcion=" + EncodingHelper.quotate(descripcion) + ",";
-        strPairs += "id_usuario=" + id_usuario + ",";
-        strPairs += "id_tipocita=" + id_tipocita + ",";
-        strPairs += "id_estadocita=" + id_estadocita;
+        strPairs += "id_tipocita=" + id_tipocita;
         strPairs += " WHERE id = " + id;
         return strPairs;
     }
