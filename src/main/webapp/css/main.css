@@ -54,6 +54,10 @@ body{
     outline: none !important;
 }
 
+#dialogCitas {
+  min-width: 75%;
+}
+
 /* OPERACION */
 .operacion{
     padding: 10px;

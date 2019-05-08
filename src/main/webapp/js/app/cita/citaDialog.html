@@ -1,4 +1,4 @@
-<md-dialog aria-label="Productos seleccionados">
+<md-dialog aria-label="Productos seleccionados" id="dialogCitas">
     <form ng-cloak>
         <md-toolbar>
             <div class="md-toolbar-tools">
@@ -11,7 +11,26 @@
         </md-toolbar>
         <md-dialog-content>
             <div class="md-dialog-content">
-                
+                <div class="row mx-auto">
+                    <div class="col-12 mx-auto text-center">
+                        <h3>Cita</h3>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <ng-form name="form" class="col-10 col-md-6 col-lg-5 col-xl-4 mx-auto">
+                        <div class="form-group" ng-class="{'has-error': form.descripcion.$invalid}">
+                            <label>Descripción:</label>
+                            <input type="text" name="descripcion" class="form-control" ng-model="descripcion" ng-maxlength="50" ng-pattern="/^(.+)$/" required>
+                            <p ng-show="form.descripcion.$invalid && !form.descripcion.$pristine" class="help-block red-text">
+                                Formato de descripción inválido.
+                            </p>
+                        </div>
+                        <div class="text-center mt-3" ng-show="botones">
+                            <button type="button" class="btn btn-primary mt-2 mx-2" ng-disabled="form.$invalid" ng-click="answer()">Crear</button>
+                            <button type="button" class="btn btn-danger mt-2 mx-2" ng-click="cancel()">Volver atrás</button>
+                        </div>
+                    </ng-form>
+                </div>
             </div>
         </md-dialog-content>
         <md-dialog-actions layout="row">

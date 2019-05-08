@@ -7,12 +7,6 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
         $anchorScroll();
         $scope.isActive = toolService.isActive;
 
-        $scope.calendar = null;
-        $scope.empleados = null;
-        $scope.citas = null;
-        $scope.recursos = null;
-        $scope.fuenteEventos = null;
-
         $http({
             method: 'GET',
             url: 'http://localhost:8081/barberia66/barberia66?ob=cita&op=getresources'
@@ -188,9 +182,12 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                 },
                 select: function (info) {
                     if ($scope.calendar.view.type === 'resourceTimeGridDay') {
-                        $scope.resourceId = info.resource.id;
+                        $scope.id_usuario = info.resource.id;
                         $scope.fecha_inicio = moment(info.start).format('YYYY-MM-DD HH:mm:ss');
                         $scope.fecha_fin = moment(info.end).format('YYYY-MM-DD HH:mm:ss');
+                        $scope.id_estadocita = 1;
+                        $scope.descripcion = "Prueba";
+                        $scope.id_tipocita = 1;
                         abrirDialog();
                     }
                 },
@@ -239,12 +236,12 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
             };
             $scope.answer = function () {
                 var json = {
-                    id_usuario: $scope.resourceId,
+                    id_usuario: $scope.id_usuario,
                     fecha_inicio: $scope.fecha_inicio,
                     fecha_fin: $scope.fecha_fin,
-                    id_estadocita: 1,
-                    descripcion: "prueba",
-                    id_tipocita: 1
+                    id_estadocita: $scope.id_estadocita,
+                    descripcion: $scope.descripcion,
+                    id_tipocita: $scope.id_tipocita
                 };
                 $http({
                     method: 'GET',
@@ -259,7 +256,7 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                 $mdDialog.hide();
             };
         }
-        
+
         function renderEvents(response, formato, fecha) {
             if (response.data.status === 200) {
                 $scope.citas = response.data.message;

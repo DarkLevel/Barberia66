@@ -1,6 +1,7 @@
 {
     "elements": {
         "md-dialog-content": {},
+        "ng-form": {},
         "md-dialog": {},
         "md-toolbar": {},
         "footer-component": {},
