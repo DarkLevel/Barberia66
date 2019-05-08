@@ -77,8 +77,8 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                 eventOverlap: false,
                 slotEventOverlap: false,
                 allDaySlot: false,
-                scrollTime: '07:00',
-                height: 750,
+                scrollTime: '08:00',
+                height: 739,
                 slotLabelFormat: {
                     hour: 'numeric',
                     minute: '2-digit',
