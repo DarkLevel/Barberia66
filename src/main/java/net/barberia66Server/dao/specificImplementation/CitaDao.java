@@ -33,7 +33,7 @@ public class CitaDao extends GenericDaoImplementation implements DaoInterface {
     public boolean comprobarCitas(int id_usuario, LocalDateTime fecha_inicio, LocalDateTime fecha_fin, Integer expand) throws Exception {
         String strSQL = "SELECT * FROM " + ob;
         ArrayList<BeanInterface> alBean;
-        strSQL += " WHERE id_usuario=" + id_usuario + " AND fecha_inicio BETWEEN \"" + fecha_inicio + "\" AND \"" + fecha_fin + "\" OR fecha_fin BETWEEN \"" + fecha_inicio + "\" AND \"" + fecha_fin + "\"";
+        strSQL += " WHERE id_usuario=" + id_usuario + " AND (fecha_inicio BETWEEN \"" + fecha_inicio + "\" AND \"" + fecha_fin + "\" OR fecha_fin BETWEEN \"" + fecha_inicio + "\" AND \"" + fecha_fin + "\")";
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
         try {
@@ -43,9 +43,7 @@ public class CitaDao extends GenericDaoImplementation implements DaoInterface {
             while (oResultSet.next()) {
                 CitaBean citaBean = (CitaBean) BeanFactory.getBean(ob);
                 citaBean.fill(oResultSet, oConnection, expand);
-                if(citaBean.getObj_usuario().getId() == id_usuario){
-                    alBean.add(citaBean);
-                }
+                alBean.add(citaBean);
             }
         } catch (SQLException e) {
             throw new Exception("Error en Dao comprobarCitas de " + ob, e);

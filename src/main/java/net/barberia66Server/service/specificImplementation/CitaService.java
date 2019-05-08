@@ -53,7 +53,7 @@ public class CitaService extends GenericServiceImplementation implements Service
             LocalDateTime fecha_inicio = citaBean.getFecha_inicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
             LocalDateTime fecha_fin = citaBean.getFecha_fin().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
             if (validateDates(fecha_inicio, fecha_fin) && fecha_inicio.getDayOfYear() == fecha_fin.getDayOfYear()) {
-                if (citaDao.comprobarCitas(citaBean.getId_usuario(), fecha_inicio, fecha_fin, 1)) {
+                if (citaDao.comprobarCitas(citaBean.getId_usuario(), fecha_inicio.plusSeconds(1), fecha_fin.minusSeconds(1), 1)) {
                     citaDao.create(citaBean);
                     ArrayList<BeanInterface> alBean = citaDao.getpage("resourceTimeGridDay", false, citaBean.getFecha_inicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), 1);
                     oReplyBean = new ReplyBean(200, oGson.toJson(alBean));
