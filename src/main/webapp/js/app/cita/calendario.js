@@ -28,7 +28,32 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                     datarecursos.push(resource);
                 });
                 $scope.recursos = datarecursos;
-                getpageCalendar('dayGridMonth', new Date());
+
+                $http({
+                    method: 'GET',
+                    url: 'http://localhost:8081/barberia66/barberia66?ob=cita&op=getpage&modo=dayGridMonth&fecha=' + moment(new Date()).format('YYYY-MM-DD')
+                }).then(function (response) {
+                    if (response.data.status === 200) {
+                        $scope.citas = response.data.message;
+                        var dataeventos = [];
+                        response.data.message.forEach(element => {
+                            var evento = {
+                                resourceId: element.obj_usuario.id,
+                                id: element.id,
+                                title: element.obj_tipocita.descripcion,
+                                start: new Date(element.fecha_inicio),
+                                end: new Date(element.fecha_fin)
+                            };
+                            dataeventos.push(evento);
+                        });
+                        $scope.fuenteEventos = [{events: dataeventos, id: 1}];
+                        renderCalendar();
+                        $scope.calendar.changeView('dayGridMonth', new Date());
+                    }
+                }, function (response) {
+                    $scope.status = response.status;
+                    response.data.message = response.data.message || 'Request failed';
+                });
             }
         }, function (response) {
             $scope.status = response.status;
@@ -173,37 +198,20 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                 eventClick: function (info) {
                     if ($scope.calendar.view.type === 'dayGridMonth') {
                         $scope.calendar.changeView('resourceTimeGridDay', moment(info.start).format('YYYY-MM-DD'));
-                    } else{
-                        
+                    } else {
+
                     }
                 }
             });
             $scope.calendar.render();
         }
-        
+
         function getpageCalendar(formato, fecha) {
             $http({
                 method: 'GET',
                 url: 'http://localhost:8081/barberia66/barberia66?ob=cita&op=getpage&modo=' + formato + '&fecha=' + moment(fecha).format('YYYY-MM-DD')
             }).then(function (response) {
-                if (response.data.status === 200) {
-                    $scope.citas = response.data.message;
-                    var dataeventos = [];
-                    response.data.message.forEach(element => {
-                        var evento = {
-                            resourceId: element.obj_usuario.id,
-                            id: element.id,
-                            title: element.obj_tipocita.descripcion,
-                            start: new Date(element.fecha_inicio),
-                            end: new Date(element.fecha_fin)
-                        };
-                        dataeventos.push(evento);
-                    });
-                    $scope.fuenteEventos = [{events: dataeventos, id: 1}];
-                    $('#calendar').empty();
-                    renderCalendar();
-                    $scope.calendar.changeView(formato, fecha);
-                }
+                renderEvents(response, formato, fecha);
             }, function (response) {
                 $scope.status = response.status;
                 response.data.message = response.data.message || 'Request failed';
@@ -244,30 +252,34 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                     url: 'http://localhost:8081/barberia66/barberia66?ob=cita&op=create',
                     params: {json: JSON.stringify(json)}
                 }).then(function (response) {
-                    if (response.data.status === 200) {
-                        $scope.citas = response.data.message;
-                        var dataeventos = [];
-                        response.data.message.forEach(element => {
-                            var evento = {
-                                resourceId: element.obj_usuario.id,
-                                id: element.id,
-                                title: element.obj_tipocita.descripcion,
-                                start: new Date(element.fecha_inicio),
-                                end: new Date(element.fecha_fin)
-                            };
-                            dataeventos.push(evento);
-                        });
-                        $scope.fuenteEventos = [{events: dataeventos, id: 1}];
-                        $('#calendar').empty();
-                        renderCalendar();
-                        $scope.calendar.changeView('resourceTimeGridDay', moment($scope.fecha_inicio).format('YYYY-MM-DD'));
-                    }
+                    renderEvents(response, 'resourceTimeGridDay', $scope.fecha_inicio);
                 }, function (response) {
                     $scope.status = response.status;
                     response.data.message = response.data.message || 'Request failed';
                 });
                 $mdDialog.hide();
             };
+        }
+        
+        function renderEvents(response, formato, fecha) {
+            if (response.data.status === 200) {
+                $scope.citas = response.data.message;
+                var dataeventos = [];
+                response.data.message.forEach(element => {
+                    var evento = {
+                        resourceId: element.obj_usuario.id,
+                        id: element.id,
+                        title: element.obj_tipocita.descripcion,
+                        start: new Date(element.fecha_inicio),
+                        end: new Date(element.fecha_fin)
+                    };
+                    dataeventos.push(evento);
+                });
+                $scope.fuenteEventos = [{events: dataeventos, id: 1}];
+                $('#calendar').empty();
+                renderCalendar();
+                $scope.calendar.changeView(formato, fecha);
+            }
         }
 
     }
