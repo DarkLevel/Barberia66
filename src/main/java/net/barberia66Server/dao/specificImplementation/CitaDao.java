@@ -29,6 +29,18 @@ public class CitaDao extends GenericDaoImplementation implements DaoInterface {
     public CitaDao(Connection oConnection, String ob) {
         super(oConnection, ob);
     }
+    
+    public int updateEstado(CitaBean ocitaBean, int id_estado) throws Exception {
+        int iResult = 0;
+        String strSQL = "UPDATE " + ob + " SET ";
+        strSQL += ocitaBean.getPairsUpdateEstado();
+        try (PreparedStatement oPreparedStatement = oConnection.prepareStatement(strSQL)) {
+            iResult = oPreparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new Exception("Error en Dao update de " + ob, e);
+        }
+        return iResult;
+    }
 
     public boolean comprobarCitas(int id_usuario, LocalDateTime fecha_inicio, LocalDateTime fecha_fin, Integer expand) throws Exception {
         String strSQL = "SELECT * FROM " + ob;

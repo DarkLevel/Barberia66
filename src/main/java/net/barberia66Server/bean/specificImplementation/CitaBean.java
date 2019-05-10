@@ -184,4 +184,12 @@ public class CitaBean extends GenericBeanImplementation implements BeanInterface
         return strPairs;
     }
 
+    public String getPairsUpdateEstado() {
+        String strPairs = "";
+        strPairs += "id=" + id + ",";
+        strPairs += "id_estadocita=" + id_estadocita;
+        strPairs += " WHERE id = " + id;
+        return strPairs;
+    }
+
 }

@@ -24,6 +24,7 @@ import net.barberia66Server.dao.specificImplementation.CitaDao;
 import net.barberia66Server.factory.BeanFactory;
 import net.barberia66Server.factory.ConnectionFactory;
 import net.barberia66Server.factory.DaoFactory;
+import net.barberia66Server.helper.Validator;
 import static net.barberia66Server.helper.Validator.validateDates;
 import net.barberia66Server.service.genericImplementation.GenericServiceImplementation;
 import net.barberia66Server.service.publicInterface.ServiceInterface;
@@ -86,6 +87,30 @@ public class CitaService extends GenericServiceImplementation implements Service
             oConnection = oConnectionPool.newConnection();
             CitaDao citaDao = new CitaDao(oConnection, ob);
             citaDao.update(citaBean);
+            ArrayList<BeanInterface> alBean = citaDao.getpage(modo, false, citaBean.getFecha_inicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), 1);
+            oReplyBean = new ReplyBean(200, oGson.toJson(alBean));
+        } catch (Exception ex) {
+            throw new Exception("ERROR: Service level: update method: " + ob + " object", ex);
+        } finally {
+            oConnectionPool.disposeConnection();
+        }
+        return oReplyBean;
+    }
+    
+    public ReplyBean updateEstado() throws Exception {
+        ReplyBean oReplyBean;
+        ConnectionInterface oConnectionPool = null;
+        Connection oConnection;
+        try {
+            String strJsonFromClient = oRequest.getParameter("json");
+            String modo = oRequest.getParameter("modo");
+            int id_estado = Integer.parseInt(oRequest.getParameter("accion"));
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+            CitaBean citaBean = (CitaBean) BeanFactory.getBeanFromJson(ob, oGson, strJsonFromClient);
+            oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
+            oConnection = oConnectionPool.newConnection();
+            CitaDao citaDao = new CitaDao(oConnection, ob);
+            citaDao.updateEstado(citaBean, id_estado);
             ArrayList<BeanInterface> alBean = citaDao.getpage(modo, false, citaBean.getFecha_inicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), 1);
             oReplyBean = new ReplyBean(200, oGson.toJson(alBean));
         } catch (Exception ex) {

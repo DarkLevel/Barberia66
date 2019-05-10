@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import net.barberia66Server.bean.publicInterface.BeanInterface;
 import net.barberia66Server.bean.specificImplementation.ReplyBean;
@@ -22,7 +21,7 @@ import net.barberia66Server.factory.BeanFactory;
 import net.barberia66Server.factory.ConnectionFactory;
 import net.barberia66Server.factory.DaoFactory;
 import net.barberia66Server.helper.EncodingHelper;
-import net.barberia66Server.helper.ParameterCook;
+import net.barberia66Server.helper.Validator;
 import net.barberia66Server.service.genericImplementation.GenericServiceImplementation;
 import net.barberia66Server.service.publicInterface.ServiceInterface;
 
@@ -31,12 +30,12 @@ import net.barberia66Server.service.publicInterface.ServiceInterface;
  * @author a073597589g
  */
 public class UsuarioService extends GenericServiceImplementation implements ServiceInterface {
-    
+
     public UsuarioService(HttpServletRequest oRequest) {
         super(oRequest);
         ob = oRequest.getParameter("ob");
     }
-    
+
     public ReplyBean login() throws Exception {
         ReplyBean oReplyBean;
         ConnectionInterface oConnectionPool = null;
@@ -80,7 +79,7 @@ public class UsuarioService extends GenericServiceImplementation implements Serv
         }
         return oReplyBean;
     }
-    
+
     public ReplyBean getpageall() throws Exception {
         ReplyBean oReplyBean;
         ConnectionInterface oConnectionPool = null;
@@ -107,27 +106,25 @@ public class UsuarioService extends GenericServiceImplementation implements Serv
         try {
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
-            UsuarioBean oLoggedUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
-            if (oLoggedUsuarioBean != null) {
-                String actualPass = oLoggedUsuarioBean.getPassword();
-                String oldPass = oRequest.getParameter("oldpass");
-                if (actualPass.equals(oldPass)) {
-                    String newPass = oRequest.getParameter("newpass");
-                    if (newPass.length() == 64) {
+            if (Validator.validateId(oRequest.getParameter("id_usuario"))) {
+                int id_usuario = Integer.parseInt(oRequest.getParameter("id_usuario"));
+                String password = oRequest.getParameter("password");
+                UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
+                if (oUsuarioDao.get(id_usuario, 1) != null) {
+                    if (password.length() == 64) {
                         UsuarioBean oUsuarioBean = new UsuarioBean();
-                        oUsuarioBean.setId(oLoggedUsuarioBean.getId());
-                        oUsuarioBean.setPassword(newPass);
-                        UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
+                        oUsuarioBean.setId(id_usuario);
+                        oUsuarioBean.setPassword(password);
                         int iRes = oUsuarioDao.updatepass(oUsuarioBean);
                         oReplyBean = new ReplyBean(200, Integer.toString(iRes));
                     } else {
                         oReplyBean = new ReplyBean(400, "Unencrypted password");
                     }
                 } else {
-                    oReplyBean = new ReplyBean(401, "Bad Authentication");
+                    oReplyBean = new ReplyBean(400, "No existe ese usuario");
                 }
             } else {
-                oReplyBean = new ReplyBean(401, "Unauthorized");
+                oReplyBean = new ReplyBean(400, "Formato id incorrecto");
             }
         } catch (Exception ex) {
             oReplyBean = new ReplyBean(500,
@@ -137,7 +134,7 @@ public class UsuarioService extends GenericServiceImplementation implements Serv
         }
         return oReplyBean;
     }
-    
+
     public ReplyBean getprofile() throws Exception {
         ReplyBean oReplyBean;
         ConnectionInterface oConnectionPool = null;
@@ -182,5 +179,5 @@ public class UsuarioService extends GenericServiceImplementation implements Serv
         }
         return oReplyBean;
     }
-    
+
 }
