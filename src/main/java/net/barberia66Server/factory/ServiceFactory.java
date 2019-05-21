@@ -73,6 +73,9 @@ public class ServiceFactory {
                             case "update":
                                 oReplyBean = oCitaService.update();
                                 break;
+                            case "updateEstado":
+                                oReplyBean = oCitaService.updateEstado();
+                                break;
                             default:
                                 oReplyBean = new ReplyBean(500, "Operation doesn't exist");
                                 break;
@@ -396,6 +399,9 @@ public class ServiceFactory {
                             case "update":
                                 oReplyBean = oCitaService.update();
                                 break;
+                            case "updateEstado":
+                                oReplyBean = oCitaService.updateEstado();
+                                break;
                             default:
                                 oReplyBean = new ReplyBean(500, "Operation doesn't exist");
                                 break;
@@ -628,6 +634,9 @@ public class ServiceFactory {
                                 break;
                             case "update":
                                 oReplyBean = oCitaService.update();
+                                break;
+                            case "updateEstado":
+                                oReplyBean = oCitaService.updateEstado();
                                 break;
                             default:
                                 oReplyBean = new ReplyBean(500, "Operation doesn't exist");

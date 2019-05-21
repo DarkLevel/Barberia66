@@ -30,7 +30,7 @@ public class CitaDao extends GenericDaoImplementation implements DaoInterface {
         super(oConnection, ob);
     }
     
-    public int updateEstado(CitaBean ocitaBean, int id_estado) throws Exception {
+    public int updateEstado(CitaBean ocitaBean) throws Exception {
         int iResult = 0;
         String strSQL = "UPDATE " + ob + " SET ";
         strSQL += ocitaBean.getPairsUpdateEstado();
@@ -45,7 +45,7 @@ public class CitaDao extends GenericDaoImplementation implements DaoInterface {
     public boolean comprobarCitas(int id_usuario, LocalDateTime fecha_inicio, LocalDateTime fecha_fin, Integer expand) throws Exception {
         String strSQL = "SELECT * FROM " + ob;
         ArrayList<BeanInterface> alBean;
-        strSQL += " WHERE id_usuario=" + id_usuario + " AND (fecha_inicio BETWEEN \"" + fecha_inicio + "\" AND \"" + fecha_fin + "\" OR fecha_fin BETWEEN \"" + fecha_inicio + "\" AND \"" + fecha_fin + "\")";
+        strSQL += " WHERE id_usuario=" + id_usuario + " AND id_estadocita != 3 AND (fecha_inicio BETWEEN \"" + fecha_inicio + "\" AND \"" + fecha_fin + "\" OR fecha_fin BETWEEN \"" + fecha_inicio + "\" AND \"" + fecha_fin + "\")";
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
         try {

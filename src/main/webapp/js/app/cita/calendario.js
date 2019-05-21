@@ -32,7 +32,7 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
             if (response.data.status === 200) {
                 $scope.empleados = response.data.message;
                 var datarecursos = [];
-                response.data.message.forEach(element => {
+                $scope.empleados.forEach(element => {
                     var resource = {
                         id: element.id,
                         title: (element.nombre).substring(0, 3) + '.'
@@ -45,22 +45,7 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                     method: 'GET',
                     url: 'http://localhost:8081/barberia66/barberia66?ob=cita&op=getpage&modo=dayGridMonth&fecha=' + moment(new Date()).format('YYYY-MM-DD')
                 }).then(function (response) {
-                    if (response.data.status === 200) {
-                        $scope.citas = response.data.message;
-                        var dataeventos = [];
-                        response.data.message.forEach(element => {
-                            var evento = {
-                                resourceId: element.obj_usuario.id,
-                                id: element.id,
-                                title: element.obj_tipocita.descripcion,
-                                start: new Date(element.fecha_inicio),
-                                end: new Date(element.fecha_fin)
-                            };
-                            dataeventos.push(evento);
-                        });
-                        $scope.fuenteEventos = [{events: dataeventos, id: 1}];
-                        renderCalendar();
-                    }
+                    renderEvents(response, 'dayGridMonth', new Date());
                 }, function (response) {
                     $scope.status = response.status;
                     response.data.message = response.data.message || 'Request failed';
@@ -80,7 +65,6 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                 firstDay: 1,
                 defaultView: 'dayGridMonth',
                 datesAboveResources: true,
-                editable: true,
                 selectable: true,
                 eventLimit: true,
                 nowIndicator: true,
@@ -90,6 +74,9 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                 allDaySlot: false,
                 scrollTime: '08:00',
                 height: 739,
+                eventConstraint: "businessHours",
+                resources: $scope.recursos,
+                eventSources: $scope.fuenteEventos,
                 slotLabelFormat: {
                     hour: 'numeric',
                     minute: '2-digit',
@@ -101,9 +88,6 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                     startTime: '09:00',
                     endTime: '20:00'
                 },
-                eventConstraint: "businessHours",
-                resources: $scope.recursos,
-                eventSources: $scope.fuenteEventos,
                 header: {
                     left: 'anterior,siguiente hoy',
                     center: 'title',
@@ -199,7 +183,7 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                     }
                 },
                 select: function (info) {
-                    if ($scope.calendar.view.type === 'resourceTimeGridDay') {
+                    if ($scope.calendar.view.type !== 'dayGridMonth') {
                         var datosEmpleado = null;
                         for (var i = 0; i < $scope.empleados.length && Boolean(datosEmpleado === null); i++) {
                             if ($scope.empleados[i].id === parseInt(info.resource.id)) {
@@ -209,8 +193,8 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                         $scope.accion = "Crear";
                         $scope.id_usuario = datosEmpleado.id;
                         $scope.nombreEmpleado = datosEmpleado.nombre;
-                        $scope.fecha_inicio = moment(info.start).format('HH:mm:ss DD-MM-YYYY');
-                        $scope.fecha_fin = moment(info.end).format('HH:mm:ss DD-MM-YYYY');
+                        $scope.fecha_inicio = moment(info.start).format('HH:mm DD-MM-YYYY');
+                        $scope.fecha_fin = moment(info.end).format('HH:mm DD-MM-YYYY');
                         $scope.descripcion = "";
                         $scope.id_estadocita = 1;
                         $scope.tipocita = 1;
@@ -237,11 +221,11 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                         $scope.id_cita = $scope.datosCita.id;
                         $scope.id_usuario = datosEmpleado.id;
                         $scope.nombreEmpleado = datosEmpleado.nombre;
-                        $scope.fecha_inicio = moment(new Date($scope.datosCita.fecha_inicio)).format('HH:mm:ss DD-MM-YYYY');
-                        $scope.fecha_fin = moment(new Date($scope.datosCita.fecha_fin)).format('HH:mm:ss DD-MM-YYYY');
+                        $scope.fecha_inicio = moment(new Date($scope.datosCita.fecha_inicio)).format('HH:mm DD-MM-YYYY');
+                        $scope.fecha_fin = moment(new Date($scope.datosCita.fecha_fin)).format('HH:mm DD-MM-YYYY');
                         $scope.id_estadocita = $scope.datosCita.obj_estadocita.id;
                         $scope.descripcion = $scope.datosCita.descripcion;
-                        $scope.tipocita = $scope.datosCita.obj_estadocita.id;
+                        $scope.tipocita = $scope.datosCita.obj_tipocita.id;
                         abrirDialog();
                     }
                 }
@@ -296,7 +280,7 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                         url: 'http://localhost:8081/barberia66/barberia66?ob=cita&op=create',
                         params: {json: JSON.stringify(json)}
                     }).then(function (response) {
-                        renderEvents(response, 'resourceTimeGridDay', formatDate($scope.fecha_inicio));
+                        renderEvents(response, $scope.calendar.view.type, $scope.calendar.getDate());
                     }, function (response) {
                         $scope.status = response.status;
                         response.data.message = response.data.message || 'Request failed';
@@ -317,7 +301,7 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                         url: 'http://localhost:8081/barberia66/barberia66?ob=cita&op=update&modo=' + $scope.calendar.view.type,
                         params: {json: JSON.stringify(json)}
                     }).then(function (response) {
-                        renderEvents(response, $scope.calendar.view.type, formatDate($scope.fecha_inicio));
+                        renderEvents(response, $scope.calendar.view.type, $scope.calendar.getDate());
                     }, function (response) {
                         $scope.status = response.status;
                         response.data.message = response.data.message || 'Request failed';
@@ -326,18 +310,49 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                 $mdDialog.hide();
             };
         }
+        
+        $scope.cancelarcita = function () {
+            $http({
+                method: 'GET',
+                url: 'http://localhost:8081/barberia66/barberia66?ob=cita&op=updateEstado&accion=3&id=' + $scope.id_cita
+            }).then(function (response) {
+                $scope.status = response.status;
+                $scope.ajaxData = response.data.message;
+                $mdDialog.cancel();
+                renderEvents(response, $scope.calendar.view.type, $scope.calendar.getDate());
+            }, function (response) {
+                $scope.status = response.status;
+                $scope.ajaxData = response.data.message || 'Request failed';
+            });
+        };
+        
+        $scope.realizarcita = function () {
+            $http({
+                method: 'GET',
+                url: 'http://localhost:8081/barberia66/barberia66?ob=cita&op=updateEstado&accion=2&id=' + $scope.id_cita
+            }).then(function (response) {
+                $scope.status = response.status;
+                $scope.ajaxData = response.data.message;
+                $mdDialog.cancel();
+                renderEvents(response, $scope.calendar.view.type, $scope.calendar.getDate());
+            }, function (response) {
+                $scope.status = response.status;
+                $scope.ajaxData = response.data.message || 'Request failed';
+            });
+        };
 
         function renderEvents(response, formato, fecha) {
             if (response.data.status === 200) {
                 $scope.citas = response.data.message;
                 var dataeventos = [];
-                response.data.message.forEach(element => {
+                $scope.citas.forEach(element => {
                     var evento = {
                         resourceId: element.obj_usuario.id,
                         id: element.id,
                         title: element.obj_tipocita.descripcion,
                         start: new Date(element.fecha_inicio),
-                        end: new Date(element.fecha_fin)
+                        end: new Date(element.fecha_fin),
+                        color: elegirColorCita(element)
                     };
                     dataeventos.push(evento);
                 });
@@ -347,9 +362,24 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
                 $scope.calendar.changeView(formato, fecha);
             }
         }
+        
+        function elegirColorCita(element) {
+            var color;
+            switch(element.obj_estadocita.id) {
+                case 2:
+                    //color = element.obj_usuario.color_cita;
+                    color = 'yellow';
+                    break;
+                default:
+                    //color = element.obj_usuario.color_citarealizada;
+                    color = '#3788d8';
+                    break;
+            }
+            return color;
+        }
 
         function formatDate(fecha) {
-            return fecha.split(" ")[1].split("-")[2] + '-' + fecha.split(" ")[1].split("-")[1] + '-' + fecha.split(" ")[1].split("-")[0] + ' ' + fecha.split(" ")[0];
+            return fecha.split(' ')[1].split('-')[2] + '-' + fecha.split(' ')[1].split('-')[1] + '-' + fecha.split(' ')[1].split('-')[0] + ' ' + fecha.split(' ')[0] + ':00';
         }
 
     }
