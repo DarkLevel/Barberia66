@@ -12,7 +12,6 @@ var barberia66 = angular.module('MyApp', [
     'citaControllers',
     'estadocitaControllers',
     'gestionproductosControllers',
-    'lineaControllers',
     'productoControllers',
     'registroControllers',
     'tipocitaControllers',
@@ -50,7 +49,6 @@ var moduleCommon = angular.module('commonControllers', []);
 var moduleCita = angular.module('citaControllers', []);
 var moduleEstadocita = angular.module('estadocitaControllers', []);
 var moduleGestionproductos = angular.module('gestionproductosControllers', []);
-var moduleLinea = angular.module('lineaControllers', []);
 var moduleProducto = angular.module('productoControllers', []);
 var moduleRegistro = angular.module('registroControllers', []);
 var moduleTipocita = angular.module('tipocitaControllers', []);

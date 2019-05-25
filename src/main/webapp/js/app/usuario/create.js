@@ -11,6 +11,8 @@ moduleUsuario.controller('usuarioCreateController', ['$scope', '$http', 'toolSer
         $scope.correcto = false;
         $scope.fecha_alta = new Date();
         $scope.actualDate = new Date($scope.fecha_alta.getFullYear(), $scope.fecha_alta.getMonth(), $scope.fecha_alta.getDate());
+        $scope.color_cita = '#ffffff';
+        $scope.color_cita_realizada = '#ffffff';
 
         $http({
             method: 'GET',
@@ -42,6 +44,8 @@ moduleUsuario.controller('usuarioCreateController', ['$scope', '$http', 'toolSer
                 apellido2: $scope.apellido2,
                 username: $scope.username,
                 password: forge_sha256($scope.password),
+                color_cita: $scope.color_cita,
+                color_cita_realizada: $scope.color_cita_realizada,
                 fecha_alta: $scope.fecha_alta,
                 id_tipousuario: $scope.tipousuario
             };

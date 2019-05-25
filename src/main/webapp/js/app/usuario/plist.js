@@ -111,7 +111,7 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
         }
         
         $scope.atras = function () {
-            $location.url('operaciones');
+            $location.url('home');
         };
         
         function formatDate(fecha) {

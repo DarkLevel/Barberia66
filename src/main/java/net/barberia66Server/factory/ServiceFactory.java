@@ -186,26 +186,11 @@ public class ServiceFactory {
                             case "getcount":
                                 oReplyBean = oRegistroService.getcount();
                                 break;
-                            case "getcountregistrouser":
-                                oReplyBean = oRegistroService.getcountregistrouser();
-                                break;
-                            case "getcountX":
-                                oReplyBean = oRegistroService.getcountX();
-                                break;
                             case "getpage":
                                 oReplyBean = oRegistroService.getpage();
                                 break;
-                            case "getpageregistrouser":
-                                oReplyBean = oRegistroService.getpageregistrouser();
-                                break;
-                            case "getpageX":
-                                oReplyBean = oRegistroService.getpageX();
-                                break;
                             case "remove":
                                 oReplyBean = oRegistroService.remove();
-                                break;
-                            case "update":
-                                oReplyBean = oRegistroService.update();
                                 break;
                             default:
                                 oReplyBean = new ReplyBean(500, "Operation doesn't exist");
@@ -474,26 +459,11 @@ public class ServiceFactory {
                             case "getcount":
                                 oReplyBean = oRegistroService.getcount();
                                 break;
-                            case "getcountregistrouser":
-                                oReplyBean = oRegistroService.getcountregistrouser();
-                                break;
-                            case "getcountX":
-                                oReplyBean = oRegistroService.getcountX();
-                                break;
                             case "getpage":
                                 oReplyBean = oRegistroService.getpage();
                                 break;
-                            case "getpageregistrouser":
-                                oReplyBean = oRegistroService.getpageregistrouser();
-                                break;
-                            case "getpageX":
-                                oReplyBean = oRegistroService.getpageX();
-                                break;
                             case "remove":
                                 oReplyBean = oRegistroService.remove();
-                                break;
-                            case "update":
-                                oReplyBean = oRegistroService.update();
                                 break;
                             default:
                                 oReplyBean = new ReplyBean(500, "Operation doesn't exist");
@@ -689,26 +659,11 @@ public class ServiceFactory {
                             case "getcount":
                                 oReplyBean = oRegistroService.getcount();
                                 break;
-                            case "getcountregistrouser":
-                                oReplyBean = oRegistroService.getcountregistrouser();
-                                break;
-                            case "getcountX":
-                                oReplyBean = oRegistroService.getcountX();
-                                break;
                             case "getpage":
                                 oReplyBean = oRegistroService.getpage();
                                 break;
-                            case "getpageregistrouser":
-                                oReplyBean = oRegistroService.getpageregistrouser();
-                                break;
-                            case "getpageX":
-                                oReplyBean = oRegistroService.getpageX();
-                                break;
                             case "remove":
                                 oReplyBean = oRegistroService.remove();
-                                break;
-                            case "update":
-                                oReplyBean = oRegistroService.update();
                                 break;
                             default:
                                 oReplyBean = new ReplyBean(500, "Operation doesn't exist");

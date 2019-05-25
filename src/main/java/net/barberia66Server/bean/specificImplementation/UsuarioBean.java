@@ -39,6 +39,10 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
     private String username;
     @Expose(serialize = false)
     private String password;
+    @Expose
+    private String color_cita;
+    @Expose
+    private String color_cita_realizada;
     @Expose(serialize = false)
     private int id_tipousuario;
     @Expose(deserialize = false)
@@ -104,6 +108,22 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
         this.password = password;
     }
 
+    public String getColor_cita() {
+        return color_cita;
+    }
+
+    public void setColor_cita(String color_cita) {
+        this.color_cita = color_cita;
+    }
+
+    public String getColor_cita_realizada() {
+        return color_cita_realizada;
+    }
+
+    public void setColor_cita_realizada(String color_cita_realizada) {
+        this.color_cita_realizada = color_cita_realizada;
+    }
+
     public int getId_tipousuario() {
         return id_tipousuario;
     }
@@ -147,6 +167,8 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
         this.setFecha_alta(fechaAlta);
         this.setUsername(oResultSet.getString("username"));
         this.setPassword(oResultSet.getString("password"));
+        this.setColor_cita(oResultSet.getString("color_cita"));
+        this.setColor_cita_realizada(oResultSet.getString("color_cita_realizada"));
         this.setLink_registro((new RegistroDao(oConnection, "registro")).getcountX(oResultSet.getInt("id")));
         if (expand > 0) {
             TipoUsuarioDao otipoUsuarioDao = new TipoUsuarioDao(oConnection, "tipousuario");
@@ -168,6 +190,8 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
         strColumns += "fecha_alta,";
         strColumns += "username,";
         strColumns += "password,";
+        strColumns += "color_cita,";
+        strColumns += "color_cita_realizada,";
         strColumns += "id_tipousuario";
         return strColumns;
     }
@@ -192,6 +216,8 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
         strColumns += EncodingHelper.quotate(localDateTime.toString()) + ",";
         strColumns += EncodingHelper.quotate(username) + ",";
         strColumns += EncodingHelper.quotate(password) + ",";
+        strColumns += EncodingHelper.quotate(color_cita) + ",";
+        strColumns += EncodingHelper.quotate(color_cita_realizada) + ",";
         strColumns += id_tipousuario;
         return strColumns;
     }
@@ -215,6 +241,8 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
         strPairs += "apellido2=" + EncodingHelper.quotate(apellido2) + ",";
         strPairs += "fecha_alta=" + EncodingHelper.quotate(localDateTime.toString()) + ",";
         strPairs += "username=" + EncodingHelper.quotate(username) + ",";
+        strPairs += "color_cita=" + EncodingHelper.quotate(color_cita) + ",";
+        strPairs += "color_cita_realizada=" + EncodingHelper.quotate(color_cita_realizada) + ",";
         strPairs += "id_tipousuario=" + id_tipousuario;
         strPairs += " WHERE id = " + id;
         return strPairs;

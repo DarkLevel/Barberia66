@@ -8,7 +8,7 @@
             <li class="nav-item" ng-class="{'active': c.isActive('/cita')}" ng-show="c.isAdmin || c.isBoss">
                 <a class="nav-link" href="cita/calendario"><i class="fas fa-calendar-alt"></i> Citas</a>
             </li>
-            <li class="nav-item" ng-class="{'active': c.isActive('/comercio')}">
+            <li class="nav-item li-dropdown" ng-class="{'active': c.isActive('/comercio')}">
                 <div class="nav-link dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-euro-sign"></i> Comercio<span class="caret"></span></a>
                     <div class="dropdown-menu">
@@ -18,8 +18,20 @@
                     </div>
                 </div>
             </li>
-            <li class="nav-item" ng-class="{'active': c.isActive('/operaciones')}" ng-show="c.isAdmin || c.isBoss">
-                <a class="nav-link" href="operaciones"><i class="fas fa-clipboard-list"></i> Operaciones de gestión</a>
+            <li class="nav-item li-dropdown" ng-class="{'active': (c.isActive('/producto') || c.isActive('/registro') || c.isActive('/usuario') || c.isActive('/tipoproducto') || c.isActive('/tiporegistro') || c.isActive('/tipousuario') || c.isActive('/tipocita') || c.isActive('/estadocita'))}">
+                <div class="nav-link dropdown pointer">
+                    <a class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-clipboard-list"></i> Operaciones de gestión<span class="caret"></span></a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" ng-show="c.isAdmin || c.isBoss" href="producto/plist">Productos</a>
+                        <a class="dropdown-item" ng-show="c.isAdmin || c.isBoss" href="registro/plist">Registros</a>
+                        <a class="dropdown-item" ng-show="c.isAdmin || c.isBoss" href="usuario/plist">Usuarios</a>
+                        <a class="dropdown-item" ng-show="c.isAdmin || c.isBoss" href="tipoproducto/plist">Tipos de producto</a>
+                        <a class="dropdown-item" ng-show="c.isAdmin" href="tiporegistro/plist">Tipos de registro</a>
+                        <a class="dropdown-item" ng-show="c.isAdmin" href="tipousuario/plist">Tipos de usuario</a>
+                        <a class="dropdown-item" ng-show="c.isAdmin || c.isBoss" href="tipocita/plist">Tipos de cita</a>
+                        <a class="dropdown-item" ng-show="c.isAdmin" href="estadocita/plist">Estados de cita</a>
+                    </div>
+                </div>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">

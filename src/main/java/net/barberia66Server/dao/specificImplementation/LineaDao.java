@@ -26,14 +26,14 @@ public class LineaDao extends GenericDaoImplementation implements DaoInterface {
         super(oConnection, ob);
     }
     
-    public int getcountX(int id_factura) throws Exception {
+    public int getcountX(int id_registro) throws Exception {
         String strSQL = "SELECT COUNT(id) FROM " + ob + " WHERE id_registro=?";
         int res = 0;
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
-            oPreparedStatement.setInt(1, id_factura);
+            oPreparedStatement.setInt(1, id_registro);
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
                 res = oResultSet.getInt(1);
@@ -51,7 +51,7 @@ public class LineaDao extends GenericDaoImplementation implements DaoInterface {
         return res;
     }
     
-    public ArrayList<LineaBean> getpageX(int id_fact, int iRpp, int iPage, HashMap<String, String> hmOrder, Integer expand) throws Exception {
+    public ArrayList<LineaBean> getpageX(int id_registro, int iRpp, int iPage, HashMap<String, String> hmOrder, Integer expand) throws Exception {
         String strSQL = "SELECT * FROM " + ob + " WHERE id_registro=?";
         strSQL += SqlBuilder.buildSqlOrder(hmOrder);
         ArrayList<LineaBean> alLineaBean;
@@ -61,7 +61,7 @@ public class LineaDao extends GenericDaoImplementation implements DaoInterface {
             PreparedStatement oPreparedStatement = null;
             try {
                 oPreparedStatement = oConnection.prepareStatement(strSQL);
-                oPreparedStatement.setInt(1, id_fact);
+                oPreparedStatement.setInt(1, id_registro);
                 oResultSet = oPreparedStatement.executeQuery();
                 alLineaBean = new ArrayList<LineaBean>();
                 while (oResultSet.next()) {

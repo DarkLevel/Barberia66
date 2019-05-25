@@ -176,8 +176,6 @@ var all = function ($q, $location, $http, sessionService) {
 barberia66.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/home', {templateUrl: 'js/app/common/home.html', controller: 'homeController', resolve: {auth: all}});
 
-        $routeProvider.when('/operaciones', {templateUrl: 'js/app/common/operaciones.html', controller: 'operacionesController', resolve: {auth: autenticacionJefe}});
-
         $routeProvider.when('/comercio/venta', {templateUrl: 'js/app/comercio/venta.html', controller: 'comercioVentaController', resolve: {auth: autenticacionEmpleado}});
         $routeProvider.when('/comercio/compra', {templateUrl: 'js/app/comercio/compra.html', controller: 'comercioCompraController', resolve: {auth: autenticacionEmpleado}});
         $routeProvider.when('/comercio/uso', {templateUrl: 'js/app/comercio/uso.html', controller: 'comercioUsoController', resolve: {auth: autenticacionEmpleado}});
@@ -196,7 +194,9 @@ barberia66.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/producto/update/:id?', {templateUrl: 'js/app/producto/update.html', controller: 'productoUpdateController', resolve: {auth: autenticacionJefe}});
         $routeProvider.when('/producto/view/:id?', {templateUrl: 'js/app/producto/view.html', controller: 'productoViewController', resolve: {auth: autenticacionJefe}});
         
-        //$routeProvider.when('/registro/calendario', {templateUrl: 'js/app/registro/calendario.html', controller: 'registroCalendarioController', resolve: {auth: autenticacionEmpleado}});
+        $routeProvider.when('/registro/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/registro/plist.html', controller: 'registroPlistController', resolve: {auth: autenticacionJefe}});
+        $routeProvider.when('/registro/remove/:id?', {templateUrl: 'js/app/registro/remove.html', controller: 'registroRemoveController', resolve: {auth: autenticacionJefe}});
+        $routeProvider.when('/registro/view/:id?', {templateUrl: 'js/app/registro/view.html', controller: 'registroViewController', resolve: {auth: autenticacionJefe}});
         
         $routeProvider.when('/tipocita/create', {templateUrl: 'js/app/tipocita/create.html', controller: 'tipocitaCreateController', resolve: {auth: autenticacionJefe}});
         $routeProvider.when('/tipocita/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/tipocita/plist.html', controller: 'tipocitaPlistController', resolve: {auth: autenticacionJefe}});

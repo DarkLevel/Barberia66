@@ -108,7 +108,7 @@ moduleTipousuario.controller('tipousuarioPlistController',  ['$scope', '$http', 
         }
         
         $scope.atras = function () {
-            $location.url('operaciones');
+            $location.url('home');
         };
 
         $scope.isActive = toolService.isActive;

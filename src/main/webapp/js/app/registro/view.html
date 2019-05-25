@@ -2,19 +2,27 @@
 <div class="container-fluid margin-top">
     <div class="row">
         <div class="col-12">
-            <h1 class="text-center"><i class="fas fa-user-tag"></i> Ver tipo de usuario {{ajaxData.id}}</h1>
+            <h1 class="text-center"><i class="fas fa-user-tag"></i> Ver registro {{ajaxData.id}}</h1>
         </div>
     </div>
     <div class="row mt-5">
         <div class="col-12 col-md-10 col-lg-8 text-center mx-auto table-responsive">
-            <table class="table table-striped text-center">
+            <table class="table table-striped">
                 <tr>
                     <th>ID</th>
                     <td class="align-middle">{{ajaxData.id}}</td>
                 </tr>
                 <tr>
-                    <th>Descripción</th>
-                    <td class="align-middle">{{ajaxData.descripcion}}</td>
+                    <th>Fecha</th>
+                    <td class="align-middle">{{fecha}}</td>
+                </tr>
+                <tr>
+                    <th>Tipo de registro</th>
+                    <td class="align-middle">{{ajaxData.obj_tiporegistro.descripcion}}</td>
+                </tr>
+                <tr>
+                    <th>Usuario</th>
+                    <td class="align-middle">{{ajaxData.obj_usuario.nombre}}</td>
                 </tr>
             </table>
         </div>

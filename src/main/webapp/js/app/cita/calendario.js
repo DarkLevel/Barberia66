@@ -367,12 +367,10 @@ moduleCita.controller('citaCalendarioController', ['$scope', '$http', 'toolServi
             var color;
             switch(element.obj_estadocita.id) {
                 case 2:
-                    //color = element.obj_usuario.color_cita;
-                    color = 'yellow';
+                    color = element.obj_usuario.color_cita_realizada;
                     break;
                 default:
-                    //color = element.obj_usuario.color_citarealizada;
-                    color = '#3788d8';
+                    color = element.obj_usuario.color_cita;
                     break;
             }
             return color;

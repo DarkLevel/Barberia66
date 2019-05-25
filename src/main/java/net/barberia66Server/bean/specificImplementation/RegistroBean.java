@@ -15,7 +15,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import net.barberia66Server.bean.genericImplementation.GenericBeanImplementation;
 import net.barberia66Server.bean.publicInterface.BeanInterface;
-import net.barberia66Server.dao.specificImplementation.RegistroDao;
+import net.barberia66Server.dao.specificImplementation.LineaDao;
 import net.barberia66Server.dao.specificImplementation.TipoRegistroDao;
 import net.barberia66Server.dao.specificImplementation.UsuarioDao;
 import net.barberia66Server.helper.EncodingHelper;
@@ -92,7 +92,7 @@ public class RegistroBean extends GenericBeanImplementation implements BeanInter
         this.setId(oResultSet.getInt("id"));
         Timestamp fechaHora = oResultSet.getTimestamp("fecha");
         this.setFecha(fechaHora);
-        this.setLink_linea((new RegistroDao(oConnection, "linea")).getcountX(oResultSet.getInt("id")));
+        this.setLink_linea((new LineaDao(oConnection, "linea")).getcountX(oResultSet.getInt("id")));
         if (expand > 0) {
             UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, "usuario");
             this.setObj_usuario((UsuarioBean) oUsuarioDao.get(oResultSet.getInt("id_usuario"), expand - 1));

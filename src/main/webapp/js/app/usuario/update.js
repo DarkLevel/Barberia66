@@ -23,6 +23,8 @@ moduleUsuario.controller('usuarioUpdateController', ['$scope', '$http', 'toolSer
             $scope.apellido1 = response.data.message.apellido1;
             $scope.apellido2 = response.data.message.apellido2;
             $scope.username = response.data.message.username;
+            $scope.color_cita = response.data.message.color_cita;
+            $scope.color_cita_realizada = response.data.message.color_cita_realizada;
             $scope.fecha_alta = response.data.message.fecha_alta;
             $scope.obj_tipousuario = response.data.message.obj_tipousuario;
         }, function (response) {
@@ -60,6 +62,8 @@ moduleUsuario.controller('usuarioUpdateController', ['$scope', '$http', 'toolSer
                 apellido1: $scope.apellido1,
                 apellido2: $scope.apellido2,
                 username: $scope.username,
+                color_cita: $scope.color_cita,
+                color_cita_realizada: $scope.color_cita_realizada,
                 fecha_alta: $scope.fecha_alta,
                 id_tipousuario: $scope.tipousuario
             };

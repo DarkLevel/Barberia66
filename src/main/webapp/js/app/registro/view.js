@@ -1,10 +1,10 @@
-/* global moduleUsuario */
+/* global moduleRegistro */
 
 'use strict';
 
-moduleUsuario.controller('usuarioViewController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll', '$location',
+moduleRegistro.controller('registroViewController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll', '$location',
     function ($scope, $http, toolService, $routeParams, $anchorScroll, $location) {
-        $anchorScroll(); 
+        $anchorScroll();
         
         if (!$routeParams.id) {
             $scope.id = 1;
@@ -14,18 +14,18 @@ moduleUsuario.controller('usuarioViewController', ['$scope', '$http', 'toolServi
 
         $http({
             method: 'GET',
-            url: 'http://localhost:8081/barberia66/barberia66?ob=usuario&op=get&id=' + $scope.id
+            url: 'http://localhost:8081/barberia66/barberia66?ob=registro&op=get&id=' + $scope.id
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxData = response.data.message;
-            $scope.fecha = formatDate(response.data.message.fecha_alta);
+            $scope.fecha = formatDate(response.data.message.fecha);
         }, function (response) {
             $scope.status = response.status;
             $scope.ajaxData = response.data.message || 'Request failed';
         });
 
         $scope.volver = function () {
-            $location.url('usuario/plist');
+            $location.url('registro/plist');
         };
         
         function formatDate(fecha) {

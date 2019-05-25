@@ -1,11 +1,15 @@
-/* global moduleUsuario */
+/* global moduleRegistro */
 
 'use strict';
 
-moduleUsuario.controller('usuarioViewController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll', '$location',
+moduleRegistro.controller('registroRemoveController', ['$scope', '$http', 'toolService', '$routeParams', '$anchorScroll', '$location',
     function ($scope, $http, toolService, $routeParams, $anchorScroll, $location) {
-        $anchorScroll(); 
+        $anchorScroll();
         
+        $scope.botones = true;
+        $scope.alerta = false;
+        $scope.formulario = true;
+
         if (!$routeParams.id) {
             $scope.id = 1;
         } else {
@@ -14,18 +18,34 @@ moduleUsuario.controller('usuarioViewController', ['$scope', '$http', 'toolServi
 
         $http({
             method: 'GET',
-            url: 'http://localhost:8081/barberia66/barberia66?ob=usuario&op=get&id=' + $scope.id
+            url: 'http://localhost:8081/barberia66/barberia66?ob=registro&op=get&id=' + $scope.id
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxData = response.data.message;
-            $scope.fecha = formatDate(response.data.message.fecha_alta);
+            $scope.fecha = formatDate(response.data.message.fecha);
         }, function (response) {
             $scope.status = response.status;
             $scope.ajaxData = response.data.message || 'Request failed';
         });
 
         $scope.volver = function () {
-            $location.url('usuario/plist');
+            $location.url('registro/plist');
+        };
+
+        $scope.borrar = function () {
+            $http({
+                method: 'GET',
+                url: 'http://localhost:8081/barberia66/barberia66?ob=registro&op=remove&id=' + $scope.id
+            }).then(function (response) {
+                $scope.status = response.status;
+                $scope.ajaxData = response.data.message;
+                $scope.formulario = false;
+                $scope.botones = false;
+                $scope.alerta = true;
+            }, function (response) {
+                $scope.status = response.status;
+                $scope.ajaxData = response.data.message || 'Request failed';
+            });
         };
         
         function formatDate(fecha) {
