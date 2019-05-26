@@ -6,6 +6,8 @@ moduleCommon.controller('homeController', ['$scope', 'toolService', '$anchorScro
     function ($scope, toolService, $anchorScroll) {
         $anchorScroll();
         
+        
+        
         $scope.isActive = toolService.isActive;
     }
 ]);

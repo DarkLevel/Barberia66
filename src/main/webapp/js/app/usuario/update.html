@@ -5,73 +5,73 @@
             <h1 class="text-center"><i class="fas fa-user-tag"></i> Editar usuario {{id}}</h1>
         </div>
     </div>
-        <div class="row mt-5">
-            <ng-form name="form" ng-show="formulario" class="col-10 col-md-6 col-lg-5 col-xl-4 mx-auto">
-                <div class="form-group">
-                    <label>ID:</label>
-                    <input type="text" class="form-control" ng-model="id" disabled>
-                </div>
-                <div class="mt-4 form-group" ng-class="{'has-error': form.dni.$invalid}">
-                    <label>Dni:</label>
-                    <input type="text" name="dni" class="form-control" ng-model="dni" ng-maxlength="50" ng-pattern="/^[0-9]{8}([A-Z]|[a-z])$/" required>
-                    <p ng-show="form.dni.$invalid && !form.dni.$pristine" class="help-block red-text">
-                        Formato de dni inválido.
-                    </p>
-                </div>
-                <div class="mt-4 form-group" ng-class="{'has-error': form.nombre.$invalid}">
-                    <label>Nombre:</label>
-                    <input type="text" name="nombre" class="form-control" ng-model="nombre" ng-maxlength="50" ng-pattern="/^(.+)$/" required>
-                    <p ng-show="form.nombre.$invalid && !form.nombre.$pristine" class="help-block red-text">
-                        Formato de nombre inválido.
-                    </p>
-                </div>
-                <div class="mt-4 form-group" ng-class="{'has-error': form.apellido1.$invalid}">
-                    <label>Primer apellido:</label>
-                    <input type="text" name="apellido1" class="form-control" ng-model="apellido1" ng-pattern="/^(.+)$/" required>
-                    <p ng-show="form.apellido1.$invalid && !form.apellido1.$pristine" class="help-block red-text">
-                        Formato de apellido inválido.
-                    </p>
-                </div>
-                <div class="mt-4 form-group" ng-class="{'has-error': form.apellido2.$invalid}">
-                    <label>Segundo apellido:</label>
-                    <input type="text" name="apellido2" class="form-control" ng-model="apellido2" ng-pattern="/^(.+)$/" required>
-                    <p ng-show="form.apellido2.$invalid && !form.apellido2.$pristine" class="help-block red-text">
-                        Formato de apellido inválido.
-                    </p>
-                </div>
-                <div class="mt-4 form-group" ng-class="{'has-error': form.username.$invalid}">
-                    <label>Nombre de usuario:</label>
-                    <input type="text" name="username" class="form-control" ng-model="username" ng-pattern="/^[a-zA-Z0-9]+$/" required>
-                    <p ng-show="form.username.$invalid && !form.username.$pristine" class="help-block red-text">
-                        Formato de nombre de usuario inválido.
-                    </p>
-                </div>
-                <div class="mt-4 form-group">
-                    <label>Color cita:</label>
-                    <input type="color" name="color_cita" class="form-control" ng-model="color_cita" required>
-                </div>
-                <div class="mt-4 form-group">
-                    <label>Color cita realizada:</label>
-                    <input type="color" name="color_cita_realizada" class="form-control" ng-model="color_cita_realizada" required>
-                </div>
-                <div class="mt-4 form-group" ng-class="{'has-error': form.fecha_alta.$invalid && !form.fecha_alta.$pristine}">
-                    <label>Fecha de alta:</label><br>
-                    <md-datepicker name="fecha_alta" ng-model="fecha_alta" md-max-date="actualDate" md-placeholder="dd-mm-aaaa" required></md-datepicker>
-                </div>
-                <div class="mt-4 form-group">
-                    <label>Tipo de usuario:</label>
-                    <select class="form-control" ng-model="tipousuario">
-                        <option ng-value="{{opcion.id}}" ng-repeat="opcion in ajaxDataTipoUsuario">{{opcion.descripcion}}</option>
-                    </select>
-                </div>
-                <div class="text-center mt-3" ng-show="botones">
-                    <button type="button" class="btn btn-primary mt-2 mx-2" ng-disabled="form.$invalid" ng-click="editar()">Guardar</button>
-                    <button type="button" class="btn btn-danger mt-2 mx-2" ng-click="volver()">Volver atrás</button>
-                </div>
-            </ng-form>
-            <div class="col-10 col-lg-8 mx-auto mt-4 text-center alert alert-success" role="alert" ng-show="correcto">
-                Tipo de registro editado correctamente
-                <button type="button" class="btn btn-primary mx-2" ng-click="volver()">Volver atrás</button>
+    <div class="row my-5">
+        <ng-form name="form" ng-show="formulario" class="col-10 col-md-6 col-lg-5 col-xl-4 mx-auto">
+            <div class="form-group">
+                <label>ID:</label>
+                <input type="text" class="form-control" ng-model="id" disabled>
             </div>
+            <div class="mt-4 form-group" ng-class="{'has-error': form.dni.$invalid}">
+                <label>Dni:</label>
+                <input type="text" name="dni" class="form-control" ng-model="dni" ng-maxlength="50" ng-pattern="/^[0-9]{8}([A-Z]|[a-z])$/" required>
+                <p ng-show="form.dni.$invalid && !form.dni.$pristine" class="help-block red-text">
+                    Formato de dni inválido.
+                </p>
+            </div>
+            <div class="mt-4 form-group" ng-class="{'has-error': form.nombre.$invalid}">
+                <label>Nombre:</label>
+                <input type="text" name="nombre" class="form-control" ng-model="nombre" ng-maxlength="50" ng-pattern="/^(.+)$/" required>
+                <p ng-show="form.nombre.$invalid && !form.nombre.$pristine" class="help-block red-text">
+                    Formato de nombre inválido.
+                </p>
+            </div>
+            <div class="mt-4 form-group" ng-class="{'has-error': form.apellido1.$invalid}">
+                <label>Primer apellido:</label>
+                <input type="text" name="apellido1" class="form-control" ng-model="apellido1" ng-pattern="/^(.+)$/" required>
+                <p ng-show="form.apellido1.$invalid && !form.apellido1.$pristine" class="help-block red-text">
+                    Formato de apellido inválido.
+                </p>
+            </div>
+            <div class="mt-4 form-group" ng-class="{'has-error': form.apellido2.$invalid}">
+                <label>Segundo apellido:</label>
+                <input type="text" name="apellido2" class="form-control" ng-model="apellido2" ng-pattern="/^(.+)$/" required>
+                <p ng-show="form.apellido2.$invalid && !form.apellido2.$pristine" class="help-block red-text">
+                    Formato de apellido inválido.
+                </p>
+            </div>
+            <div class="mt-4 form-group" ng-class="{'has-error': form.username.$invalid}">
+                <label>Nombre de usuario:</label>
+                <input type="text" name="username" class="form-control" ng-model="username" ng-pattern="/^[a-zA-Z0-9]+$/" required>
+                <p ng-show="form.username.$invalid && !form.username.$pristine" class="help-block red-text">
+                    Formato de nombre de usuario inválido.
+                </p>
+            </div>
+            <div class="mt-4 form-group">
+                <label>Color cita:</label>
+                <input type="color" name="color_cita" class="form-control" ng-model="color_cita" required>
+            </div>
+            <div class="mt-4 form-group">
+                <label>Color cita realizada:</label>
+                <input type="color" name="color_cita_realizada" class="form-control" ng-model="color_cita_realizada" required>
+            </div>
+            <div class="mt-4 form-group" ng-class="{'has-error': form.fecha_alta.$invalid && !form.fecha_alta.$pristine}">
+                <label>Fecha de alta:</label><br>
+                <md-datepicker name="fecha_alta" ng-model="fecha_alta" md-max-date="actualDate" md-placeholder="dd-mm-aaaa" required></md-datepicker>
+            </div>
+            <div class="mt-4 form-group">
+                <label>Tipo de usuario:</label>
+                <select class="form-control" ng-model="tipousuario">
+                    <option ng-value="{{opcion.id}}" ng-repeat="opcion in ajaxDataTipoUsuario">{{opcion.descripcion}}</option>
+                </select>
+            </div>
+            <div class="text-center mt-3" ng-show="botones">
+                <button type="button" class="btn btn-primary mt-2 mx-2" ng-disabled="form.$invalid" ng-click="editar()">Guardar</button>
+                <button type="button" class="btn btn-danger mt-2 mx-2" ng-click="volver()">Volver atrás</button>
+            </div>
+        </ng-form>
+        <div class="col-10 col-lg-8 mx-auto mt-4 text-center alert alert-success" role="alert" ng-show="correcto">
+            Tipo de registro editado correctamente
+            <button type="button" class="btn btn-primary mx-2" ng-click="volver()">Volver atrás</button>
+        </div>
     </div>
 </div>

@@ -1,5 +1,6 @@
 *{
     box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
 }
 
 html{
@@ -26,7 +27,6 @@ body{
     text-align: center;
     grid-row-start: 2;
     grid-row-end: 3;
-    margin-top: 50px;
 }
 
 .margin-top{
@@ -68,7 +68,7 @@ body{
 }
 
 #dialogCitas {
-  min-width: 75%;
+    min-width: 75%;
 }
 
 /* OPERACION */
@@ -222,5 +222,24 @@ body{
     }
     .operacion{
         width: 900px;
+    }
+}
+
+.fc-button-primary {
+    color: #ffffff !important;
+    background-color: #007bff !important;
+    border-color: #007bff !important;
+}
+
+.fc-toolbar h2 {
+    text-align: center;
+}
+
+@media (max-width: 576px) {
+    .fc-semana-button {
+        display: none !important;
+    }
+    .fc-right{
+        margin-right: 0;
     }
 }

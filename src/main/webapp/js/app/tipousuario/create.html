@@ -5,9 +5,9 @@
             <h1 class="text-center"><i class="fas fa-user-tag"></i> Crear tipo de usuario</h1>
         </div>
     </div>
-    <div class="row">
+    <div class="row my-5">
         <ng-form name="form" ng-show="formulario" class="col-10 col-md-6 col-lg-5 col-xl-4 mx-auto">
-            <div class="mt-4 form-group" ng-class="{'has-error': form.descripcion.$invalid}">
+            <div class="form-group" ng-class="{'has-error': form.descripcion.$invalid}">
                 <label>Descripción:</label>
                 <input type="text" name="descripcion" class="form-control" ng-model="descripcion" ng-maxlength="50" ng-pattern="/^(.+)$/" required>
                 <p ng-show="form.descripcion.$invalid && !form.descripcion.$pristine" class="help-block red-text">
