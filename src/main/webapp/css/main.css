@@ -234,12 +234,3 @@ body{
 .fc-toolbar h2 {
     text-align: center;
 }
-
-@media (max-width: 576px) {
-    .fc-semana-button {
-        display: none !important;
-    }
-    .fc-right{
-        margin-right: 0;
-    }
-}
