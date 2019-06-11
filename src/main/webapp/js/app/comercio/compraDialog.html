@@ -5,7 +5,7 @@
                 <h2>Productos seleccionados</h2>
                 <span flex></span>
                 <md-button class="md-icon-button" ng-click="cancel()">
-                    <md-icon md-svg-src="http://localhost:8081/imagenesbarberia/icon/times-solid.svg" aria-label="Close dialog"></md-icon>
+                    <md-icon md-svg-src="/imagenesbarberia/icon/times-solid.svg" aria-label="Close dialog"></md-icon>
                 </md-button>
             </div>
         </md-toolbar>
@@ -26,7 +26,7 @@
                 <div class="card mx-auto mt-3 col-12 col-sm-10 col-xl-8" ng-repeat="producto in productosSeleccionados">
                     <div class="row">
                         <div class="my-4 my-md-2 col-md-4 text-center d-flex align-items-center justify-content-center">
-                            <img ng-src="http://localhost:8081/imagenesbarberia/{{producto.producto.foto}}" class="imagen" alt="foto_producto.png">
+                            <img ng-src="/imagenesbarberia/{{producto.producto.foto}}" class="imagen" alt="foto_producto.png">
                         </div>
                         <div class="col-md-8 px-3">
                             <div class="card-block px-3 w-100 h-100 d-flex flex-wrap">
