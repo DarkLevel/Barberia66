@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import net.barberia66Server.bean.specificImplementation.ReplyBean;
-import net.barberia66Server.bean.specificImplementation.UsuarioBean;
 import net.barberia66Server.service.genericImplementation.GenericServiceImplementation;
 import net.barberia66Server.service.publicInterface.ServiceInterface;
 import org.apache.commons.fileupload.FileItem;
@@ -43,8 +42,8 @@ public class ProductoService extends GenericServiceImplementation implements Ser
                     if (!item.isFormField()) {
                         name = new File(item.getName()).getName();
                         //Creo la carpeta con la ID de usuario
-                        (new File(".//..//webapps//imagenesbarberia//" + ((UsuarioBean) oRequest.getSession().getAttribute("user")).getId())).mkdirs();
-                        item.write(new File(".//..//webapps//imagenesbarberia//" + ((UsuarioBean) oRequest.getSession().getAttribute("user")).getId() + "//" + name));
+                        (new File(".//..//webapps//imagenesbarberia//")).mkdirs();
+                        item.write(new File(".//..//webapps//imagenesbarberia//" + name));
                     } else {
                         hash.put(item.getFieldName(), item.getString());
                     }
@@ -58,26 +57,5 @@ public class ProductoService extends GenericServiceImplementation implements Ser
         }
         return oReplyBean;
     }
-    
-    /*public ReplyBean addimage() throws Exception {
-        HashMap<String, String> hash = new HashMap<>();
-        if (ServletFileUpload.isMultipartContent(oRequest)) {
-            try {
-                List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(oRequest);
-                for (FileItem item : multiparts) {
-                    if (!item.isFormField()) {
-                        String name = new File(item.getName()).getName();
-                        item.write(new File(".//..//webapps//ROOT//imagenesbarberia//" + name));
-                    } else {
-                        hash.put(item.getFieldName(), item.getString());
-                    }
-                }
-            } catch (Exception ex) {
-                throw new Exception(ex);
-            }
-        }
-        Gson oGson = new Gson();
-        return new ReplyBean(200, oGson.toJson("Correcto"));
-    }*/
-    
+
 }
